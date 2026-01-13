@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="PHVApp" ng-cloak>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>App</title>
+    <link rel="icon" type="image/x-icon" href="ico.ico">
+
+    <script src="./sup/angular.min.js"></script>
+    <script src="./app.js"></script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Carlito', 'ui-sans-serif', 'system-ui'],
+                    },
+                },
+            },
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Carlito:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="./sup/animate.css">
+
+    <style>
+        .x-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    </style>
+</head>
+
+<body ng-controller="HomeCtrl" class="w-[1080px] h-[1920px] bg-[#622467] overflow-hidden font-sans uppercase text-white">
+
+    <section ng-show="page == 1" class="w-full h-full">
+        <img ng-click="pg_up()" class="absolute left-12 w-1/2 top-16" src="./img/logo.png" />
+        <div class="w-40 absolute right-80 top-8">
+            <span class="text-8xl font-bold">WEEKEND FITNESS CHALLENGE</span>
+        </div>
+        <span class="text-8xl font-bold x-center text-center w-full top-1/4">PUSHUP CHALLENGE LEADERBOARD</span>
+        <div class="text-6xl x-center top-[40%] w-9/12">
+            <table class="w-full">
+                <tr class="flex justify-between">
+                    <td>001</td>
+                    <td>Name</td>
+                    <td>count</td>
+                </tr>
+            </table>
+
+        </div>
+        <img class="bg-white w-40 absolute top-[90%] left-40" src="./Icon/home.png" />
+        <span class="text-8xl px-6 py-2 bg-white text-[#622467] absolute top-[92%] left-[60%]">New</span>
+    </section>
+
+    <section ng-show="page == 2" class="w-full h-full">
+        <img ng-click="pg_up()" class="w-1/2 x-center text-center top-[8%]" src="./img/logo.png" />
+        <div class="x-center text-center top-[25%]">
+            <span class="text-8xl font-bold">WEEKEND FITNESS CHALLENGE</span>
+        </div>
+        <div class="text-7xl flex flex-col gap-8 text-center mt-[80%] w-[90%] justify-center ml-16">
+            <span class="border-2 px-4 py-8">Pushup challenge</span>
+            <span class="border-2 px-4 py-8">Plank challenge</span>
+            <span class="border-2 px-4 py-8">Basketball challenge</span>
+            <span class="border-2 px-4 py-8">Football challenge</span>
+            <span class="border-2 px-4 py-8">QuickReaction challenge</span>
+        </div>
+    </section>
+
+    <section ng-show="page == 3" class="w-full h-full">
+        <img ng-click="pg_up()" class="w-1/2 x-center text-center top-[8%]" src="./img/logo.png" />
+        <div class="x-center text-center top-[25%]">
+            <span class="text-8xl font-bold">WEEKEND FITNESS CHALLENGE</span>
+        </div>
+        <div class="x-center text-center top-[30%]">
+            <span class="text-8xl font-bold">Pushup CHALLENGE</span>
+        </div>
+        <div class="text-7xl flex flex-col gap-8 text-center mt-[98%] w-[90%] justify-center ml-16">
+            <span class="border-2 px-4 py-8">See player data</span>
+            <span class="border-2 px-4 py-8">Reset leaderboard</span>
+        </div>
+    </section>
+
+</body>
+
+</html>

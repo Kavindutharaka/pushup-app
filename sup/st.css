@@ -1,0 +1,357 @@
+﻿/* ===================================
+           RESET & BASE STYLES
+        =================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    animation: colorCycle 9s infinite;
+    min-height: 100vh;
+    overflow: hidden;
+    /* Prevent pull-to-refresh and overscroll on mobile */
+    overscroll-behavior: none;
+    touch-action: pan-y;
+}
+
+@keyframes colorCycle {
+    0%    { background-color: #e22d34; }
+    33.33% { background-color: #e22d34; }
+    33.34% { background-color: #94378d; }
+    66.66% { background-color: #94378d; }
+    66.67% { background-color: #02b5e2; }
+    100%  { background-color: #02b5e2; }
+  }
+
+/* ===================================
+           CONTAINER & LAYOUT
+        =================================== */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    position: relative;
+}
+
+.title {
+    color: white;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+/* ===================================
+           3D CAROUSEL CONTAINER
+        =================================== */
+.carousel-wrapper {
+    width: 100%;
+    max-width: 400px;
+    min-height: 700px;
+    position: relative;
+    /* Enable 3D space for child elements */
+    perspective: 1200px;
+    -webkit-perspective: 1200px;
+}
+
+/* Container that holds all carousel items and rotates in 3D space */
+.carousel-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    /* Preserve 3D transforms for children */
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+    /* Smooth transition for rotation animation */
+    transition: transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+    -webkit-transition: -webkit-transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+/* ===================================
+           CAROUSEL ITEMS (DIVS WITH IMAGES)
+        =================================== */
+.carousel-item {
+    position: absolute;
+    width: 100%;
+   /* height: 100%;*/
+    /* Card styling */
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    overflow: hidden;
+    /* Enable 3D transforms */
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    /* Smooth transitions for all transform changes */
+    transition: transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1), opacity 0.6s ease;
+    -webkit-transition: -webkit-transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1), opacity 0.6s ease;
+}
+
+/* Image container inside each carousel item */
+.image-container {
+    text-align: center;
+ /*   width: 100%;*/
+    /*height: 70%;*/
+    overflow: hidden;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+/* Responsive image that fits perfectly inside container */
+.carousel-image {
+    width: 50%;
+  /*  height: 100%;*/
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Content section below image */
+.carousel-content {
+    padding: 20px;
+  /*  height: 30%;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.carousel-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.carousel-description {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.4;
+}
+
+/* ===================================
+           NAVIGATION INDICATORS
+        =================================== */
+.indicators {
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+}
+
+.indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.4);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+    .indicator.active {
+        background: white;
+        width: 30px;
+        border-radius: 5px;
+    }
+
+/* ===================================
+           SWIPE INSTRUCTION TEXT
+        =================================== */
+.instruction-text {
+    position: absolute;
+    bottom: -80px;
+    color: white;
+    font-size: 14px;
+    text-align: center;
+    opacity: 0.8;
+}
+
+/* ===================================
+           RESPONSIVE DESIGN
+        =================================== */
+@media (max-width: 480px) {
+    .carousel-wrapper {
+        max-width: 90%;
+        height: 450px;
+    }
+
+    .title {
+        font-size: 20px;
+    }
+
+    .carousel-title {
+        font-size: 18px;
+    }
+
+    .carousel-description {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 360px) {
+    .carousel-wrapper {
+        height: 400px;
+    }
+
+    .carousel-content {
+        padding: 15px;
+    }
+}
+
+/* ===================================
+           LOADING STATE
+        =================================== */
+.loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 18px;
+}
+
+
+ 
+.button-29 {
+    align-items: center;
+    appearance: none;
+    background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
+    border: 0;
+    border-radius: 6px;
+    box-shadow: rgba(45, 35, 66, .4) 0 2px 4px,rgba(45, 35, 66, .3) 0 7px 13px -3px,rgba(58, 65, 111, .5) 0 -3px 0 inset;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: "JetBrains Mono",monospace;
+    height: 48px;
+    justify-content: center;
+    line-height: 1;
+    list-style: none;
+    overflow: hidden;
+    padding-left: 16px;
+    padding-right: 16px;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+    transition: box-shadow .15s,transform .15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow,transform;
+    font-size: 18px;
+}
+
+.button-29:focus {
+    box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, .4) 0 2px 4px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+}
+
+.button-29:hover {
+    box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+    transform: translateY(-2px);
+}
+
+.button-29:active {
+    box-shadow: #3c4fe0 0 3px 7px inset;
+    transform: translateY(2px);
+}
+ 
+.button-72 {
+    align-items: center;
+    background-color: initial;
+    background-image: linear-gradient(rgba(179, 132, 201, .84), rgba(57, 31, 91, .84) 50%);
+    border-radius: 42px;
+    border-width: 0;
+    box-shadow: rgba(57, 31, 91, 0.24) 0 2px 2px,rgba(179, 132, 201, 0.4) 0 8px 12px;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: flex;
+    font-family: Quicksand,sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    justify-content: center;
+    letter-spacing: .04em;
+    line-height: 16px;
+    margin: 0;
+    padding: 18px 18px;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: rgba(255, 255, 255, 0.4) 0 0 4px,rgba(255, 255, 255, 0.2) 0 0 12px,rgba(57, 31, 91, 0.6) 1px 1px 4px,rgba(57, 31, 91, 0.32) 4px 4px 16px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: baseline;
+}
+
+.button-72:hover {
+    background-image: linear-gradient(#B384C9, #391F5B 50%);
+}
+
+@media (min-width: 768px) {
+    .button-72 {
+        font-size: 21px;
+        padding: 18px 34px;
+    }
+}
+.sel_item {
+    border: solid 4px #ff6a00;
+    border-radius: 15px;
+}
+
+/* From Uiverse.io by Jaareet */
+.input {
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Roboto","Oxygen","Ubuntu","Cantarell","Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
+  font-size:1.1em;
+  text-align:center;
+    color: #fff;
+    background-color: rgb(28,28,30);
+    box-shadow: 0 0 .4vw rgba(0,0,0,0.5), 0 0 0 .15vw transparent;
+    border-radius: 0.4vw;
+    border: none;
+    outline: none;
+    padding: 0.4vw;
+    max-width: 190px;
+    transition: .4s;
+}
+
+    .input:hover {
+        box-shadow: 0 0 0 .15vw rgba(135, 207, 235, 0.186);
+    }
+
+    .input:focus {
+        box-shadow: 0 0 0 .15vw skyblue;
+    }
+ 
+.button-33 {
+    background-color: #c2fbd7;
+    border-radius: 100px;
+    box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset,rgba(44, 187, 99, .15) 0 1px 2px,rgba(44, 187, 99, .15) 0 2px 4px,rgba(44, 187, 99, .15) 0 4px 8px,rgba(44, 187, 99, .15) 0 8px 16px,rgba(44, 187, 99, .15) 0 16px 32px;
+    color: green;
+    cursor: pointer;
+    display: inline-block;
+    font-family: CerebriSans-Regular,-apple-system,system-ui,Roboto,sans-serif;
+    padding: 7px 20px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 250ms;
+    border: 0;
+    font-size: 16px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.button-33:hover {
+    box-shadow: rgba(44,187,99,.35) 0 -25px 18px -14px inset,rgba(44,187,99,.25) 0 1px 2px,rgba(44,187,99,.25) 0 2px 4px,rgba(44,187,99,.25) 0 4px 8px,rgba(44,187,99,.25) 0 8px 16px,rgba(44,187,99,.25) 0 16px 32px;
+    transform: scale(1.05) rotate(-1deg);
+}
