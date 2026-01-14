@@ -61,7 +61,7 @@ body, html {
 .header-title {
     position: absolute;
     top: 100px;
-    right: 150px;
+    right: -54px;
     width: 450px;
     text-align: left;
 }
@@ -256,11 +256,11 @@ body, html {
 }
 
 .timer-bar:first-child {
-    left: 150px;
+    left: 80px;
 }
 
 .timer-bar:nth-child(2) {
-    right: 150px;
+    right: 80px;
 }
 
 .timer-value {
@@ -467,8 +467,8 @@ body, html {
 
 .new-player-btn {
     position: absolute;
-    bottom: 120px;
-    right: 250px;
+    bottom: 97px;
+    right: 196px;
     background-color: #FFFFFF;
     color: #622467;
     border: none;
@@ -542,9 +542,9 @@ body, html {
 }
 
 /* Responsive adjustments for different screen ratios */
-@media screen and (max-width: 1080px) {
+/* @media screen and (max-width: 1080px) {
     .kiosk-container {
         transform: scale(0.9);
         transform-origin: top left;
     }
-}
+} */
