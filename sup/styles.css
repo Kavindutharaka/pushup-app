@@ -1,0 +1,550 @@
+/* Weekend Fitness Challenge - Kiosk Application Styles */
+
+/* Import Calibri font */
+@import url('https://fonts.cdnfonts.com/css/calibri');
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+[ng-cloak] {
+    display: none !important;
+}
+
+/* Kiosk Container - Fixed Size 1080x1920 */
+.kiosk-container {
+    width: 1080px;
+    height: 1920px;
+    background-color: #622467;
+    color: #FFFFFF;
+    font-family: 'Calibri', 'Arial', sans-serif;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Screen Container */
+.screen {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* Logo Styles */
+.logo-top {
+    position: absolute;
+    top: 100px;
+    left: 80px;
+    width: 400px;
+    height: auto;
+}
+
+.logo-top-small {
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 350px;
+    height: auto;
+}
+
+/* Header and Titles */
+.header-title {
+    position: absolute;
+    top: 100px;
+    right: 150px;
+    width: 450px;
+    text-align: left;
+}
+
+.header-title-small {
+    position: absolute;
+    top: 200px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: 800px;
+}
+
+.title-text {
+    font-size: 62px;
+    font-weight: bold;
+    line-height: 1.1;
+    letter-spacing: 2px;
+}
+
+.title-text-sm {
+    font-size: 42px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+}
+
+.title-text-lg {
+    font-size: 52px;
+    font-weight: bold;
+    color: #FFD700;
+    letter-spacing: 2px;
+}
+
+.title-text-xl {
+    font-size: 56px;
+    font-weight: bold;
+    color: #FFD700;
+    letter-spacing: 2px;
+}
+
+.challenge-title {
+    position: absolute;
+    top: 500px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: 900px;
+}
+
+.challenge-title-small {
+    position: absolute;
+    top: 320px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: 900px;
+}
+
+/* Challenge Menu Buttons */
+.challenge-menu {
+    position: absolute;
+    top: 700px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 900px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.challenge-btn {
+    background-color: transparent;
+    color: #FFFFFF;
+    border: 3px solid #FFFFFF;
+    font-size: 52px;
+    font-weight: normal;
+    font-family: 'Calibri', 'Arial', sans-serif;
+    text-transform: uppercase;
+    padding: 35px 40px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+}
+
+.challenge-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: scale(1.02);
+}
+
+.challenge-btn:active {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Registration Form */
+.registration-form {
+    position: absolute;
+    top: 550px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+    align-items: center;
+}
+
+.input-field {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    border-bottom: 4px solid #FFFFFF;
+    color: #FFFFFF;
+    font-size: 48px;
+    font-family: 'Calibri', 'Arial', sans-serif;
+    text-transform: uppercase;
+    padding: 20px 10px;
+    text-align: center;
+    outline: none;
+}
+
+.input-field::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.input-label {
+    font-size: 40px;
+    color: #FFFFFF;
+    margin-top: -60px;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.start-btn {
+    background-color: #FFFFFF;
+    color: #622467;
+    border: none;
+    font-size: 46px;
+    font-weight: bold;
+    font-family: 'Calibri', 'Arial', sans-serif;
+    text-transform: uppercase;
+    padding: 30px 80px;
+    cursor: pointer;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    margin-top: 40px;
+    line-height: 1.3;
+    letter-spacing: 1.5px;
+}
+
+.start-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.start-btn:active {
+    transform: scale(0.98);
+}
+
+/* Activity Area (Active Challenge Screens) */
+.activity-area {
+    position: absolute;
+    top: 600px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 900px;
+    text-align: center;
+}
+
+.player-name {
+    font-size: 58px;
+    font-weight: bold;
+    margin-bottom: 100px;
+    letter-spacing: 2px;
+}
+
+.timer-display {
+    position: relative;
+    margin: 80px auto;
+    width: 600px;
+    height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.timer-bar {
+    position: absolute;
+    width: 30px;
+    height: 120px;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+}
+
+.timer-bar:first-child {
+    left: 150px;
+}
+
+.timer-bar:nth-child(2) {
+    right: 150px;
+}
+
+.timer-value {
+    font-size: 140px;
+    font-weight: bold;
+    color: #FFFFFF;
+    z-index: 10;
+    letter-spacing: 5px;
+}
+
+.action-text {
+    font-size: 48px;
+    margin: 60px 0;
+    letter-spacing: 1.5px;
+}
+
+.end-btn {
+    background-color: #FFFFFF;
+    color: #622467;
+    border: none;
+    font-size: 42px;
+    font-weight: bold;
+    font-family: 'Calibri', 'Arial', sans-serif;
+    text-transform: uppercase;
+    padding: 25px 70px;
+    cursor: pointer;
+    border-radius: 10px;
+    margin-top: 100px;
+    transition: all 0.3s ease;
+    letter-spacing: 1.5px;
+}
+
+.end-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.count-btn {
+    background-color: #FFD700;
+    color: #622467;
+    border: none;
+    font-size: 80px;
+    font-weight: bold;
+    font-family: 'Calibri', 'Arial', sans-serif;
+    text-transform: uppercase;
+    padding: 40px 100px;
+    cursor: pointer;
+    border-radius: 20px;
+    margin-top: 80px;
+    transition: all 0.3s ease;
+    letter-spacing: 3px;
+}
+
+.count-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.count-btn:active {
+    transform: scale(0.95);
+}
+
+/* Result Area */
+.result-area {
+    position: absolute;
+    top: 550px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 900px;
+    text-align: center;
+}
+
+.result-label {
+    font-size: 48px;
+    margin: 40px 0;
+    letter-spacing: 1.5px;
+}
+
+.result-value {
+    font-size: 180px;
+    font-weight: bold;
+    margin: 60px 0;
+    letter-spacing: 5px;
+}
+
+.result-input-container {
+    margin: 60px 0;
+}
+
+.result-input {
+    background-color: transparent;
+    border: none;
+    border-bottom: 6px solid #FFFFFF;
+    color: #FFFFFF;
+    font-size: 180px;
+    font-weight: bold;
+    font-family: 'Calibri', 'Arial', sans-serif;
+    text-align: center;
+    width: 500px;
+    outline: none;
+    letter-spacing: 5px;
+}
+
+.result-input::-webkit-outer-spin-button,
+.result-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.result-input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.result-unit {
+    font-size: 52px;
+    margin: 40px 0;
+    letter-spacing: 2px;
+}
+
+.submit-btn {
+    background-color: #FFFFFF;
+    color: #622467;
+    border: none;
+    font-size: 52px;
+    font-weight: bold;
+    font-family: 'Calibri', 'Arial', sans-serif;
+    text-transform: uppercase;
+    padding: 30px 120px;
+    cursor: pointer;
+    border-radius: 50px;
+    margin-top: 80px;
+    transition: all 0.3s ease;
+    letter-spacing: 2px;
+}
+
+.submit-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.submit-btn:active {
+    transform: scale(0.98);
+}
+
+/* Leaderboard */
+.leaderboard-title {
+    position: absolute;
+    top: 280px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: 900px;
+}
+
+.leaderboard-table {
+    position: absolute;
+    top: 550px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 900px;
+}
+
+.leaderboard-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.leaderboard-table tr {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 0;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.leaderboard-table tr:last-child {
+    border-bottom: none;
+}
+
+.leaderboard-table td {
+    font-size: 56px;
+    font-weight: normal;
+}
+
+.leaderboard-table .rank {
+    color: #FFD700;
+    font-weight: bold;
+    width: 150px;
+    text-align: left;
+}
+
+.leaderboard-table .name {
+    flex: 1;
+    text-align: center;
+    color: #FFD700;
+    font-weight: bold;
+}
+
+.leaderboard-table .score {
+    color: #FFD700;
+    font-weight: bold;
+    width: 150px;
+    text-align: right;
+}
+
+.new-player-btn {
+    position: absolute;
+    bottom: 120px;
+    right: 250px;
+    background-color: #FFFFFF;
+    color: #622467;
+    border: none;
+    font-size: 64px;
+    font-weight: bold;
+    font-family: 'Calibri', 'Arial', sans-serif;
+    text-transform: uppercase;
+    padding: 25px 80px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 2px;
+}
+
+.new-player-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Navigation Icons */
+.home-icon {
+    position: absolute;
+    bottom: 100px;
+    left: 150px;
+    width: 120px;
+    height: 120px;
+    cursor: pointer;
+    background-color: #FFFFFF;
+    padding: 20px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.home-icon:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.next-icon {
+    position: absolute;
+    bottom: 100px;
+    right: 150px;
+    width: 120px;
+    height: 120px;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    transform: scaleX(-1);
+}
+
+.next-icon:hover {
+    transform: scaleX(-1) scale(1.1);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.screen {
+    animation: fadeIn 0.5s ease;
+}
+
+/* Responsive adjustments for different screen ratios */
+@media screen and (max-width: 1080px) {
+    .kiosk-container {
+        transform: scale(0.9);
+        transform-origin: top left;
+    }
+}

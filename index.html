@@ -1,88 +1,308 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="PHVApp" ng-cloak>
+<html lang="en" ng-app="FitnessApp" ng-cloak>
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>App</title>
+    <meta name="viewport" content="width=1080, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Weekend Fitness Challenge</title>
     <link rel="icon" type="image/x-icon" href="ico.ico">
 
     <script src="./sup/angular.min.js"></script>
     <script src="./app.js"></script>
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Carlito', 'ui-sans-serif', 'system-ui'],
-                    },
-                },
-            },
-        }
-    </script>
-    <link href="https://fonts.googleapis.com/css2?family=Carlito:wght@400;700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="./sup/animate.css">
-
-    <style>
-        .x-center {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-    </style>
+    <link rel="stylesheet" href="./sup/styles.css">
 </head>
 
-<body ng-controller="HomeCtrl" class="w-[1080px] h-[1920px] bg-[#622467] overflow-hidden font-sans uppercase text-white">
+<body ng-controller="MainCtrl" class="kiosk-container">
 
-    <section ng-show="page == 1" class="w-full h-full">
-        <img ng-click="pg_up()" class="absolute left-12 w-1/2 top-16" src="./img/logo.png" />
-        <div class="w-40 absolute right-80 top-8">
-            <span class="text-8xl font-bold">WEEKEND FITNESS CHALLENGE</span>
+    <!-- HOME SCREEN / CHALLENGE SELECTION -->
+    <section ng-show="currentView == 'home'" class="screen">
+        <img class="logo-top" src="./img/logo.png" alt="Moov Advance Logo" />
+        <div class="header-title">
+            <span class="title-text">WEEKEND<br>FITNESS<br>CHALLENGE</span>
         </div>
-        <span class="text-8xl font-bold x-center text-center w-full top-1/4">PUSHUP CHALLENGE LEADERBOARD</span>
-        <div class="text-6xl x-center top-[40%] w-9/12">
-            <table class="w-full">
-                <tr class="flex justify-between">
-                    <td>001</td>
-                    <td>Name</td>
-                    <td>count</td>
+        <div class="challenge-menu">
+            <button class="challenge-btn" ng-click="selectChallenge('pushup')">PUSHUP CHALLENGE</button>
+            <button class="challenge-btn" ng-click="selectChallenge('plank')">PLANK CHALLENGE</button>
+            <button class="challenge-btn" ng-click="selectChallenge('basketball')">BASKETBALL CHALLENGE</button>
+            <button class="challenge-btn" ng-click="selectChallenge('football')">FOOTBALL CHALLENGE</button>
+            <button class="challenge-btn" ng-click="selectChallenge('quickreaction')">QUICK REACTION CHALLENGE</button>
+        </div>
+        <img class="home-icon" src="./Icon/home.png" alt="Home" ng-click="goHome()" />
+    </section>
+
+    <!-- CHALLENGE MENU (SEE PLAYER DATA, RESET LEADERBOARD) -->
+    <section ng-show="currentView == 'challengeMenu'" class="screen">
+        <img class="logo-top" src="./img/logo.png" alt="Moov Advance Logo" />
+        <div class="header-title">
+            <span class="title-text">WEEKEND<br>FITNESS<br>CHALLENGE</span>
+        </div>
+        <div class="challenge-title">
+            <span class="title-text-xl">{{selectedChallenge.name}}</span>
+        </div>
+        <div class="challenge-menu">
+            <button class="challenge-btn" ng-click="startChallenge()">START CHALLENGE</button>
+            <button class="challenge-btn" ng-click="showLeaderboard()">SEE PLAYER DATA</button>
+            <button class="challenge-btn" ng-click="resetLeaderboard()">RESET LEADERBOARD</button>
+        </div>
+        <img class="home-icon" src="./Icon/home.png" alt="Home" ng-click="goHome()" />
+    </section>
+
+    <!-- PLAYER REGISTRATION FORM -->
+    <section ng-show="currentView == 'registration'" class="screen">
+        <img class="logo-top-small" src="./img/logo.png" alt="Moov Advance Logo" />
+        <div class="header-title-small">
+            <span class="title-text-sm">WEEKEND FITNESS CHALLENGE</span>
+        </div>
+        <div class="challenge-title-small">
+            <span class="title-text-lg">{{selectedChallenge.name}}</span>
+        </div>
+        <div class="registration-form">
+            <input type="text" class="input-field" placeholder="" ng-model="playerName" />
+            <label class="input-label">ENTER PLAYER NAME</label>
+
+            <input type="tel" class="input-field" placeholder="" ng-model="playerContact" />
+            <label class="input-label">CONTACT NUMBER</label>
+
+            <button class="start-btn" ng-click="beginChallenge()">START THE<br>CHALLENGE</button>
+        </div>
+        <img class="home-icon" src="./Icon/home.png" alt="Home" ng-click="goHome()" />
+    </section>
+
+    <!-- ACTIVE CHALLENGE SCREEN - PUSHUP -->
+    <section ng-show="currentView == 'activePushup'" class="screen">
+        <img class="logo-top-small" src="./img/logo.png" alt="Moov Advance Logo" />
+        <div class="header-title-small">
+            <span class="title-text-sm">WEEKEND FITNESS CHALLENGE</span>
+        </div>
+        <div class="challenge-title-small">
+            <span class="title-text-lg">PUSHUP CHALLENGE</span>
+        </div>
+        <div class="activity-area">
+            <div class="player-name">{{playerName}}</div>
+            <div class="timer-display">
+                <div class="timer-bar"></div>
+                <div class="timer-bar"></div>
+                <div class="timer-value">{{formatTime(elapsedTime)}}</div>
+            </div>
+            <button class="end-btn" ng-click="endChallenge()">END CHALLNGE</button>
+        </div>
+        <img class="home-icon" src="./Icon/home.png" alt="Home" ng-click="goHome()" />
+        <img class="next-icon" src="./Icon/home.png" alt="Next" ng-click="endChallenge()" />
+    </section>
+
+    <!-- ACTIVE CHALLENGE SCREEN - PLANK -->
+    <section ng-show="currentView == 'activePlank'" class="screen">
+        <img class="logo-top-small" src="./img/logo.png" alt="Moov Advance Logo" />
+        <div class="header-title-small">
+            <span class="title-text-sm">WEEKEND FITNESS CHALLENGE</span>
+        </div>
+        <div class="challenge-title-small">
+            <span class="title-text-lg">PLANK CHALLENGE</span>
+        </div>
+        <div class="activity-area">
+            <div class="player-name">{{playerName}}</div>
+            <div class="timer-display">
+                <div class="timer-bar"></div>
+                <div class="timer-bar"></div>
+                <div class="timer-value">{{elapsedTime}}</div>
+            </div>
+            <button class="end-btn" ng-click="endChallenge()">END CHALLNGE</button>
+        </div>
+        <img class="home-icon" src="./Icon/home.png" alt="Home" ng-click="goHome()" />
+        <img class="next-icon" src="./Icon/home.png" alt="Next" ng-click="endChallenge()" />
+    </section>
+
+    <!-- ACTIVE CHALLENGE SCREEN - BASKETBALL -->
+    <section ng-show="currentView == 'activeBasketball'" class="screen">
+        <img class="logo-top-small" src="./img/logo.png" alt="Moov Advance Logo" />
+        <div class="header-title-small">
+            <span class="title-text-sm">WEEKEND FITNESS CHALLENGE</span>
+        </div>
+        <div class="challenge-title-small">
+            <span class="title-text-lg">BASKETBALL CHALLENGE</span>
+        </div>
+        <div class="activity-area">
+            <div class="player-name">{{playerName}}</div>
+            <div class="timer-display">
+                <div class="timer-bar"></div>
+                <div class="timer-bar"></div>
+                <div class="timer-value">{{remainingTime}}</div>
+            </div>
+            <button class="count-btn" ng-click="incrementScore()">+</button>
+        </div>
+        <img class="home-icon" src="./Icon/home.png" alt="Home" ng-click="goHome()" />
+        <img class="next-icon" src="./Icon/home.png" alt="Next" ng-click="endChallenge()" />
+    </section>
+
+    <!-- ACTIVE CHALLENGE SCREEN - FOOTBALL -->
+    <section ng-show="currentView == 'activeFootball'" class="screen">
+        <img class="logo-top-small" src="./img/logo.png" alt="Moov Advance Logo" />
+        <div class="header-title-small">
+            <span class="title-text-sm">WEEKEND FITNESS CHALLENGE</span>
+        </div>
+        <div class="challenge-title-small">
+            <span class="title-text-lg">FOOTBALL CHALLENGE</span>
+        </div>
+        <div class="activity-area">
+            <div class="player-name">{{playerName}}</div>
+            <div class="timer-display">
+                <div class="timer-bar"></div>
+                <div class="timer-bar"></div>
+                <div class="timer-value">{{remainingTime}}</div>
+            </div>
+            <button class="count-btn" ng-click="incrementScore()">+</button>
+        </div>
+        <img class="home-icon" src="./Icon/home.png" alt="Home" ng-click="goHome()" />
+        <img class="next-icon" src="./Icon/home.png" alt="Next" ng-click="endChallenge()" />
+    </section>
+
+    <!-- ACTIVE CHALLENGE SCREEN - QUICK REACTION -->
+    <section ng-show="currentView == 'activeQuickreaction'" class="screen">
+        <img class="logo-top-small" src="./img/logo.png" alt="Moov Advance Logo" />
+        <div class="header-title-small">
+            <span class="title-text-sm">WEEKEND FITNESS CHALLENGE</span>
+        </div>
+        <div class="challenge-title-small">
+            <span class="title-text-lg">QUICK REACTION CHALLENGE</span>
+        </div>
+        <div class="activity-area">
+            <div class="player-name">{{playerName}}</div>
+            <div class="action-text">IS CATCHING STICKS</div>
+            <button class="count-btn" ng-click="incrementScore()">CATCH</button>
+            <button class="end-btn" ng-click="endChallenge()">END CHALLNGE</button>
+        </div>
+        <img class="home-icon" src="./Icon/home.png" alt="Home" ng-click="goHome()" />
+    </section>
+
+    <!-- RESULT SCREEN - PUSHUP -->
+    <section ng-show="currentView == 'resultPushup'" class="screen">
+        <img class="logo-top-small" src="./img/logo.png" alt="Moov Advance Logo" />
+        <div class="header-title-small">
+            <span class="title-text-sm">WEEKEND FITNESS CHALLENGE</span>
+        </div>
+        <div class="challenge-title-small">
+            <span class="title-text-lg">PUSHUP CHALLENGE</span>
+        </div>
+        <div class="result-area">
+            <div class="player-name">{{playerName}}</div>
+            <div class="result-label">COMPLETED IN</div>
+            <div class="result-input-container">
+                <input type="number" class="result-input" ng-model="finalScore" />
+            </div>
+            <div class="result-unit">SECONDS</div>
+            <button class="submit-btn" ng-click="submitScore()">SUBMIT</button>
+        </div>
+        <img class="home-icon" src="./Icon/home.png" alt="Home" ng-click="goHome()" />
+        <img class="next-icon" src="./Icon/home.png" alt="Next" ng-click="submitScore()" />
+    </section>
+
+    <!-- RESULT SCREEN - PLANK -->
+    <section ng-show="currentView == 'resultPlank'" class="screen">
+        <img class="logo-top-small" src="./img/logo.png" alt="Moov Advance Logo" />
+        <div class="header-title-small">
+            <span class="title-text-sm">WEEKEND FITNESS CHALLENGE</span>
+        </div>
+        <div class="challenge-title-small">
+            <span class="title-text-lg">PLANK CHALLENGE</span>
+        </div>
+        <div class="result-area">
+            <div class="player-name">{{playerName}}</div>
+            <div class="result-label">HELD A PLANK FOR</div>
+            <div class="result-value">{{finalScore}}</div>
+            <div class="result-unit">SECONDS</div>
+            <button class="submit-btn" ng-click="submitScore()">SUBMIT</button>
+        </div>
+        <img class="home-icon" src="./Icon/home.png" alt="Home" ng-click="goHome()" />
+        <img class="next-icon" src="./Icon/home.png" alt="Next" ng-click="submitScore()" />
+    </section>
+
+    <!-- RESULT SCREEN - BASKETBALL -->
+    <section ng-show="currentView == 'resultBasketball'" class="screen">
+        <img class="logo-top-small" src="./img/logo.png" alt="Moov Advance Logo" />
+        <div class="header-title-small">
+            <span class="title-text-sm">WEEKEND FITNESS CHALLENGE</span>
+        </div>
+        <div class="challenge-title-small">
+            <span class="title-text-lg">BASKETBALL CHALLENGE</span>
+        </div>
+        <div class="result-area">
+            <div class="player-name">{{playerName}}</div>
+            <div class="result-label">SUCCESSFULLY MADE</div>
+            <div class="result-input-container">
+                <input type="number" class="result-input" ng-model="finalScore" />
+            </div>
+            <div class="result-unit">SHOTS</div>
+            <button class="submit-btn" ng-click="submitScore()">SUBMIT</button>
+        </div>
+        <img class="home-icon" src="./Icon/home.png" alt="Home" ng-click="goHome()" />
+        <img class="next-icon" src="./Icon/home.png" alt="Next" ng-click="submitScore()" />
+    </section>
+
+    <!-- RESULT SCREEN - FOOTBALL -->
+    <section ng-show="currentView == 'resultFootball'" class="screen">
+        <img class="logo-top-small" src="./img/logo.png" alt="Moov Advance Logo" />
+        <div class="header-title-small">
+            <span class="title-text-sm">WEEKEND FITNESS CHALLENGE</span>
+        </div>
+        <div class="challenge-title-small">
+            <span class="title-text-lg">FOOTBALL CHALLENGE</span>
+        </div>
+        <div class="result-area">
+            <div class="player-name">{{playerName}}</div>
+            <div class="result-label">SUCCESSFULLY MADE</div>
+            <div class="result-input-container">
+                <input type="number" class="result-input" ng-model="finalScore" />
+            </div>
+            <div class="result-unit">SHOTS</div>
+            <button class="submit-btn" ng-click="submitScore()">SUBMIT</button>
+        </div>
+        <img class="home-icon" src="./Icon/home.png" alt="Home" ng-click="goHome()" />
+        <img class="next-icon" src="./Icon/home.png" alt="Next" ng-click="submitScore()" />
+    </section>
+
+    <!-- RESULT SCREEN - QUICK REACTION -->
+    <section ng-show="currentView == 'resultQuickreaction'" class="screen">
+        <img class="logo-top-small" src="./img/logo.png" alt="Moov Advance Logo" />
+        <div class="header-title-small">
+            <span class="title-text-sm">WEEKEND FITNESS CHALLENGE</span>
+        </div>
+        <div class="challenge-title-small">
+            <span class="title-text-lg">QUICK REACTION CHALLENGE</span>
+        </div>
+        <div class="result-area">
+            <div class="player-name">{{playerName}}</div>
+            <div class="result-label">SUCCESSFULLY CAUGHT</div>
+            <div class="result-input-container">
+                <input type="number" class="result-input" ng-model="finalScore" />
+            </div>
+            <div class="result-unit">STICKS</div>
+            <button class="submit-btn" ng-click="submitScore()">SUBMIT</button>
+        </div>
+        <img class="home-icon" src="./Icon/home.png" alt="Home" ng-click="goHome()" />
+        <img class="next-icon" src="./Icon/home.png" alt="Next" ng-click="submitScore()" />
+    </section>
+
+    <!-- LEADERBOARD SCREEN -->
+    <section ng-show="currentView == 'leaderboard'" class="screen">
+        <img class="logo-top-small" src="./img/logo.png" alt="Moov Advance Logo" />
+        <div class="header-title-small">
+            <span class="title-text-sm">WEEKEND FITNESS CHALLENGE</span>
+        </div>
+        <div class="leaderboard-title">
+            <span class="title-text-lg">{{selectedChallenge.name}}<br>LEADERBOARD</span>
+        </div>
+        <div class="leaderboard-table">
+            <table>
+                <tr ng-repeat="entry in leaderboardData | orderBy:'-score' | limitTo:5">
+                    <td class="rank">{{$index + 1 | number:3}}</td>
+                    <td class="name">{{entry.name | uppercase}}</td>
+                    <td class="score">{{entry.score | number:3}}</td>
                 </tr>
             </table>
-
         </div>
-        <img class="bg-white w-40 absolute top-[90%] left-40" src="./Icon/home.png" />
-        <span class="text-8xl px-6 py-2 bg-white text-[#622467] absolute top-[92%] left-[60%]">New</span>
-    </section>
-
-    <section ng-show="page == 2" class="w-full h-full">
-        <img ng-click="pg_up()" class="w-1/2 x-center text-center top-[8%]" src="./img/logo.png" />
-        <div class="x-center text-center top-[25%]">
-            <span class="text-8xl font-bold">WEEKEND FITNESS CHALLENGE</span>
-        </div>
-        <div class="text-7xl flex flex-col gap-8 text-center mt-[80%] w-[90%] justify-center ml-16">
-            <span class="border-2 px-4 py-8">Pushup challenge</span>
-            <span class="border-2 px-4 py-8">Plank challenge</span>
-            <span class="border-2 px-4 py-8">Basketball challenge</span>
-            <span class="border-2 px-4 py-8">Football challenge</span>
-            <span class="border-2 px-4 py-8">QuickReaction challenge</span>
-        </div>
-    </section>
-
-    <section ng-show="page == 3" class="w-full h-full">
-        <img ng-click="pg_up()" class="w-1/2 x-center text-center top-[8%]" src="./img/logo.png" />
-        <div class="x-center text-center top-[25%]">
-            <span class="text-8xl font-bold">WEEKEND FITNESS CHALLENGE</span>
-        </div>
-        <div class="x-center text-center top-[30%]">
-            <span class="text-8xl font-bold">Pushup CHALLENGE</span>
-        </div>
-        <div class="text-7xl flex flex-col gap-8 text-center mt-[98%] w-[90%] justify-center ml-16">
-            <span class="border-2 px-4 py-8">See player data</span>
-            <span class="border-2 px-4 py-8">Reset leaderboard</span>
-        </div>
+        <img class="home-icon" src="./Icon/home.png" alt="Home" ng-click="goHome()" />
+        <button class="new-player-btn" ng-click="startChallenge()">New</button>
     </section>
 
 </body>
