@@ -1,29 +1,52 @@
 # Logo Assets
 
-This folder contains challenge-specific logos for the Weekend Fitness Challenge kiosk game.
+This folder contains challenge-specific identification logos for the Weekend Fitness Challenge kiosk game.
 
 ## Required Logo Files
 
 Place the following logo image files in this directory:
 
-### Challenge-Specific Logos
-- **pushup&plank.png** - Logo for both Pushup and Plank challenges
-- **basketball.png** - Logo for Basketball challenge
-- **football.png** - Logo for Football challenge
-- **quick_reaction .png** - Logo for Quick Reaction challenge *(note: filename has a space before .png)*
+### Challenge-Specific Identification Icons
+- **pushup&plank.png** - Icon for both Pushup and Plank challenges
+- **basketball.png** - Icon for Basketball challenge
+- **football.png** - Icon for Football challenge
+- **quick_reaction .png** - Icon for Quick Reaction challenge *(note: filename has a space before .png)*
 
-## Logo Usage
+## Logo Structure
 
-- **Home Screen**: Uses main brand logo from `img/logo.png`
-- **Challenge Menu**: Uses challenge-specific logo based on selected challenge
-- **Registration Screen**: Uses challenge-specific logo
-- **Active Challenge Screen**: Uses challenge-specific logo
-- **Result Screen**: Uses challenge-specific logo
-- **Leaderboard Screen**: Uses challenge-specific logo
+### Brand Logo (Always Displayed)
+The main Moov Advance brand logo is located at `img/logo.png` and appears on **ALL screens** at the top.
 
-## Main Brand Logo
+### Challenge Icons (Additional Visual Elements)
+Challenge-specific icons from this folder appear as **additional decorative elements** below the header to help users identify which challenge they're viewing.
 
-The main Moov Advance brand logo is located at `img/logo.png` and is used on the home screen.
+## Logo Usage by Screen
+
+| Screen | Brand Logo | Challenge Icon |
+|--------|-----------|----------------|
+| **Home Screen** | ✓ `img/logo.png` (top) | ✗ None |
+| **Challenge Menu** | ✓ `img/logo.png` (top) | ✓ Below header |
+| **Registration** | ✓ `img/logo.png` (top) | ✓ Below header |
+| **Active Challenge** | ✓ `img/logo.png` (top) | ✓ Below header |
+| **Result Screen** | ✓ `img/logo.png` (top) | ✓ Below header |
+| **Leaderboard** | ✓ `img/logo.png` (top) | ✓ Below header |
+
+## Visual Hierarchy
+
+```
+┌─────────────────────────────┐
+│  Moov Advance Brand Logo    │ ← Always shown (img/logo.png)
+│  (img/logo.png)             │
+├─────────────────────────────┤
+│  WEEKEND FITNESS CHALLENGE  │ ← Header text
+├─────────────────────────────┤
+│  [Challenge Icon]           │ ← Challenge-specific icon (logo/xxx.png)
+│  (basketball/football/etc)  │
+├─────────────────────────────┤
+│  BASKETBALL CHALLENGE       │ ← Challenge title
+│  ...rest of content...      │
+└─────────────────────────────┘
+```
 
 ## Recommended Specifications
 

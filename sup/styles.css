@@ -64,6 +64,27 @@ body, html {
     height: auto;
 }
 
+/* Challenge Identification Icons */
+.challenge-icon {
+    position: absolute;
+    top: 350px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: auto;
+    opacity: 0.9;
+}
+
+.challenge-icon-small {
+    position: absolute;
+    top: 260px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: auto;
+    opacity: 0.9;
+}
+
 /* Header and Titles */
 .header-title {
     position: absolute;

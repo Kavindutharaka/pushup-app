@@ -33,10 +33,11 @@
 
     <!-- CHALLENGE MENU (SEE PLAYER DATA, RESET LEADERBOARD) -->
     <section ng-show="currentView == 'challengeMenu'" class="screen">
-        <img class="logo-top" ng-src="{{getChallengeLogo()}}" alt="Challenge Logo" />
+        <img class="logo-top" src="./img/logo.png" alt="Moov Advance Logo" />
         <div class="header-title">
             <span class="title-text">WEEKEND<br>FITNESS<br>CHALLENGE</span>
         </div>
+        <img class="challenge-icon" ng-src="{{getChallengeLogo()}}" alt="Challenge Icon" />
         <div class="challenge-title">
             <span class="title-text-xl">{{selectedChallenge.name}}</span>
         </div>
@@ -50,10 +51,11 @@
 
     <!-- PLAYER REGISTRATION FORM -->
     <section ng-show="currentView == 'registration'" class="screen">
-        <img class="logo-top-small" ng-src="{{getChallengeLogo()}}" alt="Challenge Logo" />
+        <img class="logo-top-small" src="./img/logo.png" alt="Moov Advance Logo" />
         <div class="header-title-small">
             <span class="title-text-sm">WEEKEND FITNESS CHALLENGE</span>
         </div>
+        <img class="challenge-icon-small" ng-src="{{getChallengeLogo()}}" alt="Challenge Icon" />
         <div class="challenge-title-small">
             <span class="title-text-lg">{{selectedChallenge.name}}</span>
         </div>
@@ -71,10 +73,11 @@
 
     <!-- ACTIVE CHALLENGE SCREEN - PUSHUP -->
     <section ng-show="currentView == 'activePushup'" class="screen">
-        <img class="logo-top-small" src="./logo/pushup&plank.png" alt="Pushup Challenge Logo" />
+        <img class="logo-top-small" src="./img/logo.png" alt="Moov Advance Logo" />
         <div class="header-title-small">
             <span class="title-text-sm">WEEKEND FITNESS CHALLENGE</span>
         </div>
+        <img class="challenge-icon-small" src="./logo/pushup&plank.png" alt="Pushup Challenge Icon" />
         <div class="challenge-title-small">
             <span class="title-text-lg">PUSHUP CHALLENGE</span>
         </div>
@@ -93,10 +96,11 @@
 
     <!-- ACTIVE CHALLENGE SCREEN - PLANK -->
     <section ng-show="currentView == 'activePlank'" class="screen">
-        <img class="logo-top-small" src="./logo/pushup&plank.png" alt="Plank Challenge Logo" />
+        <img class="logo-top-small" src="./img/logo.png" alt="Moov Advance Logo" />
         <div class="header-title-small">
             <span class="title-text-sm">WEEKEND FITNESS CHALLENGE</span>
         </div>
+        <img class="challenge-icon-small" src="./logo/pushup&plank.png" alt="Plank Challenge Icon" />
         <div class="challenge-title-small">
             <span class="title-text-lg">PLANK CHALLENGE</span>
         </div>
@@ -115,10 +119,11 @@
 
     <!-- ACTIVE CHALLENGE SCREEN - BASKETBALL -->
     <section ng-show="currentView == 'activeBasketball'" class="screen">
-        <img class="logo-top-small" src="./logo/basketball.png" alt="Basketball Challenge Logo" />
+        <img class="logo-top-small" src="./img/logo.png" alt="Moov Advance Logo" />
         <div class="header-title-small">
             <span class="title-text-sm">WEEKEND FITNESS CHALLENGE</span>
         </div>
+        <img class="challenge-icon-small" src="./logo/basketball.png" alt="Basketball Challenge Icon" />
         <div class="challenge-title-small">
             <span class="title-text-lg">BASKETBALL CHALLENGE</span>
         </div>
@@ -137,10 +142,11 @@
 
     <!-- ACTIVE CHALLENGE SCREEN - FOOTBALL -->
     <section ng-show="currentView == 'activeFootball'" class="screen">
-        <img class="logo-top-small" src="./logo/football.png" alt="Football Challenge Logo" />
+        <img class="logo-top-small" src="./img/logo.png" alt="Moov Advance Logo" />
         <div class="header-title-small">
             <span class="title-text-sm">WEEKEND FITNESS CHALLENGE</span>
         </div>
+        <img class="challenge-icon-small" src="./logo/football.png" alt="Football Challenge Icon" />
         <div class="challenge-title-small">
             <span class="title-text-lg">FOOTBALL CHALLENGE</span>
         </div>
@@ -159,10 +165,11 @@
 
     <!-- ACTIVE CHALLENGE SCREEN - QUICK REACTION -->
     <section ng-show="currentView == 'activeQuickreaction'" class="screen">
-        <img class="logo-top-small" src="./logo/quick_reaction .png" alt="Quick Reaction Challenge Logo" />
+        <img class="logo-top-small" src="./img/logo.png" alt="Moov Advance Logo" />
         <div class="header-title-small">
             <span class="title-text-sm">WEEKEND FITNESS CHALLENGE</span>
         </div>
+        <img class="challenge-icon-small" src="./logo/quick_reaction .png" alt="Quick Reaction Challenge Icon" />
         <div class="challenge-title-small">
             <span class="title-text-lg">QUICK REACTION CHALLENGE</span>
         </div>
@@ -177,10 +184,11 @@
 
     <!-- RESULT SCREEN - PUSHUP -->
     <section ng-show="currentView == 'resultPushup'" class="screen">
-        <img class="logo-top-small" src="./logo/pushup&plank.png" alt="Pushup Challenge Logo" />
+        <img class="logo-top-small" src="./img/logo.png" alt="Moov Advance Logo" />
         <div class="header-title-small">
             <span class="title-text-sm">WEEKEND FITNESS CHALLENGE</span>
         </div>
+        <img class="challenge-icon-small" src="./logo/pushup&plank.png" alt="Pushup Challenge Icon" />
         <div class="challenge-title-small">
             <span class="title-text-lg">PUSHUP CHALLENGE</span>
         </div>
@@ -199,10 +207,11 @@
 
     <!-- RESULT SCREEN - PLANK -->
     <section ng-show="currentView == 'resultPlank'" class="screen">
-        <img class="logo-top-small" src="./logo/pushup&plank.png" alt="Plank Challenge Logo" />
+        <img class="logo-top-small" src="./img/logo.png" alt="Moov Advance Logo" />
         <div class="header-title-small">
             <span class="title-text-sm">WEEKEND FITNESS CHALLENGE</span>
         </div>
+        <img class="challenge-icon-small" src="./logo/pushup&plank.png" alt="Plank Challenge Icon" />
         <div class="challenge-title-small">
             <span class="title-text-lg">PLANK CHALLENGE</span>
         </div>
@@ -219,10 +228,11 @@
 
     <!-- RESULT SCREEN - BASKETBALL -->
     <section ng-show="currentView == 'resultBasketball'" class="screen">
-        <img class="logo-top-small" src="./logo/basketball.png" alt="Basketball Challenge Logo" />
+        <img class="logo-top-small" src="./img/logo.png" alt="Moov Advance Logo" />
         <div class="header-title-small">
             <span class="title-text-sm">WEEKEND FITNESS CHALLENGE</span>
         </div>
+        <img class="challenge-icon-small" src="./logo/basketball.png" alt="Basketball Challenge Icon" />
         <div class="challenge-title-small">
             <span class="title-text-lg">BASKETBALL CHALLENGE</span>
         </div>
@@ -241,10 +251,11 @@
 
     <!-- RESULT SCREEN - FOOTBALL -->
     <section ng-show="currentView == 'resultFootball'" class="screen">
-        <img class="logo-top-small" src="./logo/football.png" alt="Football Challenge Logo" />
+        <img class="logo-top-small" src="./img/logo.png" alt="Moov Advance Logo" />
         <div class="header-title-small">
             <span class="title-text-sm">WEEKEND FITNESS CHALLENGE</span>
         </div>
+        <img class="challenge-icon-small" src="./logo/football.png" alt="Football Challenge Icon" />
         <div class="challenge-title-small">
             <span class="title-text-lg">FOOTBALL CHALLENGE</span>
         </div>
@@ -263,10 +274,11 @@
 
     <!-- RESULT SCREEN - QUICK REACTION -->
     <section ng-show="currentView == 'resultQuickreaction'" class="screen">
-        <img class="logo-top-small" src="./logo/quick_reaction .png" alt="Quick Reaction Challenge Logo" />
+        <img class="logo-top-small" src="./img/logo.png" alt="Moov Advance Logo" />
         <div class="header-title-small">
             <span class="title-text-sm">WEEKEND FITNESS CHALLENGE</span>
         </div>
+        <img class="challenge-icon-small" src="./logo/quick_reaction .png" alt="Quick Reaction Challenge Icon" />
         <div class="challenge-title-small">
             <span class="title-text-lg">QUICK REACTION CHALLENGE</span>
         </div>
@@ -285,10 +297,11 @@
 
     <!-- LEADERBOARD SCREEN -->
     <section ng-show="currentView == 'leaderboard'" class="screen">
-        <img class="logo-top-small" ng-src="{{getChallengeLogo()}}" alt="Challenge Logo" />
+        <img class="logo-top-small" src="./img/logo.png" alt="Moov Advance Logo" />
         <div class="header-title-small">
             <span class="title-text-sm">WEEKEND FITNESS CHALLENGE</span>
         </div>
+        <img class="challenge-icon-small" ng-src="{{getChallengeLogo()}}" alt="Challenge Icon" />
         <div class="leaderboard-title">
             <span class="title-text-lg">{{selectedChallenge.name}}<br>LEADERBOARD</span>
         </div>
