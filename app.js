@@ -53,6 +53,23 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout) {
         }
     };
 
+    // Logo mapping function
+    $scope.getChallengeLogo = function () {
+        if (!$scope.selectedChallenge) {
+            return './logo/fitness.png';
+        }
+
+        var logoMap = {
+            'pushup': './logo/pushup&plank.png',
+            'plank': './logo/pushup&plank.png',
+            'basketball': './logo/basketball.png',
+            'football': './logo/football.png',
+            'quickreaction': './logo/quick_reaction .png'
+        };
+
+        return logoMap[$scope.selectedChallenge.id] || './logo/fitness.png';
+    };
+
     // Navigation functions
     $scope.goHome = function () {
         $scope.stopTimer();
