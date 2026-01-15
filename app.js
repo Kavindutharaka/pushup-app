@@ -53,10 +53,10 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout) {
         }
     };
 
-    // Logo mapping function
+    // Logo mapping function for challenge-specific logos
     $scope.getChallengeLogo = function () {
         if (!$scope.selectedChallenge) {
-            return './logo/fitness.png';
+            return './img/logo.png';
         }
 
         var logoMap = {
@@ -67,7 +67,7 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout) {
             'quickreaction': './logo/quick_reaction .png'
         };
 
-        return logoMap[$scope.selectedChallenge.id] || './logo/fitness.png';
+        return logoMap[$scope.selectedChallenge.id] || './img/logo.png';
     };
 
     // Navigation functions

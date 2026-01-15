@@ -6,9 +6,6 @@ This folder contains challenge-specific logos for the Weekend Fitness Challenge 
 
 Place the following logo image files in this directory:
 
-### Main Logo
-- **fitness.png** - Main fitness logo (used on home screen and as fallback)
-
 ### Challenge-Specific Logos
 - **pushup&plank.png** - Logo for both Pushup and Plank challenges
 - **basketball.png** - Logo for Basketball challenge
@@ -17,12 +14,16 @@ Place the following logo image files in this directory:
 
 ## Logo Usage
 
-- **Home Screen**: Uses `fitness.png`
+- **Home Screen**: Uses main brand logo from `img/logo.png`
 - **Challenge Menu**: Uses challenge-specific logo based on selected challenge
 - **Registration Screen**: Uses challenge-specific logo
 - **Active Challenge Screen**: Uses challenge-specific logo
 - **Result Screen**: Uses challenge-specific logo
 - **Leaderboard Screen**: Uses challenge-specific logo
+
+## Main Brand Logo
+
+The main Moov Advance brand logo is located at `img/logo.png` and is used on the home screen.
 
 ## Recommended Specifications
 
