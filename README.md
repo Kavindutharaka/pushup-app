@@ -24,7 +24,10 @@ An interactive fitness challenge kiosk application built with AngularJS, HTML, a
 
 - **Display Size**: 1080 x 1920 pixels (Portrait kiosk mode)
 - **Framework**: AngularJS 1.x
-- **Font**: Calibri
+- **Typography System**:
+  - Primary Font: **Archivo** (Buttons, player names, navigation, labels)
+  - Secondary Font: **Sora** (Instructions, descriptions, helper text)
+  - Display Font: **Bebas Neue** (Banners, titles, large numbers)
 - **Color Theme**: Purple (#622467) with white and gold accents
 - **Storage**: Browser LocalStorage for leaderboard data
 
