@@ -240,9 +240,6 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout, $http) {
             localStorage.removeItem(leaderboardKey);
         }
     };
-            alert($scope.challenges[challengeId].name + ' leaderboard has been reset');
-        }
-    };
 
     $scope.updateChallengeDuration = function () {
         $scope.saveCustomDurations();
