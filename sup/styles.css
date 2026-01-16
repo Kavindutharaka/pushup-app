@@ -190,11 +190,7 @@ body, html {
     cursor: pointer;
     transition: all 0.3s ease;
     letter-spacing: 1px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 35px;
-    min-height: 140px;
+    text-align: center;
 }
 
 .challenge-btn:hover {
@@ -206,12 +202,44 @@ body, html {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
+/* Home screen buttons with icons */
+.challenge-btn-with-icon {
+    background-color: transparent;
+    color: #FFFFFF;
+    border: 3px solid #FFFFFF;
+    font-size: 52px;
+    font-weight: 700;
+    font-family: 'Archivo', sans-serif;
+    text-transform: uppercase;
+    padding: 35px 40px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 35px;
+    min-height: 140px;
+}
+
+.challenge-btn-with-icon:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: scale(1.02);
+}
+
+.challenge-btn-with-icon:active {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
 .btn-icon {
     width: 70px;
     height: 70px;
     object-fit: contain;
     flex-shrink: 0;
     opacity: 0.95;
+    background-color: white;
+    border-radius: 8px;
+    padding: 8px;
 }
 
 /* Registration Form */
