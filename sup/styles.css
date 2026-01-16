@@ -73,7 +73,7 @@ body, html {
     left: 50%;
     transform: translateX(-50%);
     width: 200px;
-    height: auto;
+    height: 120px;
     opacity: 0.9;
     background-color: #FFFFFF;
 }
@@ -163,7 +163,7 @@ body, html {
 
 .challenge-title-small {
     position: absolute;
-    top: 470px;
+    top: 600px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -260,7 +260,7 @@ body, html {
 /* Registration Form */
 .registration-form {
     position: absolute;
-    top: 600px;
+    top: 800px;
     left: 50%;
     transform: translateX(-50%);
     width: 800px;
