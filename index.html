@@ -23,8 +23,8 @@
         </div>
         <div class="challenge-menu">
             <button class="challenge-btn-with-icon" ng-click="selectChallenge('pushup')">
-                <img class="btn-icon" src="./logo/pushup&plank.png" alt="Pushup Icon" />
-                PUSHUP CHALLENGE
+                <img class="btn-icon" src="./logo/pushup&plank.png" alt="Push-Up Icon" />
+                PUSH-UP CHALLENGE
             </button>
             <button class="challenge-btn-with-icon" ng-click="selectChallenge('plank')">
                 <img class="btn-icon" src="./logo/pushup&plank.png" alt="Plank Icon" />
@@ -39,8 +39,8 @@
                 FOOTBALL CHALLENGE
             </button>
             <button class="challenge-btn-with-icon" ng-click="selectChallenge('quickreaction')">
-                <img class="btn-icon" src="./logo/quick_reaction .png" alt="Quick Reaction Icon" />
-                QUICK REACTION CHALLENGE
+                <img class="btn-icon" src="./logo/quick_reaction .png" alt="Reaction Icon" />
+                REACTION CHALLENGE
             </button>
         </div>
         <img class="home-icon" src="./Icon/home.png" alt="Home" ng-click="goHome()" />
@@ -91,9 +91,9 @@
         <div class="header-title-small">
             <img class="title-image-small" src="./img/title.png" alt="Weekend Fitness Challenge" />
         </div>
-        <img class="challenge-icon-small" src="./logo/pushup&plank.png" alt="Pushup Challenge Icon" />
+        <img class="challenge-icon-small" src="./logo/pushup&plank.png" alt="Push-Up Challenge Icon" />
         <div class="challenge-title-small">
-            <span class="title-text-lg">PUSHUP CHALLENGE</span>
+            <span class="title-text-lg">PUSH-UP CHALLENGE</span>
         </div>
         <div class="activity-area">
             <div class="player-name">{{playerName}}</div>
@@ -183,9 +183,9 @@
         <div class="header-title-small">
             <img class="title-image-small" src="./img/title.png" alt="Weekend Fitness Challenge" />
         </div>
-        <img class="challenge-icon-small" src="./logo/quick_reaction .png" alt="Quick Reaction Challenge Icon" />
+        <img class="challenge-icon-small" src="./logo/quick_reaction .png" alt="Reaction Challenge Icon" />
         <div class="challenge-title-small">
-            <span class="title-text-lg">QUICK REACTION CHALLENGE</span>
+            <span class="title-text-lg">REACTION CHALLENGE</span>
         </div>
         <div class="activity-area">
             <div class="player-name">{{playerName}}</div>
@@ -206,9 +206,9 @@
         <div class="header-title-small">
             <img class="title-image-small" src="./img/title.png" alt="Weekend Fitness Challenge" />
         </div>
-        <img class="challenge-icon-small" src="./logo/pushup&plank.png" alt="Pushup Challenge Icon" />
+        <img class="challenge-icon-small" src="./logo/pushup&plank.png" alt="Push-Up Challenge Icon" />
         <div class="challenge-title-small">
-            <span class="title-text-lg">PUSHUP CHALLENGE</span>
+            <span class="title-text-lg">PUSH-UP CHALLENGE</span>
         </div>
         <div class="result-area">
             <div class="player-name">{{playerName}}</div>
@@ -296,9 +296,9 @@
         <div class="header-title-small">
             <img class="title-image-small" src="./img/title.png" alt="Weekend Fitness Challenge" />
         </div>
-        <img class="challenge-icon-small" src="./logo/quick_reaction .png" alt="Quick Reaction Challenge Icon" />
+        <img class="challenge-icon-small" src="./logo/quick_reaction .png" alt="Reaction Challenge Icon" />
         <div class="challenge-title-small">
-            <span class="title-text-lg">QUICK REACTION CHALLENGE</span>
+            <span class="title-text-lg">REACTION CHALLENGE</span>
         </div>
         <div class="result-area">
             <div class="player-name">{{playerName}}</div>
@@ -326,6 +326,11 @@
         <div class="leaderboard-table">
             <table>
                 <tr ng-repeat="entry in leaderboardData | orderBy:'-score' | limitTo:5">
+                    <td class="badge">
+                        <img ng-if="$index === 0" src="./batch/1st.png" alt="1st Place" class="badge-img badge-1st" />
+                        <img ng-if="$index === 1" src="./batch/2nd.png" alt="2nd Place" class="badge-img badge-2nd" />
+                        <img ng-if="$index === 2" src="./batch/3rd.png" alt="3rd Place" class="badge-img badge-3rd" />
+                    </td>
                     <td class="rank">{{$index + 1 | number:3}}</td>
                     <td class="name">{{entry.name | uppercase}}</td>
                     <td class="score">{{entry.score | number:3}}</td>
@@ -349,7 +354,7 @@
                 <h3 class="admin-subtitle">COUNTDOWN TIMER SETTINGS</h3>
                 <div class="timer-settings">
                     <div class="timer-setting-item">
-                        <label>PUSHUP (seconds):</label>
+                        <label>PUSH-UP (seconds):</label>
                         <input type="number" ng-model="challenges.pushup.duration" min="10" max="300" />
                     </div>
                     <div class="timer-setting-item">
@@ -361,7 +366,7 @@
                         <input type="number" ng-model="challenges.football.duration" min="10" max="300" />
                     </div>
                     <div class="timer-setting-item">
-                        <label>QUICK REACTION (seconds):</label>
+                        <label>REACTION (seconds):</label>
                         <input type="number" ng-model="challenges.quickreaction.duration" min="10" max="300" />
                     </div>
                 </div>
@@ -371,11 +376,11 @@
             <div class="admin-section">
                 <h3 class="admin-subtitle">RESET LEADERBOARDS</h3>
                 <div class="reset-buttons">
-                    <button class="admin-btn-small" ng-click="resetSingleLeaderboard('pushup')">RESET PUSHUP</button>
+                    <button class="admin-btn-small" ng-click="resetSingleLeaderboard('pushup')">RESET PUSH-UP</button>
                     <button class="admin-btn-small" ng-click="resetSingleLeaderboard('plank')">RESET PLANK</button>
                     <button class="admin-btn-small" ng-click="resetSingleLeaderboard('basketball')">RESET BASKETBALL</button>
                     <button class="admin-btn-small" ng-click="resetSingleLeaderboard('football')">RESET FOOTBALL</button>
-                    <button class="admin-btn-small" ng-click="resetSingleLeaderboard('quickreaction')">RESET QUICK REACTION</button>
+                    <button class="admin-btn-small" ng-click="resetSingleLeaderboard('quickreaction')">RESET REACTION</button>
                 </div>
                 <button class="admin-btn-danger" ng-click="resetAllLeaderboards()">RESET ALL LEADERBOARDS</button>
             </div>
