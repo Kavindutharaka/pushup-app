@@ -73,9 +73,12 @@ body, html {
     left: 50%;
     transform: translateX(-50%);
     width: 200px;
-    height: 120px;
+    height: 180px;
+    object-fit: contain;
     opacity: 0.9;
     background-color: #FFFFFF;
+    padding: 15px;
+    border-radius: 12px;
 }
 
 .challenge-icon-small {
@@ -84,9 +87,12 @@ body, html {
     left: 50%;
     transform: translateX(-50%);
     width: 150px;
-    height: auto;
+    height: 150px;
+    object-fit: contain;
     opacity: 0.9;
     background-color: #FFFFFF;
+    padding: 12px;
+    border-radius: 10px;
 }
 
 /* Header and Titles */
@@ -154,7 +160,7 @@ body, html {
 
 .challenge-title {
     position: absolute;
-    top: 500px;
+    top: 560px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -163,7 +169,7 @@ body, html {
 
 .challenge-title-small {
     position: absolute;
-    top: 600px;
+    top: 565px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -260,7 +266,7 @@ body, html {
 /* Registration Form */
 .registration-form {
     position: absolute;
-    top: 800px;
+    top: 700px;
     left: 50%;
     transform: translateX(-50%);
     width: 800px;
@@ -328,7 +334,7 @@ body, html {
 /* Activity Area (Active Challenge Screens) */
 .activity-area {
     position: absolute;
-    top: 600px;
+    top: 720px;
     left: 50%;
     transform: translateX(-50%);
     width: 900px;
@@ -339,13 +345,13 @@ body, html {
     font-size: 58px;
     font-family: 'Archivo', sans-serif;
     font-weight: 700;
-    margin-bottom: 100px;
+    margin-bottom: 60px;
     letter-spacing: 2px;
 }
 
 .timer-display {
     position: relative;
-    margin: 80px auto;
+    margin: 60px auto;
     width: 600px;
     height: 280px;
     display: flex;
@@ -397,7 +403,7 @@ body, html {
     padding: 25px 70px;
     cursor: pointer;
     border-radius: 10px;
-    margin-top: 100px;
+    margin-top: 60px;
     transition: all 0.3s ease;
     letter-spacing: 1.5px;
 }
@@ -435,7 +441,7 @@ body, html {
 /* Result Area */
 .result-area {
     position: absolute;
-    top: 550px;
+    top: 700px;
     left: 50%;
     transform: translateX(-50%);
     width: 900px;
@@ -446,7 +452,7 @@ body, html {
     font-size: 48px;
     font-family: 'Sora', sans-serif;
     font-weight: 600;
-    margin: 40px 0;
+    margin: 30px 0;
     letter-spacing: 1.5px;
 }
 
@@ -454,12 +460,12 @@ body, html {
     font-size: 180px;
     font-family: 'Bebas Neue', sans-serif;
     font-weight: 400;
-    margin: 60px 0;
+    margin: 50px 0;
     letter-spacing: 5px;
 }
 
 .result-input-container {
-    margin: 60px 0;
+    margin: 50px 0;
 }
 
 .result-input {
@@ -490,7 +496,7 @@ body, html {
     font-size: 52px;
     font-family: 'Sora', sans-serif;
     font-weight: 600;
-    margin: 40px 0;
+    margin: 30px 0;
     letter-spacing: 2px;
 }
 
@@ -505,7 +511,7 @@ body, html {
     padding: 30px 120px;
     cursor: pointer;
     border-radius: 50px;
-    margin-top: 80px;
+    margin-top: 50px;
     transition: all 0.3s ease;
     letter-spacing: 2px;
 }
@@ -522,7 +528,7 @@ body, html {
 /* Leaderboard */
 .leaderboard-title {
     position: absolute;
-    top: 545px;
+    top: 580px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -531,7 +537,7 @@ body, html {
 
 .leaderboard-table {
     position: absolute;
-    top: 735px;
+    top: 770px;
     left: 50%;
     transform: translateX(-50%);
     width: 900px;
