@@ -49,10 +49,11 @@ body, html {
 /* Logo Styles */
 .logo-top {
     position: absolute;
-    top: 100px;
-    left: 80px;
-    width: 400px;
+    top: 87px;
+    left: 52px;
+    width: 510px;
     height: auto;
+    /* background-color: #FFFFFF; */
 }
 
 .logo-top-small {
@@ -62,6 +63,7 @@ body, html {
     transform: translateX(-50%);
     width: 350px;
     height: auto;
+    /* background-color: #FFFFFF; */
 }
 
 /* Challenge Identification Icons */
@@ -73,30 +75,32 @@ body, html {
     width: 200px;
     height: auto;
     opacity: 0.9;
+    background-color: #FFFFFF;
 }
 
 .challenge-icon-small {
     position: absolute;
-    top: 260px;
+    top: 385px;
     left: 50%;
     transform: translateX(-50%);
     width: 150px;
     height: auto;
     opacity: 0.9;
+    background-color: #FFFFFF;
 }
 
 /* Header and Titles */
 .header-title {
     position: absolute;
     top: 100px;
-    right: 150px;
+    right: 45px;
     width: 450px;
     text-align: left;
 }
 
 .header-title-small {
     position: absolute;
-    top: 200px;
+    top: 220px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -142,7 +146,7 @@ body, html {
 }
 
 .title-image-small {
-    width: 500px;
+    width: 350px;
     height: auto;
     display: block;
     margin: 0 auto;
@@ -159,7 +163,7 @@ body, html {
 
 .challenge-title-small {
     position: absolute;
-    top: 320px;
+    top: 470px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -245,7 +249,7 @@ body, html {
 /* Registration Form */
 .registration-form {
     position: absolute;
-    top: 550px;
+    top: 600px;
     left: 50%;
     transform: translateX(-50%);
     width: 800px;
@@ -342,16 +346,16 @@ body, html {
     position: absolute;
     width: 30px;
     height: 120px;
-    background-color: #FFFFFF;
+    background-color: transparent;
     border-radius: 5px;
 }
 
 .timer-bar:first-child {
-    left: 150px;
+    left: 80px;
 }
 
 .timer-bar:nth-child(2) {
-    right: 150px;
+    right: 80px;
 }
 
 .timer-value {
@@ -507,7 +511,7 @@ body, html {
 /* Leaderboard */
 .leaderboard-title {
     position: absolute;
-    top: 280px;
+    top: 545px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -516,7 +520,7 @@ body, html {
 
 .leaderboard-table {
     position: absolute;
-    top: 550px;
+    top: 735px;
     left: 50%;
     transform: translateX(-50%);
     width: 900px;
@@ -567,8 +571,8 @@ body, html {
 
 .new-player-btn {
     position: absolute;
-    bottom: 120px;
-    right: 250px;
+    bottom: 97px;
+    right: 196px;
     background-color: #FFFFFF;
     color: #622467;
     border: none;
@@ -642,9 +646,9 @@ body, html {
 }
 
 /* Responsive adjustments for different screen ratios */
-@media screen and (max-width: 1080px) {
+/* @media screen and (max-width: 1080px) {
     .kiosk-container {
         transform: scale(0.9);
         transform-origin: top left;
     }
-}
+} */
