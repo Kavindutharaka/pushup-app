@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="AdminApp" ng-cloak>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Weekend Fitness Challenge</title>
+    <link rel="icon" type="image/x-icon" href="ico.ico">
+
+    <script src="./sup/angular.min.js"></script>
+    <script src="./admin.js"></script>
+
+    <style>
+        [ng-cloak] {
+            display: none !important;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .filter-section {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 12px 30px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .filter-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .challenge-section {
+            margin-bottom: 40px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .challenge-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            font-size: 1.8em;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .session-container {
+            padding: 20px;
+        }
+
+        .session-block {
+            margin-bottom: 30px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .session-header {
+            padding: 15px 20px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .session-header.active {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .session-header.completed {
+            background: #9E9E9E;
+            color: white;
+        }
+
+        .session-info {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .session-info span {
+            font-size: 0.9em;
+        }
+
+        .status-badge {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .status-badge.active {
+            background: #81C784;
+        }
+
+        .status-badge.completed {
+            background: #BDBDBD;
+        }
+
+        .winners-section {
+            background: #FFF3E0;
+            padding: 15px 20px;
+            border-left: 5px solid #FF9800;
+            margin: 0 20px 20px;
+            border-radius: 5px;
+        }
+
+        .winners-title {
+            font-weight: bold;
+            color: #F57C00;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .winner-row {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+
+        .winner-1st {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: #333;
+            font-weight: bold;
+        }
+
+        .winner-2nd {
+            background: linear-gradient(135deg, #C0C0C0 0%, #999999 100%);
+            color: #333;
+            font-weight: bold;
+        }
+
+        .winner-3rd {
+            background: linear-gradient(135deg, #CD7F32 0%, #8B4513 100%);
+            color: white;
+            font-weight: bold;
+        }
+
+        .winner-badge {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0 20px 20px;
+        }
+
+        .data-table th {
+            background: #f5f5f5;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+            color: #333;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .data-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .data-table tbody tr:hover {
+            background: #f9f9f9;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+            font-size: 1.2em;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 60px;
+            font-size: 1.5em;
+            color: #667eea;
+        }
+
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .refresh-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #667eea;
+            color: white;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .refresh-btn:hover {
+            background: #764ba2;
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .filter-btn {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+
+            .session-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body ng-controller="AdminCtrl">
+    <div class="container">
+        <h1>🏆 Weekend Fitness Challenge</h1>
+        <div class="subtitle">Admin Dashboard - Player Data & Session History</div>
+
+        <!-- Filter Buttons -->
+        <div class="filter-section">
+            <button class="filter-btn" ng-class="{active: currentFilter === 'all'}" ng-click="filterChallenge('all')">
+                All Challenges
+            </button>
+            <button class="filter-btn" ng-class="{active: currentFilter === 'pushup'}" ng-click="filterChallenge('pushup')">
+                Push-Up
+            </button>
+            <button class="filter-btn" ng-class="{active: currentFilter === 'plank'}" ng-click="filterChallenge('plank')">
+                Plank
+            </button>
+            <button class="filter-btn" ng-class="{active: currentFilter === 'basketball'}" ng-click="filterChallenge('basketball')">
+                Basketball
+            </button>
+            <button class="filter-btn" ng-class="{active: currentFilter === 'football'}" ng-click="filterChallenge('football')">
+                Football
+            </button>
+            <button class="filter-btn" ng-class="{active: currentFilter === 'quickreaction'}" ng-click="filterChallenge('quickreaction')">
+                Reaction
+            </button>
+        </div>
+
+        <!-- Loading State -->
+        <div ng-if="loading" class="loading">
+            Loading data...
+        </div>
+
+        <!-- Error State -->
+        <div ng-if="error" class="error">
+            {{error}}
+        </div>
+
+        <!-- Data Display -->
+        <div ng-if="!loading && !error">
+            <!-- No Data -->
+            <div ng-if="filteredSessions.length === 0" class="no-data">
+                No data available for this challenge yet.
+            </div>
+
+            <!-- Sessions by Challenge -->
+            <div ng-repeat="(challengeType, sessions) in groupedSessions" class="challenge-section">
+                <div class="challenge-header">
+                    {{getChallengeLabel(challengeType)}}
+                </div>
+
+                <div class="session-container">
+                    <!-- Each Session -->
+                    <div ng-repeat="session in sessions" class="session-block">
+                        <div class="session-header" ng-class="session.status">
+                            <div class="session-info">
+                                <span><strong>Session #{{session.session_id}}</strong></span>
+                                <span>Started: {{formatDate(session.session_start_time)}}</span>
+                                <span ng-if="session.session_end_time">Ended: {{formatDate(session.session_end_time)}}</span>
+                                <span>Total Players: {{session.total_players}}</span>
+                            </div>
+                            <div class="status-badge" ng-class="session.status">
+                                {{session.status | uppercase}}
+                            </div>
+                        </div>
+
+                        <!-- Winners Section (for completed sessions) -->
+                        <div ng-if="session.winners && session.winners.length > 0" class="winners-section">
+                            <div class="winners-title">🏆 Session Winners</div>
+                            <div ng-repeat="winner in session.winners" class="winner-row winner-{{winner.rank_position}}st">
+                                <div class="winner-badge">{{winner.rank_position}}</div>
+                                <div style="flex: 1;">
+                                    <strong>{{winner.player_name}}</strong>
+                                    <span ng-if="winner.player_contact"> ({{winner.player_contact}})</span>
+                                    - Score: {{winner.score}}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Player Scores Table -->
+                        <table class="data-table" ng-if="session.scores && session.scores.length > 0">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Player Name</th>
+                                    <th>Contact</th>
+                                    <th>Score</th>
+                                    <th>Date & Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="score in session.scores">
+                                    <td>#{{$index + 1}}</td>
+                                    <td><strong>{{score.player_name}}</strong></td>
+                                    <td>{{score.player_contact || '-'}}</td>
+                                    <td><strong>{{score.score}}</strong></td>
+                                    <td>{{formatDateTime(score.played_at)}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div ng-if="!session.scores || session.scores.length === 0" class="no-data" style="padding: 20px;">
+                            No player data for this session
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Refresh Button -->
+    <button class="refresh-btn" ng-click="loadData()" title="Refresh Data">
+        ⟳
+    </button>
+</body>
+
+</html>

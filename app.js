@@ -1,7 +1,10 @@
 var app = angular.module('FitnessApp', []);
 
-app.controller('MainCtrl', function ($scope, $interval, $timeout) {
+app.controller('MainCtrl', function ($scope, $interval, $timeout, $http) {
     console.log("Weekend Fitness Challenge - Game Started!");
+
+    // API Configuration
+    var API_URL = './server/api.php';
 
     // Initial state
     $scope.currentView = 'home';
@@ -145,7 +148,23 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout) {
             return;
         }
 
-        // Save to leaderboard
+        // Save to database via API
+        var scoreData = {
+            challenge_type: $scope.selectedChallenge.id,
+            player_name: $scope.playerName,
+            player_contact: $scope.playerContact,
+            score: parseInt($scope.finalScore)
+        };
+
+        $http.post(API_URL + '?action=save_score', scoreData)
+            .then(function (response) {
+                console.log('Score saved to database:', response.data);
+            })
+            .catch(function (error) {
+                console.error('Error saving score:', error);
+            });
+
+        // Save to localStorage for immediate display
         var leaderboardKey = 'leaderboard_' + $scope.selectedChallenge.id;
         var leaderboard = JSON.parse(localStorage.getItem(leaderboardKey) || '[]');
 
@@ -175,18 +194,52 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout) {
 
     $scope.resetAllLeaderboards = function () {
         if (confirm('Are you sure you want to reset ALL leaderboards? This cannot be undone!')) {
+            var resetCount = 0;
+            var totalChallenges = Object.keys($scope.challenges).length;
+
+            // Reset each challenge
             for (var challengeId in $scope.challenges) {
-                var leaderboardKey = 'leaderboard_' + challengeId;
-                localStorage.removeItem(leaderboardKey);
+                (function (id) {
+                    // Send reset request to database
+                    $http.post(API_URL + '?action=reset_leaderboard', { challenge_type: id })
+                        .then(function (response) {
+                            console.log('Reset ' + id + ':', response.data);
+                            resetCount++;
+                            if (resetCount === totalChallenges) {
+                                alert('All leaderboards have been reset successfully!');
+                            }
+                        })
+                        .catch(function (error) {
+                            console.error('Error resetting ' + id + ':', error);
+                        });
+
+                    // Clear localStorage
+                    var leaderboardKey = 'leaderboard_' + id;
+                    localStorage.removeItem(leaderboardKey);
+                })(challengeId);
             }
-            alert('All leaderboards have been reset');
         }
     };
 
     $scope.resetSingleLeaderboard = function (challengeId) {
         if (confirm('Are you sure you want to reset the ' + $scope.challenges[challengeId].name + ' leaderboard?')) {
             var leaderboardKey = 'leaderboard_' + challengeId;
+
+            // Send reset request to database (captures top 3 winners)
+            $http.post(API_URL + '?action=reset_leaderboard', { challenge_type: challengeId })
+                .then(function (response) {
+                    console.log('Leaderboard reset in database:', response.data);
+                    alert('Leaderboard reset successfully. Top 3 winners have been saved!');
+                })
+                .catch(function (error) {
+                    console.error('Error resetting leaderboard:', error);
+                    alert('Leaderboard reset locally, but database update failed');
+                });
+
+            // Clear localStorage
             localStorage.removeItem(leaderboardKey);
+        }
+    };
             alert($scope.challenges[challengeId].name + ' leaderboard has been reset');
         }
     };
