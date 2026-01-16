@@ -376,7 +376,7 @@ body, html {
 }
 
 .timer-value {
-    font-size: 140px;
+    font-size: 200px;
     font-family: 'Bebas Neue', sans-serif;
     font-weight: 400;
     color: #FFFFFF;
@@ -565,10 +565,36 @@ body, html {
     font-weight: 400;
 }
 
+.leaderboard-table .badge {
+    width: 100px;
+    text-align: left;
+    padding-right: 20px;
+}
+
+.badge-img {
+    display: block;
+    object-fit: contain;
+}
+
+.badge-1st {
+    width: 80px;
+    height: 80px;
+}
+
+.badge-2nd {
+    width: 65px;
+    height: 65px;
+}
+
+.badge-3rd {
+    width: 65px;
+    height: 65px;
+}
+
 .leaderboard-table .rank {
     color: #FFD700;
     font-weight: 700;
-    width: 150px;
+    width: 120px;
     text-align: left;
 }
 

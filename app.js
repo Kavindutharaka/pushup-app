@@ -18,7 +18,7 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout) {
     $scope.challenges = {
         pushup: {
             id: 'pushup',
-            name: 'PUSHUP CHALLENGE',
+            name: 'PUSH-UP CHALLENGE',
             type: 'countdown',
             duration: 60,
             unit: 'pushups'
@@ -46,7 +46,7 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout) {
         },
         quickreaction: {
             id: 'quickreaction',
-            name: 'QUICK REACTION CHALLENGE',
+            name: 'REACTION CHALLENGE',
             type: 'countdown',
             duration: 60,
             unit: 'catches'
