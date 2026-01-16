@@ -75,16 +75,18 @@ body, html {
     width: 200px;
     height: auto;
     opacity: 0.9;
+    background-color: #FFFFFF;
 }
 
 .challenge-icon-small {
     position: absolute;
-    top: 260px;
+    top: 275px;
     left: 50%;
     transform: translateX(-50%);
     width: 150px;
     height: auto;
     opacity: 0.9;
+    background-color: #FFFFFF;
 }
 
 /* Header and Titles */
@@ -147,7 +149,7 @@ body, html {
 
 .challenge-title-small {
     position: absolute;
-    top: 320px;
+    top: 380px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -289,7 +291,7 @@ body, html {
     position: absolute;
     width: 30px;
     height: 120px;
-    background-color: #FFFFFF;
+    background-color: transparent;
     border-radius: 5px;
 }
 
@@ -454,7 +456,7 @@ body, html {
 /* Leaderboard */
 .leaderboard-title {
     position: absolute;
-    top: 280px;
+    top: 375px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
