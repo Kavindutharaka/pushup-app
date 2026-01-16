@@ -194,6 +194,10 @@ body, html {
     cursor: pointer;
     transition: all 0.3s ease;
     letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 30px;
 }
 
 .challenge-btn:hover {
@@ -203,6 +207,12 @@ body, html {
 
 .challenge-btn:active {
     background-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn-icon {
+    width: 80px;
+    height: auto;
+    opacity: 0.9;
 }
 
 /* Registration Form */
