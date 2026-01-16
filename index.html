@@ -100,9 +100,9 @@
             <div class="timer-display">
                 <div class="timer-bar"></div>
                 <div class="timer-bar"></div>
-                <div class="timer-value">{{formatTime(elapsedTime)}}</div>
+                <div class="timer-value">{{remainingTime}}</div>
             </div>
-            <button class="end-btn" ng-click="endChallenge()">END CHALLNGE</button>
+            <button class="end-btn" ng-click="endChallenge()">END GAME</button>
         </div>
         <img class="home-icon" src="./Icon/home.png" alt="Home" ng-click="goHome()" />
         <img class="next-icon" src="./Icon/home.png" alt="Next" ng-click="endChallenge()" />
@@ -148,7 +148,7 @@
                 <div class="timer-bar"></div>
                 <div class="timer-value">{{remainingTime}}</div>
             </div>
-            <button class="count-btn" ng-click="incrementScore()">+</button>
+            <button class="end-btn" ng-click="endChallenge()">END GAME</button>
         </div>
         <img class="home-icon" src="./Icon/home.png" alt="Home" ng-click="goHome()" />
         <img class="next-icon" src="./Icon/home.png" alt="Next" ng-click="endChallenge()" />
@@ -171,7 +171,7 @@
                 <div class="timer-bar"></div>
                 <div class="timer-value">{{remainingTime}}</div>
             </div>
-            <button class="count-btn" ng-click="incrementScore()">+</button>
+            <button class="end-btn" ng-click="endChallenge()">END GAME</button>
         </div>
         <img class="home-icon" src="./Icon/home.png" alt="Home" ng-click="goHome()" />
         <img class="next-icon" src="./Icon/home.png" alt="Next" ng-click="endChallenge()" />
@@ -189,11 +189,15 @@
         </div>
         <div class="activity-area">
             <div class="player-name">{{playerName}}</div>
-            <div class="action-text">IS CATCHING STICKS</div>
-            <button class="count-btn" ng-click="incrementScore()">CATCH</button>
-            <button class="end-btn" ng-click="endChallenge()">END CHALLNGE</button>
+            <div class="timer-display">
+                <div class="timer-bar"></div>
+                <div class="timer-bar"></div>
+                <div class="timer-value">{{remainingTime}}</div>
+            </div>
+            <button class="end-btn" ng-click="endChallenge()">END GAME</button>
         </div>
         <img class="home-icon" src="./Icon/home.png" alt="Home" ng-click="goHome()" />
+        <img class="next-icon" src="./Icon/home.png" alt="Next" ng-click="endChallenge()" />
     </section>
 
     <!-- RESULT SCREEN - PUSHUP -->
@@ -208,11 +212,11 @@
         </div>
         <div class="result-area">
             <div class="player-name">{{playerName}}</div>
-            <div class="result-label">COMPLETED IN</div>
+            <div class="result-label">COMPLETED</div>
             <div class="result-input-container">
                 <input type="number" class="result-input" ng-model="finalScore" />
             </div>
-            <div class="result-unit">SECONDS</div>
+            <div class="result-unit">PUSHUPS</div>
             <button class="submit-btn" ng-click="submitScore()">SUBMIT</button>
         </div>
         <img class="home-icon" src="./Icon/home.png" alt="Home" ng-click="goHome()" />
