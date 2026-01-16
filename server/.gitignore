@@ -1,0 +1,10 @@
+# Environment files
+.env
+
+# PHP temporary files
+*.log
+*.tmp
+
+# Database backups
+*.sql.bak
+backup_*.sql
