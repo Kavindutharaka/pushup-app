@@ -17,7 +17,7 @@
 
     <!-- HOME SCREEN / CHALLENGE SELECTION -->
     <section ng-show="currentView == 'home'" class="screen">
-        <img class="logo-top" src="./img/logo.png" alt="Moov Advance Logo" />
+        <img class="logo-top" src="./img/logo.png" alt="Moov Advance Logo" ng-click="openAdminPanel()" style="cursor: pointer;" />
         <div class="header-title">
             <img class="title-image" src="./img/title.png" alt="Weekend Fitness Challenge" />
         </div>
@@ -59,7 +59,6 @@
         <div class="challenge-menu">
             <button class="challenge-btn" ng-click="startChallenge()">START CHALLENGE</button>
             <button class="challenge-btn" ng-click="showLeaderboard()">SEE PLAYER DATA</button>
-            <button class="challenge-btn" ng-click="resetLeaderboard()">RESET LEADERBOARD</button>
         </div>
         <img class="home-icon" src="./Icon/home.png" alt="Home" ng-click="goHome()" />
     </section>
@@ -331,6 +330,53 @@
         </div>
         <img class="home-icon" src="./Icon/home.png" alt="Home" ng-click="goHome()" />
         <button class="new-player-btn" ng-click="startChallenge()">New</button>
+    </section>
+
+    <!-- ADMIN PANEL -->
+    <section ng-show="currentView == 'admin'" class="screen">
+        <img class="logo-top-small" src="./img/logo.png" alt="Moov Advance Logo" />
+        <div class="header-title-small">
+            <img class="title-image-small" src="./img/title.png" alt="Weekend Fitness Challenge" />
+        </div>
+        <div class="admin-panel">
+            <h2 class="admin-title">ADMIN PANEL</h2>
+
+            <div class="admin-section">
+                <h3 class="admin-subtitle">COUNTDOWN TIMER SETTINGS</h3>
+                <div class="timer-settings">
+                    <div class="timer-setting-item">
+                        <label>PUSHUP (seconds):</label>
+                        <input type="number" ng-model="challenges.pushup.duration" min="10" max="300" />
+                    </div>
+                    <div class="timer-setting-item">
+                        <label>BASKETBALL (seconds):</label>
+                        <input type="number" ng-model="challenges.basketball.duration" min="10" max="300" />
+                    </div>
+                    <div class="timer-setting-item">
+                        <label>FOOTBALL (seconds):</label>
+                        <input type="number" ng-model="challenges.football.duration" min="10" max="300" />
+                    </div>
+                    <div class="timer-setting-item">
+                        <label>QUICK REACTION (seconds):</label>
+                        <input type="number" ng-model="challenges.quickreaction.duration" min="10" max="300" />
+                    </div>
+                </div>
+                <button class="admin-btn" ng-click="updateChallengeDuration()">SAVE TIMER SETTINGS</button>
+            </div>
+
+            <div class="admin-section">
+                <h3 class="admin-subtitle">RESET LEADERBOARDS</h3>
+                <div class="reset-buttons">
+                    <button class="admin-btn-small" ng-click="resetSingleLeaderboard('pushup')">RESET PUSHUP</button>
+                    <button class="admin-btn-small" ng-click="resetSingleLeaderboard('plank')">RESET PLANK</button>
+                    <button class="admin-btn-small" ng-click="resetSingleLeaderboard('basketball')">RESET BASKETBALL</button>
+                    <button class="admin-btn-small" ng-click="resetSingleLeaderboard('football')">RESET FOOTBALL</button>
+                    <button class="admin-btn-small" ng-click="resetSingleLeaderboard('quickreaction')">RESET QUICK REACTION</button>
+                </div>
+                <button class="admin-btn-danger" ng-click="resetAllLeaderboards()">RESET ALL LEADERBOARDS</button>
+            </div>
+        </div>
+        <img class="home-icon" src="./Icon/home.png" alt="Home" ng-click="goHome()" />
     </section>
 
 </body>
