@@ -361,8 +361,8 @@ body, html {
 .timer-display {
     position: relative;
     margin: 60px auto;
-    width: 600px;
-    height: 280px;
+    width: 700px;
+    height: 350px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -385,7 +385,7 @@ body, html {
 }
 
 .timer-value {
-    font-size: 200px;
+    font-size: 280px;
     font-family: 'Bebas Neue', sans-serif;
     font-weight: 400;
     color: #FFFFFF;
