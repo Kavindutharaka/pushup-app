@@ -134,6 +134,20 @@ body, html {
     letter-spacing: 2px;
 }
 
+/* Title Images */
+.title-image {
+    width: 450px;
+    height: auto;
+    display: block;
+}
+
+.title-image-small {
+    width: 500px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
 .challenge-title {
     position: absolute;
     top: 500px;
