@@ -193,7 +193,8 @@ body, html {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    gap: 30px;
+    gap: 35px;
+    min-height: 140px;
 }
 
 .challenge-btn:hover {
@@ -206,9 +207,11 @@ body, html {
 }
 
 .btn-icon {
-    width: 80px;
-    height: auto;
-    opacity: 0.9;
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+    flex-shrink: 0;
+    opacity: 0.95;
 }
 
 /* Registration Form */
