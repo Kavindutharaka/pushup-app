@@ -14,14 +14,14 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout) {
     $scope.timerInterval = null;
     $scope.leaderboardData = [];
 
-    // Challenge definitions
+    // Challenge definitions with configurable countdown durations
     $scope.challenges = {
         pushup: {
             id: 'pushup',
             name: 'PUSHUP CHALLENGE',
-            type: 'countup',
-            duration: null,
-            unit: 'seconds'
+            type: 'countdown',
+            duration: 60,
+            unit: 'pushups'
         },
         plank: {
             id: 'plank',
@@ -47,11 +47,38 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout) {
         quickreaction: {
             id: 'quickreaction',
             name: 'QUICK REACTION CHALLENGE',
-            type: 'manual',
-            duration: null,
-            unit: 'sticks'
+            type: 'countdown',
+            duration: 60,
+            unit: 'catches'
         }
     };
+
+    // Load custom durations from localStorage
+    $scope.loadCustomDurations = function () {
+        var savedDurations = localStorage.getItem('challenge_durations');
+        if (savedDurations) {
+            var durations = JSON.parse(savedDurations);
+            for (var challengeId in durations) {
+                if ($scope.challenges[challengeId] && $scope.challenges[challengeId].type === 'countdown') {
+                    $scope.challenges[challengeId].duration = durations[challengeId];
+                }
+            }
+        }
+    };
+
+    // Save custom durations to localStorage
+    $scope.saveCustomDurations = function () {
+        var durations = {};
+        for (var challengeId in $scope.challenges) {
+            if ($scope.challenges[challengeId].type === 'countdown') {
+                durations[challengeId] = $scope.challenges[challengeId].duration;
+            }
+        }
+        localStorage.setItem('challenge_durations', JSON.stringify(durations));
+    };
+
+    // Initialize durations
+    $scope.loadCustomDurations();
 
     // Logo mapping function for challenge-specific logos
     $scope.getChallengeLogo = function () {
@@ -102,9 +129,11 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout) {
 
         // Set final score based on challenge type
         if ($scope.selectedChallenge.type === 'countup') {
+            // For plank, the elapsed time IS the score
             $scope.finalScore = $scope.elapsedTime;
         } else if ($scope.selectedChallenge.type === 'countdown') {
-            // Score is already tracked in finalScore
+            // For countdown challenges, reset finalScore for manual entry
+            $scope.finalScore = 0;
         }
 
         $scope.currentView = 'result' + capitalizeFirst($scope.selectedChallenge.id);
@@ -139,13 +168,32 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout) {
         $scope.currentView = 'leaderboard';
     };
 
-    $scope.resetLeaderboard = function () {
-        if (confirm('Are you sure you want to reset the leaderboard?')) {
-            var leaderboardKey = 'leaderboard_' + $scope.selectedChallenge.id;
-            localStorage.removeItem(leaderboardKey);
-            $scope.leaderboardData = [];
-            alert('Leaderboard has been reset');
+    // Admin Panel Functions
+    $scope.openAdminPanel = function () {
+        $scope.currentView = 'admin';
+    };
+
+    $scope.resetAllLeaderboards = function () {
+        if (confirm('Are you sure you want to reset ALL leaderboards? This cannot be undone!')) {
+            for (var challengeId in $scope.challenges) {
+                var leaderboardKey = 'leaderboard_' + challengeId;
+                localStorage.removeItem(leaderboardKey);
+            }
+            alert('All leaderboards have been reset');
         }
+    };
+
+    $scope.resetSingleLeaderboard = function (challengeId) {
+        if (confirm('Are you sure you want to reset the ' + $scope.challenges[challengeId].name + ' leaderboard?')) {
+            var leaderboardKey = 'leaderboard_' + challengeId;
+            localStorage.removeItem(leaderboardKey);
+            alert($scope.challenges[challengeId].name + ' leaderboard has been reset');
+        }
+    };
+
+    $scope.updateChallengeDuration = function () {
+        $scope.saveCustomDurations();
+        alert('Challenge durations have been updated');
     };
 
     // Timer functions
