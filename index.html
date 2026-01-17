@@ -17,8 +17,11 @@
 
     <!-- HOME SCREEN / CHALLENGE SELECTION -->
     <section ng-show="currentView == 'home'" class="screen">
-        <img class="logo-top-centered" src="./img/logo.png" alt="Moov Advance Logo" ng-click="openAdminPanel()" style="cursor: pointer;" />
-        <div class="challenge-menu-home">
+        <img class="logo-top" src="./img/logo.png" alt="Moov Advance Logo" ng-click="openAdminPanel()" style="cursor: pointer;" />
+        <div class="header-title">
+            <img class="title-image" src="./img/title.png" alt="Weekend Fitness Challenge" />
+        </div>
+        <div class="challenge-menu">
             <button class="challenge-btn-with-icon" ng-click="selectChallenge('pushup')">
                 <img class="btn-icon" src="./logo/pushup&plank.png" alt="Push-Up Icon" />
                 PUSH-UP CHALLENGE
