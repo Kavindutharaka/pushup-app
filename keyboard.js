@@ -18,13 +18,24 @@ app.directive('customKeyboard', function () {
 
                 numberKeys.forEach(function (key) {
                     var btn = angular.element('<button class="key-btn number-key">' + key + '</button>');
-                    btn.on('click', function () {
+                    btn.on('click', function (e) {
+                        e.stopPropagation();
                         handleKeyPress(key);
                     });
                     numberRow.append(btn);
                 });
 
                 keyboard.append(numberRow);
+
+                // Add DONE button row
+                var doneRow = angular.element('<div class="keyboard-row"></div>');
+                var doneBtn = angular.element('<button class="key-btn done-key">DONE</button>');
+                doneBtn.on('click', function (e) {
+                    e.stopPropagation();
+                    hideKeyboard();
+                });
+                doneRow.append(doneBtn);
+                keyboard.append(doneRow);
 
             } else if (keyboardType === 'text') {
                 // Text keyboard - QWERTY layout
@@ -39,7 +50,8 @@ app.directive('customKeyboard', function () {
 
                     rowKeys.forEach(function (key) {
                         var btn = angular.element('<button class="key-btn text-key">' + key + '</button>');
-                        btn.on('click', function () {
+                        btn.on('click', function (e) {
+                            e.stopPropagation();
                             handleKeyPress(key);
                         });
                         row.append(btn);
@@ -48,13 +60,22 @@ app.directive('customKeyboard', function () {
                     keyboard.append(row);
                 });
 
-                // Space bar row
+                // Space bar and DONE button row
                 var spaceRow = angular.element('<div class="keyboard-row"></div>');
                 var spaceBtn = angular.element('<button class="key-btn space-key">SPACE</button>');
-                spaceBtn.on('click', function () {
+                spaceBtn.on('click', function (e) {
+                    e.stopPropagation();
                     handleKeyPress(' ');
                 });
+
+                var doneBtn = angular.element('<button class="key-btn done-key">DONE</button>');
+                doneBtn.on('click', function (e) {
+                    e.stopPropagation();
+                    hideKeyboard();
+                });
+
                 spaceRow.append(spaceBtn);
+                spaceRow.append(doneBtn);
                 keyboard.append(spaceRow);
             }
 
@@ -78,6 +99,15 @@ app.directive('customKeyboard', function () {
                 scope.$apply();
             }
 
+            // Hide keyboard function
+            function hideKeyboard() {
+                keyboard.removeClass('keyboard-visible');
+                currentInput = null;
+                if (element[0]) {
+                    element[0].blur();
+                }
+            }
+
             // Show keyboard on focus
             element.on('focus', function () {
                 currentInput = element;
@@ -92,14 +122,16 @@ app.directive('customKeyboard', function () {
                 });
             });
 
-            // Hide keyboard on blur (with delay to allow clicking keys)
-            element.on('blur', function () {
-                setTimeout(function () {
-                    if (!keyboard[0].contains(document.activeElement)) {
-                        keyboard.removeClass('keyboard-visible');
-                        currentInput = null;
+            // Click outside to hide keyboard
+            angular.element(document).on('click', function (e) {
+                if (keyboard.hasClass('keyboard-visible')) {
+                    var isClickInsideKeyboard = keyboard[0].contains(e.target);
+                    var isClickOnInput = element[0] === e.target;
+
+                    if (!isClickInsideKeyboard && !isClickOnInput) {
+                        hideKeyboard();
                     }
-                }, 200);
+                }
             });
 
             // Prevent default keyboard
@@ -111,6 +143,7 @@ app.directive('customKeyboard', function () {
 
             // Cleanup on destroy
             scope.$on('$destroy', function () {
+                angular.element(document).off('click');
                 keyboard.remove();
             });
         }
