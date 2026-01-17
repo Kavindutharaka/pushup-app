@@ -56,15 +56,6 @@ body, html {
     /* background-color: #FFFFFF; */
 }
 
-.logo-top-centered {
-    position: absolute;
-    top: 100px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 510px;
-    height: auto;
-}
-
 .logo-top-small {
     position: absolute;
     top: 50px;
@@ -189,17 +180,6 @@ body, html {
 .challenge-menu {
     position: absolute;
     top: 700px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 900px;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-}
-
-.challenge-menu-home {
-    position: absolute;
-    top: 420px;
     left: 50%;
     transform: translateX(-50%);
     width: 900px;
