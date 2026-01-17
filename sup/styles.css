@@ -746,6 +746,43 @@ body, html {
     outline: none;
 }
 
+.cup-tracking {
+    display: flex;
+    justify-content: space-around;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.cup-stat {
+    flex: 1;
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 3px solid rgba(255, 255, 255, 0.4);
+    border-radius: 12px;
+    padding: 25px;
+    text-align: center;
+}
+
+.cup-label {
+    font-family: 'Sora', sans-serif;
+    font-size: 26px;
+    color: #FFFFFF;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.cup-value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 80px;
+    color: #FFD700;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.cup-value.remaining {
+    color: #4CAF50;
+}
+
 .admin-btn {
     background-color: #FFFFFF;
     color: #622467;
