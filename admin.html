@@ -354,8 +354,8 @@
                         <div class="session-header" ng-class="session.status">
                             <div class="session-info">
                                 <span><strong>Session #{{session.session_id}}</strong></span>
-                                <span>Started: {{formatDate(session.session_start_time)}}</span>
-                                <span ng-if="session.session_end_time">Ended: {{formatDate(session.session_end_time)}}</span>
+                                <span>Started: {{formatDateTime(session.session_start_time)}}</span>
+                                <span ng-if="session.session_end_time">Ended: {{formatDateTime(session.session_end_time)}}</span>
                                 <span>Total Players: {{session.total_players}}</span>
                             </div>
                             <div class="status-badge" ng-class="session.status">
