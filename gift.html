@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="GiftApp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gift Cups Tracking - Weekend Fitness Challenge</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="./gift.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 1.3em;
+        }
+
+        .cup-tracking-main {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            margin-bottom: 40px;
+        }
+
+        .cup-stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .cup-stat-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            padding: 50px 30px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+        }
+
+        .cup-stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .cup-stat-card.given {
+            border-color: #FF9800;
+        }
+
+        .cup-stat-card.remaining {
+            border-color: #4CAF50;
+        }
+
+        .cup-stat-label {
+            color: #444;
+            font-size: 1.5em;
+            font-weight: 700;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .cup-stat-value {
+            font-size: 6em;
+            font-weight: bold;
+            line-height: 1;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .cup-stat-value.given {
+            color: #FF9800;
+        }
+
+        .cup-stat-value.remaining {
+            color: #4CAF50;
+        }
+
+        .cup-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        .refresh-section {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .refresh-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 20px 60px;
+            font-size: 1.3em;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .refresh-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        .refresh-btn:active {
+            transform: scale(0.98);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 100px;
+            font-size: 2em;
+            color: white;
+        }
+
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 40px 0;
+            font-size: 1.2em;
+        }
+
+        .last-updated {
+            text-align: center;
+            color: #666;
+            font-size: 1em;
+            margin-top: 30px;
+            font-style: italic;
+        }
+
+        .info-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .info-title {
+            color: #444;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .info-text {
+            color: #666;
+            font-size: 1.1em;
+            line-height: 1.8;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .cup-stats-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .cup-stat-value {
+                font-size: 4em;
+            }
+
+            .cup-tracking-main {
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body ng-controller="GiftCtrl">
+    <div class="container">
+        <h1>🏆 Gift Cups Tracking</h1>
+        <div class="subtitle">Weekend Fitness Challenge - Monitor Gift Distribution</div>
+
+        <!-- Loading State -->
+        <div ng-if="loading" class="loading">
+            Loading cup data...
+        </div>
+
+        <!-- Error State -->
+        <div ng-if="error" class="error">
+            {{error}}
+        </div>
+
+        <!-- Cup Tracking Display -->
+        <div ng-if="!loading && !error" class="cup-tracking-main">
+            <div class="cup-stats-grid">
+                <div class="cup-stat-card given">
+                    <div class="cup-icon">🎁</div>
+                    <div class="cup-stat-label">Total Cups Given</div>
+                    <div class="cup-stat-value given">{{cupStats.total_cups || 0}}</div>
+                </div>
+                <div class="cup-stat-card remaining">
+                    <div class="cup-icon">🏆</div>
+                    <div class="cup-stat-label">Remaining Cups</div>
+                    <div class="cup-stat-value remaining">{{cupStats.remaining_cups || 30}}</div>
+                </div>
+            </div>
+
+            <div class="refresh-section">
+                <button class="refresh-btn" ng-click="refreshData()">🔄 Refresh Data</button>
+            </div>
+
+            <div class="last-updated" ng-if="lastUpdated">
+                Last updated: {{lastUpdated}}
+            </div>
+        </div>
+
+        <!-- Information Section -->
+        <div class="info-section">
+            <div class="info-title">📊 About Gift Cup Tracking</div>
+            <div class="info-text">
+                This dashboard tracks the distribution of gift cups during the Weekend Fitness Challenge.
+                Each session awards 3 cups to the top 3 winners (1st, 2nd, and 3rd place).
+                The total daily allocation is 30 cups.
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
