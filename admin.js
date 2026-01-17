@@ -13,6 +13,10 @@ app.controller('AdminCtrl', function ($scope, $http, $interval) {
     $scope.filteredSessions = [];
     $scope.groupedSessions = {};
     $scope.currentFilter = 'all';
+    $scope.cupStats = {
+        total_cups: 0,
+        remaining_cups: 30
+    };
 
     // Challenge Labels
     var challengeLabels = {
@@ -101,11 +105,29 @@ app.controller('AdminCtrl', function ($scope, $http, $interval) {
         });
     };
 
+    // Load cup count from database
+    $scope.loadCupCount = function () {
+        $http.get(API_URL + '?action=get_cup_count')
+            .then(function (response) {
+                if (response.data.success) {
+                    $scope.cupStats = {
+                        total_cups: response.data.total_cups,
+                        remaining_cups: response.data.remaining_cups
+                    };
+                }
+            })
+            .catch(function (error) {
+                console.error('Error loading cup count:', error);
+            });
+    };
+
     // Auto-refresh data every 30 seconds
     $interval(function () {
         $scope.loadData();
+        $scope.loadCupCount();
     }, 30000);
 
     // Initial load
     $scope.loadData();
+    $scope.loadCupCount();
 });

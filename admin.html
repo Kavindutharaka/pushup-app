@@ -255,6 +255,65 @@
             margin: 20px 0;
         }
 
+        .cup-tracking-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .cup-tracking-title {
+            color: white;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 2em;
+            font-weight: bold;
+        }
+
+        .cup-stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .cup-stat-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .cup-stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .cup-stat-label {
+            color: #666;
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cup-stat-value {
+            font-size: 4em;
+            font-weight: bold;
+            line-height: 1;
+        }
+
+        .cup-stat-value.given {
+            color: #FF9800;
+        }
+
+        .cup-stat-value.remaining {
+            color: #4CAF50;
+        }
+
         .refresh-btn {
             position: fixed;
             bottom: 30px;
@@ -323,6 +382,21 @@
             <button class="filter-btn" ng-class="{active: currentFilter === 'quickreaction'}" ng-click="filterChallenge('quickreaction')">
                 Reaction
             </button>
+        </div>
+
+        <!-- Gift Cups Tracking -->
+        <div class="cup-tracking-section">
+            <h2 class="cup-tracking-title">🏆 Gift Cups Tracking</h2>
+            <div class="cup-stats-grid">
+                <div class="cup-stat-card">
+                    <div class="cup-stat-label">Total Cups Given</div>
+                    <div class="cup-stat-value given">{{cupStats.total_cups || 0}}</div>
+                </div>
+                <div class="cup-stat-card">
+                    <div class="cup-stat-label">Remaining Cups</div>
+                    <div class="cup-stat-value remaining">{{cupStats.remaining_cups || 30}}</div>
+                </div>
+            </div>
         </div>
 
         <!-- Loading State -->
