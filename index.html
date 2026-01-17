@@ -375,6 +375,21 @@
             </div>
 
             <div class="admin-section">
+                <h3 class="admin-subtitle">GIFT CUPS TRACKING</h3>
+                <div class="cup-tracking">
+                    <div class="cup-stat">
+                        <div class="cup-label">Total Cups Given:</div>
+                        <div class="cup-value">{{cupStats.total_cups || 0}}</div>
+                    </div>
+                    <div class="cup-stat">
+                        <div class="cup-label">Remaining Cups:</div>
+                        <div class="cup-value remaining">{{cupStats.remaining_cups || 30}}</div>
+                    </div>
+                </div>
+                <button class="admin-btn" ng-click="refreshCupCount()">REFRESH CUP COUNT</button>
+            </div>
+
+            <div class="admin-section">
                 <h3 class="admin-subtitle">RESET LEADERBOARDS</h3>
                 <div class="reset-buttons">
                     <button class="admin-btn-small" ng-click="resetSingleLeaderboard('pushup')">RESET PUSH-UP</button>

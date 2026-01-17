@@ -33,6 +33,12 @@ try {
             }
             break;
 
+        case 'get_cup_count':
+            if($method === 'GET') {
+                getCupCount($db);
+            }
+            break;
+
         default:
             http_response_code(400);
             echo json_encode(array('error' => 'Invalid action'));
@@ -257,6 +263,26 @@ function getAllData($db) {
     echo json_encode(array(
         'success' => true,
         'sessions' => $sessions
+    ));
+}
+
+// Get total cup count (each winner = 1 cup)
+function getCupCount($db) {
+    // Count all winners from session_winners table
+    $stmt = $db->prepare("
+        SELECT COUNT(*) as total_cups
+        FROM session_winners
+    ");
+    $stmt->execute();
+    $result = $stmt->fetch();
+
+    $total_cups = $result['total_cups'];
+    $remaining_cups = 30 - $total_cups;
+
+    echo json_encode(array(
+        'success' => true,
+        'total_cups' => $total_cups,
+        'remaining_cups' => max(0, $remaining_cups) // Ensure not negative
     ));
 }
 ?>
