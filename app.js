@@ -16,10 +16,6 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout, $http) {
     $scope.finalScore = 0;
     $scope.timerInterval = null;
     $scope.leaderboardData = [];
-    $scope.cupStats = {
-        total_cups: 0,
-        remaining_cups: 30
-    };
 
     // Challenge definitions with configurable countdown durations
     $scope.challenges = {
@@ -194,31 +190,6 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout, $http) {
     // Admin Panel Functions
     $scope.openAdminPanel = function () {
         $scope.currentView = 'admin';
-        $scope.loadCupCount();
-    };
-
-    // Load cup count from database
-    $scope.loadCupCount = function () {
-        $http.get(API_URL + '?action=get_cup_count')
-            .then(function (response) {
-                if (response.data.success) {
-                    $scope.cupStats = {
-                        total_cups: response.data.total_cups,
-                        remaining_cups: response.data.remaining_cups
-                    };
-                } else {
-                    console.error('Failed to load cup count');
-                }
-            })
-            .catch(function (error) {
-                console.error('Error loading cup count:', error);
-            });
-    };
-
-    // Refresh cup count manually
-    $scope.refreshCupCount = function () {
-        $scope.loadCupCount();
-        alert('Cup count refreshed!');
     };
 
     $scope.resetAllLeaderboards = function () {
