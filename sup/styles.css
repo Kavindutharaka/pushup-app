@@ -31,12 +31,13 @@ body, html {
 .kiosk-container {
     width: 1080px;
     height: 1920px;
-    background-color: #622467;
+    /* background-color: #622467; */
     color: #FFFFFF;
     font-family: 'Archivo', sans-serif;
     text-transform: uppercase;
     position: relative;
     overflow: hidden;
+    background-image: url(../img/bg.png);
 }
 
 /* Screen Container */

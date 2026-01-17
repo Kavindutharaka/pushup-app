@@ -2,7 +2,7 @@
 // Database Configuration
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
-define('DB_PASS', ''); // Update with your MySQL password
+define('DB_PASS', 'Abc@1234'); // Update with your MySQL password
 define('DB_NAME', 'fitness_challenge');
 
 // Enable error reporting for development
