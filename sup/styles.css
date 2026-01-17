@@ -51,7 +51,7 @@ body, html {
 .logo-top {
     position: absolute;
     top: 87px;
-    left: 52px;
+    left: 278px;
     width: 510px;
     height: auto;
     /* background-color: #FFFFFF; */
@@ -84,7 +84,7 @@ body, html {
 
 .challenge-icon-small {
     position: absolute;
-    top: 480px;
+    top: 365px;
     left: 50%;
     transform: translateX(-50%);
     width: 150px;
@@ -99,15 +99,15 @@ body, html {
 /* Header and Titles */
 .header-title {
     position: absolute;
-    top: 200px;
-    right: 45px;
+    top: 285px;
+    right: 322px;
     width: 450px;
     text-align: left;
 }
 
 .header-title-small {
     position: absolute;
-    top: 380px;
+    top: 170px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -180,7 +180,18 @@ body, html {
 /* Challenge Menu Buttons */
 .challenge-menu {
     position: absolute;
-    top: 850px;
+    top: 660px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 900px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.challenge-menu-2 {
+    position: absolute;
+    top: 920px;
     left: 50%;
     transform: translateX(-50%);
     width: 900px;
@@ -518,7 +529,7 @@ body, html {
 /* Leaderboard */
 .leaderboard-title {
     position: absolute;
-    top: 680px;
+    top: 620px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
