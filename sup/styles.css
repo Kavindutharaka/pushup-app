@@ -70,7 +70,7 @@ body, html {
 /* Challenge Identification Icons */
 .challenge-icon {
     position: absolute;
-    top: 350px;
+    top: 500px;
     left: 50%;
     transform: translateX(-50%);
     width: 200px;
@@ -84,7 +84,7 @@ body, html {
 
 .challenge-icon-small {
     position: absolute;
-    top: 385px;
+    top: 480px;
     left: 50%;
     transform: translateX(-50%);
     width: 150px;
@@ -99,7 +99,7 @@ body, html {
 /* Header and Titles */
 .header-title {
     position: absolute;
-    top: 100px;
+    top: 200px;
     right: 45px;
     width: 450px;
     text-align: left;
@@ -107,7 +107,7 @@ body, html {
 
 .header-title-small {
     position: absolute;
-    top: 220px;
+    top: 380px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -161,7 +161,7 @@ body, html {
 
 .challenge-title {
     position: absolute;
-    top: 560px;
+    top: 710px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -170,7 +170,7 @@ body, html {
 
 .challenge-title-small {
     position: absolute;
-    top: 565px;
+    top: 660px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -180,7 +180,7 @@ body, html {
 /* Challenge Menu Buttons */
 .challenge-menu {
     position: absolute;
-    top: 700px;
+    top: 850px;
     left: 50%;
     transform: translateX(-50%);
     width: 900px;
@@ -256,7 +256,7 @@ body, html {
 /* Registration Form */
 .registration-form {
     position: absolute;
-    top: 700px;
+    top: 780px;
     left: 50%;
     transform: translateX(-50%);
     width: 800px;
@@ -324,7 +324,7 @@ body, html {
 /* Activity Area (Active Challenge Screens) */
 .activity-area {
     position: absolute;
-    top: 720px;
+    top: 800px;
     left: 50%;
     transform: translateX(-50%);
     width: 900px;
@@ -431,7 +431,7 @@ body, html {
 /* Result Area */
 .result-area {
     position: absolute;
-    top: 700px;
+    top: 780px;
     left: 50%;
     transform: translateX(-50%);
     width: 900px;
@@ -518,7 +518,7 @@ body, html {
 /* Leaderboard */
 .leaderboard-title {
     position: absolute;
-    top: 580px;
+    top: 680px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -527,7 +527,7 @@ body, html {
 
 .leaderboard-table {
     position: absolute;
-    top: 770px;
+    top: 830px;
     left: 50%;
     transform: translateX(-50%);
     width: 900px;
