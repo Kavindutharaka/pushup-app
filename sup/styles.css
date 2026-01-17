@@ -890,22 +890,37 @@ body, html {
 
 /* Number keyboard - single row */
 .number-key {
-    width: 70px;
-    height: 70px;
-    font-size: 32px;
+    width: 85px;
+    height: 85px;
+    font-size: 38px;
 }
 
 /* Text keyboard - QWERTY layout */
 .text-key {
-    width: 65px;
-    height: 65px;
-    font-size: 28px;
+    width: 75px;
+    height: 75px;
+    font-size: 32px;
 }
 
 .space-key {
     width: 400px;
-    height: 65px;
-    font-size: 24px;
+    height: 75px;
+    font-size: 28px;
+    flex: 1;
+    margin-right: 10px;
+}
+
+.done-key {
+    width: 250px;
+    height: 85px;
+    font-size: 32px;
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    color: white;
+    font-weight: 800;
+}
+
+.done-key:hover {
+    background: linear-gradient(135deg, #45a049 0%, #3d8b40 100%);
 }
 
 /* Backspace key styling */
