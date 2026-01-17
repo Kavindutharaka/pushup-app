@@ -836,3 +836,86 @@ body, html {
         transform-origin: top left;
     }
 } */
+
+/* Custom On-Screen Keyboards */
+.custom-keyboard {
+    position: fixed;
+    background: linear-gradient(135deg, #622467 0%, #4a1c4e 100%);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: none;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+}
+
+.custom-keyboard.keyboard-visible {
+    display: block;
+}
+
+.keyboard-row {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.keyboard-row:last-child {
+    margin-bottom: 0;
+}
+
+.key-btn {
+    background: rgba(255, 255, 255, 0.9);
+    color: #622467;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.key-btn:hover {
+    background: #FFFFFF;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
+}
+
+.key-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Number keyboard - single row */
+.number-key {
+    width: 70px;
+    height: 70px;
+    font-size: 32px;
+}
+
+/* Text keyboard - QWERTY layout */
+.text-key {
+    width: 65px;
+    height: 65px;
+    font-size: 28px;
+}
+
+.space-key {
+    width: 400px;
+    height: 65px;
+    font-size: 24px;
+}
+
+/* Backspace key styling */
+.key-btn:contains('⌫') {
+    background: rgba(255, 100, 100, 0.9);
+    color: white;
+}
+
+/* Input field cursor for keyboard inputs */
+input[readonly].keyboard-input {
+    cursor: pointer;
+    user-select: none;
+}

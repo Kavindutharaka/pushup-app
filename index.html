@@ -9,6 +9,7 @@
 
     <script src="./sup/angular.min.js"></script>
     <script src="./app.js"></script>
+    <script src="./keyboard.js"></script>
 
     <link rel="stylesheet" href="./sup/styles.css">
 </head>
@@ -74,10 +75,10 @@
             <span class="title-text-lg">{{selectedChallenge.name}}</span>
         </div>
         <div class="registration-form">
-            <input type="text" class="input-field" placeholder="" ng-model="playerName" />
+            <input type="text" class="input-field keyboard-input" placeholder="" ng-model="playerName" custom-keyboard="text" />
             <label class="input-label">ENTER PLAYER NAME</label>
 
-            <input type="tel" class="input-field" placeholder="" ng-model="playerContact" />
+            <input type="tel" class="input-field keyboard-input" placeholder="" ng-model="playerContact" custom-keyboard="number" />
             <label class="input-label">CONTACT NUMBER</label>
 
             <button class="start-btn" ng-click="beginChallenge()">START THE<br>CHALLENGE</button>
@@ -214,7 +215,7 @@
             <div class="player-name">{{playerName}}</div>
             <div class="result-label">COMPLETED</div>
             <div class="result-input-container">
-                <input type="number" class="result-input" ng-model="finalScore" />
+                <input type="number" class="result-input keyboard-input" ng-model="finalScore" custom-keyboard="number" />
             </div>
             <div class="result-unit">PUSHUPS</div>
             <button class="submit-btn" ng-click="submitScore()">SUBMIT</button>
@@ -258,7 +259,7 @@
             <div class="player-name">{{playerName}}</div>
             <div class="result-label">SUCCESSFULLY MADE</div>
             <div class="result-input-container">
-                <input type="number" class="result-input" ng-model="finalScore" />
+                <input type="number" class="result-input keyboard-input" ng-model="finalScore" custom-keyboard="number" />
             </div>
             <div class="result-unit">SHOTS</div>
             <button class="submit-btn" ng-click="submitScore()">SUBMIT</button>
@@ -281,7 +282,7 @@
             <div class="player-name">{{playerName}}</div>
             <div class="result-label">SUCCESSFULLY MADE</div>
             <div class="result-input-container">
-                <input type="number" class="result-input" ng-model="finalScore" />
+                <input type="number" class="result-input keyboard-input" ng-model="finalScore" custom-keyboard="number" />
             </div>
             <div class="result-unit">SHOTS</div>
             <button class="submit-btn" ng-click="submitScore()">SUBMIT</button>
@@ -304,7 +305,7 @@
             <div class="player-name">{{playerName}}</div>
             <div class="result-label">SUCCESSFULLY CAUGHT</div>
             <div class="result-input-container">
-                <input type="number" class="result-input" ng-model="finalScore" />
+                <input type="number" class="result-input keyboard-input" ng-model="finalScore" custom-keyboard="number" />
             </div>
             <div class="result-unit">STICKS</div>
             <button class="submit-btn" ng-click="submitScore()">SUBMIT</button>
