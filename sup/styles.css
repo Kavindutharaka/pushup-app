@@ -252,6 +252,35 @@ body, html {
     padding: 8px;
 }
 
+/* Mode Selection */
+.mode-selection-text {
+    position: absolute;
+    top: 720px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: 900px;
+}
+
+.mode-selection-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 42px;
+    font-weight: 600;
+    color: #FFFFFF;
+    letter-spacing: 2px;
+}
+
+.mode-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.mode-icon {
+    font-size: 60px;
+}
+
 /* Registration Form */
 .registration-form {
     position: absolute;
@@ -318,6 +347,237 @@ body, html {
 
 .start-btn:active {
     transform: scale(0.98);
+}
+
+/* Multiplayer Registration */
+.multiplayer-registration {
+    position: absolute;
+    top: 700px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1000px;
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.player-registration-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+}
+
+.player-label {
+    font-size: 48px;
+    font-family: 'Bebas Neue', sans-serif;
+    color: #FFFFFF;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+.player-divider {
+    width: 4px;
+    height: 450px;
+    background: linear-gradient(180deg, transparent 0%, #FFFFFF 20%, #FFFFFF 80%, transparent 100%);
+    opacity: 0.6;
+}
+
+.input-field-multi {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    border-bottom: 3px solid #FFFFFF;
+    color: #FFFFFF;
+    font-size: 36px;
+    font-family: 'Archivo', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 15px 10px;
+    text-align: center;
+    outline: none;
+}
+
+.input-field-multi::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.input-label-multi {
+    font-size: 28px;
+    font-family: 'Sora', sans-serif;
+    font-weight: 400;
+    color: #FFFFFF;
+    margin-top: -20px;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.start-btn-multi {
+    background-color: #FFFFFF;
+    color: #622467;
+    border: none;
+    font-size: 46px;
+    font-weight: 700;
+    font-family: 'Archivo', sans-serif;
+    text-transform: uppercase;
+    padding: 30px 80px;
+    cursor: pointer;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    line-height: 1.3;
+    letter-spacing: 1.5px;
+    position: absolute;
+    top: 1220px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.start-btn-multi:hover {
+    transform: translateX(-50%) scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.start-btn-multi:active {
+    transform: translateX(-50%) scale(0.98);
+}
+
+/* Multiplayer Game Area */
+.multiplayer-game-area {
+    position: absolute;
+    top: 600px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1000px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.player-side {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.player-name-multi {
+    font-size: 56px;
+    font-family: 'Bebas Neue', sans-serif;
+    color: #FFFFFF;
+    letter-spacing: 3px;
+}
+
+.player-name-value {
+    font-size: 42px;
+    font-family: 'Archivo', sans-serif;
+    color: #FFFFFF;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.center-timer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.timer-display-multi {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 280px;
+    height: 280px;
+}
+
+.timer-display-side {
+    width: 380px;
+    height: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.timer-value-side {
+    font-size: 160px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-weight: 400;
+    color: #FFFFFF;
+    z-index: 10;
+    letter-spacing: 3px;
+}
+
+.finish-btn {
+    background-color: #4CAF50;
+    color: #FFFFFF;
+    border: none;
+    font-size: 48px;
+    font-weight: 700;
+    font-family: 'Archivo', sans-serif;
+    text-transform: uppercase;
+    padding: 25px 60px;
+    cursor: pointer;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    letter-spacing: 2px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.finish-btn:hover:not(:disabled) {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+.finish-btn:disabled {
+    background-color: #999999;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.finish-btn:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+.plank-divider {
+    width: 6px;
+    height: 600px;
+    background: linear-gradient(180deg, transparent 0%, #FFFFFF 10%, #FFFFFF 90%, transparent 100%);
+    opacity: 0.5;
+}
+
+.submit-multi-btn {
+    background-color: #FFFFFF;
+    color: #622467;
+    border: none;
+    font-size: 52px;
+    font-weight: 700;
+    font-family: 'Archivo', sans-serif;
+    text-transform: uppercase;
+    padding: 35px 90px;
+    cursor: pointer;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    letter-spacing: 2px;
+    position: absolute;
+    top: 1320px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.submit-multi-btn:hover {
+    transform: translateX(-50%) scale(1.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+.submit-multi-btn:active {
+    transform: translateX(-50%) scale(0.98);
 }
 
 /* Activity Area (Active Challenge Screens) */
