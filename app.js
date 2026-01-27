@@ -200,10 +200,10 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout, $http) {
             // Main timer keeps running
         }
 
-        // When both players stop, wait 2 seconds then move to result screen
+        // When both players stop, stop the timer immediately, then navigate after 2 seconds
         if ($scope.player1Finished && $scope.player2Finished) {
+            $scope.stopTimer(); // Stop counter immediately
             $timeout(function () {
-                $scope.stopTimer();
                 $scope.currentView = 'resultMultiplayer' + capitalizeFirst($scope.selectedChallenge.id);
             }, 2000);
         }
