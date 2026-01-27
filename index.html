@@ -239,19 +239,29 @@
             <div class="player-side">
                 <div class="player-name-multi">PLAYER 1</div>
                 <div class="player-name-value">{{playerName}}</div>
-                <div class="timer-display-side">
-                    <div class="timer-value-side">{{elapsedTime}}</div>
+                <div class="player-time-display" ng-show="player1Finished">
+                    <div class="player-time-label">TIME</div>
+                    <div class="player-time-value">{{finalScore}}</div>
+                    <div class="player-time-unit">SEC</div>
                 </div>
                 <button class="finish-btn" ng-click="stopPlankPlayer(1)" ng-disabled="player1Finished">
                     {{player1Finished ? 'STOPPED' : 'STOP'}}
                 </button>
             </div>
-            <div class="plank-divider"></div>
+            <div class="center-timer">
+                <div class="timer-display-multi">
+                    <div class="timer-bar"></div>
+                    <div class="timer-bar"></div>
+                    <div class="timer-value">{{elapsedTime}}</div>
+                </div>
+            </div>
             <div class="player-side">
                 <div class="player-name-multi">PLAYER 2</div>
                 <div class="player-name-value">{{player2Name}}</div>
-                <div class="timer-display-side">
-                    <div class="timer-value-side">{{elapsedTime2}}</div>
+                <div class="player-time-display" ng-show="player2Finished">
+                    <div class="player-time-label">TIME</div>
+                    <div class="player-time-value">{{finalScore2}}</div>
+                    <div class="player-time-unit">SEC</div>
                 </div>
                 <button class="finish-btn" ng-click="stopPlankPlayer(2)" ng-disabled="player2Finished">
                     {{player2Finished ? 'STOPPED' : 'STOP'}}

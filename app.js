@@ -190,26 +190,22 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout, $http) {
     $scope.stopPlankPlayer = function (playerNum) {
         if (playerNum === 1 && !$scope.player1Finished) {
             $scope.player1Finished = true;
+            // Capture current time from main counter for Player 1
             $scope.finalScore = $scope.elapsedTime;
-            // Stop player 1 timer
-            if ($scope.timerInterval) {
-                $interval.cancel($scope.timerInterval);
-                $scope.timerInterval = null;
-            }
+            // Main timer keeps running for Player 2
         } else if (playerNum === 2 && !$scope.player2Finished) {
             $scope.player2Finished = true;
-            $scope.finalScore2 = $scope.elapsedTime2;
-            // Stop player 2 timer
-            if ($scope.timerInterval2) {
-                $interval.cancel($scope.timerInterval2);
-                $scope.timerInterval2 = null;
-            }
+            // Capture current time from main counter for Player 2
+            $scope.finalScore2 = $scope.elapsedTime;
+            // Main timer keeps running
         }
 
-        // When both players stop, move to result screen
+        // When both players stop, wait 2 seconds then move to result screen
         if ($scope.player1Finished && $scope.player2Finished) {
-            $scope.stopTimer();
-            $scope.currentView = 'resultMultiplayer' + capitalizeFirst($scope.selectedChallenge.id);
+            $timeout(function () {
+                $scope.stopTimer();
+                $scope.currentView = 'resultMultiplayer' + capitalizeFirst($scope.selectedChallenge.id);
+            }, 2000);
         }
     };
 
@@ -388,29 +384,11 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout, $http) {
         if ($scope.selectedChallenge.type === 'countup') {
             $scope.elapsedTime = 0;
 
-            // For multiplayer plank, start two separate timers
-            if ($scope.gameMode === 'multiplayer') {
-                $scope.elapsedTime2 = 0;
-
-                // Player 1 timer
-                $scope.timerInterval = $interval(function () {
-                    if (!$scope.player1Finished) {
-                        $scope.elapsedTime++;
-                    }
-                }, 1000);
-
-                // Player 2 timer
-                $scope.timerInterval2 = $interval(function () {
-                    if (!$scope.player2Finished) {
-                        $scope.elapsedTime2++;
-                    }
-                }, 1000);
-            } else {
-                // Single player timer
-                $scope.timerInterval = $interval(function () {
-                    $scope.elapsedTime++;
-                }, 1000);
-            }
+            // For both single and multiplayer plank, use one main timer
+            // Timer keeps running until both players stop (in multiplayer)
+            $scope.timerInterval = $interval(function () {
+                $scope.elapsedTime++;
+            }, 1000);
         } else if ($scope.selectedChallenge.type === 'countdown') {
             $scope.remainingTime = $scope.selectedChallenge.duration;
             $scope.finalScore = 0;
