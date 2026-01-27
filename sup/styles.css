@@ -786,6 +786,129 @@ body, html {
     transform: scale(0.98);
 }
 
+/* Multiplayer Result Area */
+.multiplayer-result-area {
+    position: absolute;
+    top: 650px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1000px;
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.player-result-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.player-label-result {
+    font-size: 48px;
+    font-family: 'Bebas Neue', sans-serif;
+    color: #FFFFFF;
+    letter-spacing: 2px;
+}
+
+.player-name-result {
+    font-size: 38px;
+    font-family: 'Archivo', sans-serif;
+    color: #FFFFFF;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.result-label-multi {
+    font-size: 32px;
+    font-family: 'Sora', sans-serif;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #FFFFFF;
+    margin-top: 10px;
+}
+
+.result-value-multi {
+    font-size: 140px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-weight: 400;
+    margin: 30px 0;
+    letter-spacing: 5px;
+    color: #FFFFFF;
+}
+
+.result-input-multi {
+    background-color: transparent;
+    border: none;
+    border-bottom: 5px solid #FFFFFF;
+    color: #FFFFFF;
+    font-size: 140px;
+    font-weight: 400;
+    font-family: 'Bebas Neue', sans-serif;
+    text-align: center;
+    width: 350px;
+    outline: none;
+    letter-spacing: 5px;
+}
+
+.result-input-multi::-webkit-outer-spin-button,
+.result-input-multi::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.result-input-multi[type=number] {
+    -moz-appearance: textfield;
+}
+
+.result-unit-multi {
+    font-size: 38px;
+    font-family: 'Sora', sans-serif;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: #FFFFFF;
+}
+
+.result-divider {
+    width: 4px;
+    height: 550px;
+    background: linear-gradient(180deg, transparent 0%, #FFFFFF 10%, #FFFFFF 90%, transparent 100%);
+    opacity: 0.5;
+}
+
+.submit-multi-result-btn {
+    background-color: #FFFFFF;
+    color: #622467;
+    border: none;
+    font-size: 52px;
+    font-weight: 700;
+    font-family: 'Archivo', sans-serif;
+    text-transform: uppercase;
+    padding: 30px 120px;
+    cursor: pointer;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    letter-spacing: 2px;
+    position: absolute;
+    top: 1310px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.submit-multi-result-btn:hover {
+    transform: translateX(-50%) scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.submit-multi-result-btn:active {
+    transform: translateX(-50%) scale(0.98);
+}
+
 /* Leaderboard */
 .leaderboard-title {
     position: absolute;

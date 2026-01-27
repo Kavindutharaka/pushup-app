@@ -199,7 +199,6 @@
                 </button>
             </div>
         </div>
-        <button class="submit-multi-btn" ng-click="submitMultiplayerScores()" ng-show="player1Finished && player2Finished">SUBMIT SCORES</button>
         <img class="home-icon" src="./Icon/home.png" alt="Home" ng-click="goHome()" />
     </section>
 
@@ -259,7 +258,6 @@
                 </button>
             </div>
         </div>
-        <button class="submit-multi-btn" ng-click="submitMultiplayerScores()" ng-show="player1Finished && player2Finished">SUBMIT SCORES</button>
         <img class="home-icon" src="./Icon/home.png" alt="Home" ng-click="goHome()" />
     </section>
 
@@ -374,6 +372,74 @@
         </div>
         <img class="home-icon" src="./Icon/home.png" alt="Home" ng-click="goHome()" />
         <img class="next-icon" src="./Icon/home.png" alt="Next" ng-click="submitScore()" />
+    </section>
+
+    <!-- RESULT SCREEN - PUSHUP MULTIPLAYER -->
+    <section ng-show="currentView == 'resultMultiplayerPushup'" class="screen">
+        <img class="logo-top-small" src="./img/logo.png" alt="Moov Advance Logo" />
+        <div class="header-title-small">
+            <img class="title-image-small" src="./img/title.png" alt="Weekend Fitness Challenge" />
+        </div>
+        <img class="challenge-icon-small" src="./logo/pushup&plank.png" alt="Push-Up Challenge Icon" />
+        <div class="challenge-title-small">
+            <span class="title-text-lg">PUSH-UP CHALLENGE - RESULTS</span>
+        </div>
+        <div class="multiplayer-result-area">
+            <div class="player-result-col">
+                <div class="player-label-result">PLAYER 1</div>
+                <div class="player-name-result">{{playerName}}</div>
+                <div class="result-label-multi">COMPLETED</div>
+                <div class="result-input-container">
+                    <input type="number" class="result-input-multi keyboard-input" ng-model="finalScore" custom-keyboard="number" />
+                </div>
+                <div class="result-unit-multi">PUSHUPS</div>
+            </div>
+            <div class="result-divider"></div>
+            <div class="player-result-col">
+                <div class="player-label-result">PLAYER 2</div>
+                <div class="player-name-result">{{player2Name}}</div>
+                <div class="result-label-multi">COMPLETED</div>
+                <div class="result-input-container">
+                    <input type="number" class="result-input-multi keyboard-input" ng-model="finalScore2" custom-keyboard="number" />
+                </div>
+                <div class="result-unit-multi">PUSHUPS</div>
+            </div>
+        </div>
+        <button class="submit-multi-result-btn" ng-click="submitMultiplayerScores()">SUBMIT</button>
+        <img class="home-icon" src="./Icon/home.png" alt="Home" ng-click="goHome()" />
+        <img class="next-icon" src="./Icon/home.png" alt="Next" ng-click="submitMultiplayerScores()" />
+    </section>
+
+    <!-- RESULT SCREEN - PLANK MULTIPLAYER -->
+    <section ng-show="currentView == 'resultMultiplayerPlank'" class="screen">
+        <img class="logo-top-small" src="./img/logo.png" alt="Moov Advance Logo" />
+        <div class="header-title-small">
+            <img class="title-image-small" src="./img/title.png" alt="Weekend Fitness Challenge" />
+        </div>
+        <img class="challenge-icon-small" src="./logo/pushup&plank.png" alt="Plank Challenge Icon" />
+        <div class="challenge-title-small">
+            <span class="title-text-lg">PLANK CHALLENGE - RESULTS</span>
+        </div>
+        <div class="multiplayer-result-area">
+            <div class="player-result-col">
+                <div class="player-label-result">PLAYER 1</div>
+                <div class="player-name-result">{{playerName}}</div>
+                <div class="result-label-multi">HELD A PLANK FOR</div>
+                <div class="result-value-multi">{{finalScore}}</div>
+                <div class="result-unit-multi">SECONDS</div>
+            </div>
+            <div class="result-divider"></div>
+            <div class="player-result-col">
+                <div class="player-label-result">PLAYER 2</div>
+                <div class="player-name-result">{{player2Name}}</div>
+                <div class="result-label-multi">HELD A PLANK FOR</div>
+                <div class="result-value-multi">{{finalScore2}}</div>
+                <div class="result-unit-multi">SECONDS</div>
+            </div>
+        </div>
+        <button class="submit-multi-result-btn" ng-click="submitMultiplayerScores()">SUBMIT</button>
+        <img class="home-icon" src="./Icon/home.png" alt="Home" ng-click="goHome()" />
+        <img class="next-icon" src="./Icon/home.png" alt="Next" ng-click="submitMultiplayerScores()" />
     </section>
 
     <!-- RESULT SCREEN - BASKETBALL -->

@@ -174,22 +174,16 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout, $http) {
     $scope.finishPlayer = function (playerNum) {
         if (playerNum === 1) {
             $scope.player1Finished = true;
-            var score = prompt('Enter Player 1 (' + $scope.playerName + ') score:');
-            if (score && !isNaN(score) && score > 0) {
-                $scope.finalScore = parseInt(score);
-            } else {
-                alert('Invalid score. Please try again.');
-                $scope.player1Finished = false;
-            }
         } else if (playerNum === 2) {
             $scope.player2Finished = true;
-            var score = prompt('Enter Player 2 (' + $scope.player2Name + ') score:');
-            if (score && !isNaN(score) && score > 0) {
-                $scope.finalScore2 = parseInt(score);
-            } else {
-                alert('Invalid score. Please try again.');
-                $scope.player2Finished = false;
-            }
+        }
+
+        // When both players finish, move to result entry screen
+        if ($scope.player1Finished && $scope.player2Finished) {
+            $scope.stopTimer();
+            $scope.finalScore = 0;
+            $scope.finalScore2 = 0;
+            $scope.currentView = 'resultMultiplayer' + capitalizeFirst($scope.selectedChallenge.id);
         }
     };
 
@@ -211,17 +205,30 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout, $http) {
                 $scope.timerInterval2 = null;
             }
         }
+
+        // When both players stop, move to result screen
+        if ($scope.player1Finished && $scope.player2Finished) {
+            $scope.stopTimer();
+            $scope.currentView = 'resultMultiplayer' + capitalizeFirst($scope.selectedChallenge.id);
+        }
     };
 
     $scope.submitMultiplayerScores = function () {
-        if (!$scope.player1Finished || !$scope.player2Finished) {
-            alert('Both players must finish before submitting scores');
-            return;
+        // Validate scores for push-up (plank scores are auto-captured)
+        if ($scope.selectedChallenge.type === 'countdown') {
+            if (!$scope.finalScore || $scope.finalScore <= 0) {
+                alert('Please enter a valid score for Player 1');
+                return;
+            }
+            if (!$scope.finalScore2 || $scope.finalScore2 <= 0) {
+                alert('Please enter a valid score for Player 2');
+                return;
+            }
         }
 
         $scope.stopTimer();
 
-        // Submit player 1 score
+        // Add both players to leaderboard
         var leaderboardKey = 'leaderboard_' + $scope.selectedChallenge.id;
         var leaderboard = JSON.parse(localStorage.getItem(leaderboardKey) || '[]');
 
@@ -266,7 +273,7 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout, $http) {
             console.error('Error saving Player 2 score:', error);
         });
 
-        alert('Scores submitted for both players!');
+        // Show leaderboard
         $scope.showLeaderboard();
     };
 
