@@ -352,7 +352,7 @@ body, html {
 /* Multiplayer Registration */
 .multiplayer-registration {
     position: absolute;
-    top: 700px;
+    top: 750px;
     left: 50%;
     transform: translateX(-50%);
     width: 1000px;
@@ -366,7 +366,7 @@ body, html {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 25px;
     align-items: center;
 }
 
@@ -375,12 +375,12 @@ body, html {
     font-family: 'Bebas Neue', sans-serif;
     color: #FFFFFF;
     letter-spacing: 2px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .player-divider {
     width: 4px;
-    height: 450px;
+    height: 400px;
     background: linear-gradient(180deg, transparent 0%, #FFFFFF 20%, #FFFFFF 80%, transparent 100%);
     opacity: 0.6;
 }
@@ -391,11 +391,11 @@ body, html {
     border: none;
     border-bottom: 3px solid #FFFFFF;
     color: #FFFFFF;
-    font-size: 36px;
+    font-size: 34px;
     font-family: 'Archivo', sans-serif;
     font-weight: 600;
     text-transform: uppercase;
-    padding: 15px 10px;
+    padding: 12px 10px;
     text-align: center;
     outline: none;
 }
@@ -405,11 +405,11 @@ body, html {
 }
 
 .input-label-multi {
-    font-size: 28px;
+    font-size: 26px;
     font-family: 'Sora', sans-serif;
     font-weight: 400;
     color: #FFFFFF;
-    margin-top: -20px;
+    margin-top: -15px;
     text-align: center;
     letter-spacing: 1px;
 }
@@ -422,14 +422,14 @@ body, html {
     font-weight: 700;
     font-family: 'Archivo', sans-serif;
     text-transform: uppercase;
-    padding: 30px 80px;
+    padding: 28px 80px;
     cursor: pointer;
     border-radius: 50px;
     transition: all 0.3s ease;
     line-height: 1.3;
     letter-spacing: 1.5px;
     position: absolute;
-    top: 1220px;
+    top: 1280px;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -446,14 +446,14 @@ body, html {
 /* Multiplayer Game Area */
 .multiplayer-game-area {
     position: absolute;
-    top: 600px;
+    top: 750px;
     left: 50%;
     transform: translateX(-50%);
     width: 1000px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 30px;
+    gap: 40px;
 }
 
 .player-side {
@@ -461,23 +461,27 @@ body, html {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 30px;
+    gap: 25px;
 }
 
 .player-name-multi {
-    font-size: 56px;
+    font-size: 52px;
     font-family: 'Bebas Neue', sans-serif;
     color: #FFFFFF;
     letter-spacing: 3px;
 }
 
 .player-name-value {
-    font-size: 42px;
+    font-size: 38px;
     font-family: 'Archivo', sans-serif;
     color: #FFFFFF;
     font-weight: 700;
     text-transform: uppercase;
     text-align: center;
+    max-width: 350px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .center-timer {
@@ -491,13 +495,13 @@ body, html {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 280px;
-    height: 280px;
+    width: 300px;
+    height: 300px;
 }
 
 .timer-display-side {
-    width: 380px;
-    height: 240px;
+    width: 350px;
+    height: 220px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -505,7 +509,7 @@ body, html {
 }
 
 .timer-value-side {
-    font-size: 160px;
+    font-size: 140px;
     font-family: 'Bebas Neue', sans-serif;
     font-weight: 400;
     color: #FFFFFF;
@@ -517,11 +521,11 @@ body, html {
     background-color: #4CAF50;
     color: #FFFFFF;
     border: none;
-    font-size: 48px;
+    font-size: 44px;
     font-weight: 700;
     font-family: 'Archivo', sans-serif;
     text-transform: uppercase;
-    padding: 25px 60px;
+    padding: 22px 55px;
     cursor: pointer;
     border-radius: 15px;
     transition: all 0.3s ease;
@@ -546,7 +550,7 @@ body, html {
 
 .plank-divider {
     width: 6px;
-    height: 600px;
+    height: 550px;
     background: linear-gradient(180deg, transparent 0%, #FFFFFF 10%, #FFFFFF 90%, transparent 100%);
     opacity: 0.5;
 }
@@ -555,12 +559,14 @@ body, html {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
-    margin: 20px 0;
+    gap: 8px;
+    margin: 15px 0;
+    height: 220px;
+    justify-content: center;
 }
 
 .player-time-label {
-    font-size: 32px;
+    font-size: 30px;
     font-family: 'Sora', sans-serif;
     font-weight: 600;
     color: #4CAF50;
@@ -568,7 +574,7 @@ body, html {
 }
 
 .player-time-value {
-    font-size: 120px;
+    font-size: 110px;
     font-family: 'Bebas Neue', sans-serif;
     font-weight: 400;
     color: #4CAF50;
@@ -577,7 +583,7 @@ body, html {
 }
 
 .player-time-unit {
-    font-size: 36px;
+    font-size: 32px;
     font-family: 'Sora', sans-serif;
     font-weight: 600;
     color: #4CAF50;
@@ -810,7 +816,7 @@ body, html {
 /* Multiplayer Result Area */
 .multiplayer-result-area {
     position: absolute;
-    top: 650px;
+    top: 750px;
     left: 50%;
     transform: translateX(-50%);
     width: 1000px;
@@ -825,40 +831,44 @@ body, html {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 18px;
 }
 
 .player-label-result {
-    font-size: 48px;
+    font-size: 46px;
     font-family: 'Bebas Neue', sans-serif;
     color: #FFFFFF;
     letter-spacing: 2px;
 }
 
 .player-name-result {
-    font-size: 38px;
+    font-size: 36px;
     font-family: 'Archivo', sans-serif;
     color: #FFFFFF;
     font-weight: 700;
     text-transform: uppercase;
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    max-width: 400px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .result-label-multi {
-    font-size: 32px;
+    font-size: 30px;
     font-family: 'Sora', sans-serif;
     font-weight: 600;
     letter-spacing: 1px;
     color: #FFFFFF;
-    margin-top: 10px;
+    margin-top: 8px;
 }
 
 .result-value-multi {
-    font-size: 140px;
+    font-size: 130px;
     font-family: 'Bebas Neue', sans-serif;
     font-weight: 400;
-    margin: 30px 0;
+    margin: 25px 0;
     letter-spacing: 5px;
     color: #FFFFFF;
 }
@@ -868,7 +878,7 @@ body, html {
     border: none;
     border-bottom: 5px solid #FFFFFF;
     color: #FFFFFF;
-    font-size: 140px;
+    font-size: 130px;
     font-weight: 400;
     font-family: 'Bebas Neue', sans-serif;
     text-align: center;
@@ -888,7 +898,7 @@ body, html {
 }
 
 .result-unit-multi {
-    font-size: 38px;
+    font-size: 36px;
     font-family: 'Sora', sans-serif;
     font-weight: 600;
     letter-spacing: 2px;
@@ -897,7 +907,7 @@ body, html {
 
 .result-divider {
     width: 4px;
-    height: 550px;
+    height: 500px;
     background: linear-gradient(180deg, transparent 0%, #FFFFFF 10%, #FFFFFF 90%, transparent 100%);
     opacity: 0.5;
 }
@@ -906,17 +916,17 @@ body, html {
     background-color: #FFFFFF;
     color: #622467;
     border: none;
-    font-size: 52px;
+    font-size: 50px;
     font-weight: 700;
     font-family: 'Archivo', sans-serif;
     text-transform: uppercase;
-    padding: 30px 120px;
+    padding: 28px 110px;
     cursor: pointer;
     border-radius: 50px;
     transition: all 0.3s ease;
     letter-spacing: 2px;
     position: absolute;
-    top: 1310px;
+    top: 1400px;
     left: 50%;
     transform: translateX(-50%);
 }
