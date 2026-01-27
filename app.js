@@ -9,12 +9,20 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout, $http) {
     // Initial state
     $scope.currentView = 'home';
     $scope.selectedChallenge = null;
+    $scope.gameMode = 'single'; // 'single' or 'multiplayer'
     $scope.playerName = '';
     $scope.playerContact = '';
+    $scope.player2Name = '';
+    $scope.player2Contact = '';
     $scope.elapsedTime = 0;
     $scope.remainingTime = 0;
+    $scope.elapsedTime2 = 0; // For player 2 in plank multiplayer
     $scope.finalScore = 0;
+    $scope.finalScore2 = 0; // For player 2
+    $scope.player1Finished = false; // Track if player 1 finished
+    $scope.player2Finished = false; // Track if player 2 finished
     $scope.timerInterval = null;
+    $scope.timerInterval2 = null; // For player 2 in plank multiplayer
     $scope.leaderboardData = [];
 
     // Challenge definitions with configurable countdown durations
@@ -114,16 +122,36 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout, $http) {
 
     $scope.startChallenge = function () {
         $scope.resetGameState();
+        $scope.currentView = 'modeSelection';
+    };
+
+    $scope.selectMode = function (mode) {
+        $scope.gameMode = mode;
         $scope.currentView = 'registration';
     };
 
     $scope.beginChallenge = function () {
+        // Validate player 1
         if (!$scope.playerName || $scope.playerName.trim() === '') {
-            alert('Please enter player name');
+            alert('Please enter Player 1 name');
             return;
         }
 
-        $scope.currentView = 'active' + capitalizeFirst($scope.selectedChallenge.id);
+        // Validate player 2 for multiplayer mode
+        if ($scope.gameMode === 'multiplayer') {
+            if (!$scope.player2Name || $scope.player2Name.trim() === '') {
+                alert('Please enter Player 2 name');
+                return;
+            }
+        }
+
+        // Route to appropriate game screen
+        if ($scope.gameMode === 'multiplayer') {
+            $scope.currentView = 'activeMultiplayer' + capitalizeFirst($scope.selectedChallenge.id);
+        } else {
+            $scope.currentView = 'active' + capitalizeFirst($scope.selectedChallenge.id);
+        }
+
         $scope.startTimer();
     };
 
@@ -140,6 +168,106 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout, $http) {
         }
 
         $scope.currentView = 'result' + capitalizeFirst($scope.selectedChallenge.id);
+    };
+
+    // Multiplayer functions
+    $scope.finishPlayer = function (playerNum) {
+        if (playerNum === 1) {
+            $scope.player1Finished = true;
+            var score = prompt('Enter Player 1 (' + $scope.playerName + ') score:');
+            if (score && !isNaN(score) && score > 0) {
+                $scope.finalScore = parseInt(score);
+            } else {
+                alert('Invalid score. Please try again.');
+                $scope.player1Finished = false;
+            }
+        } else if (playerNum === 2) {
+            $scope.player2Finished = true;
+            var score = prompt('Enter Player 2 (' + $scope.player2Name + ') score:');
+            if (score && !isNaN(score) && score > 0) {
+                $scope.finalScore2 = parseInt(score);
+            } else {
+                alert('Invalid score. Please try again.');
+                $scope.player2Finished = false;
+            }
+        }
+    };
+
+    $scope.stopPlankPlayer = function (playerNum) {
+        if (playerNum === 1 && !$scope.player1Finished) {
+            $scope.player1Finished = true;
+            $scope.finalScore = $scope.elapsedTime;
+            // Stop player 1 timer
+            if ($scope.timerInterval) {
+                $interval.cancel($scope.timerInterval);
+                $scope.timerInterval = null;
+            }
+        } else if (playerNum === 2 && !$scope.player2Finished) {
+            $scope.player2Finished = true;
+            $scope.finalScore2 = $scope.elapsedTime2;
+            // Stop player 2 timer
+            if ($scope.timerInterval2) {
+                $interval.cancel($scope.timerInterval2);
+                $scope.timerInterval2 = null;
+            }
+        }
+    };
+
+    $scope.submitMultiplayerScores = function () {
+        if (!$scope.player1Finished || !$scope.player2Finished) {
+            alert('Both players must finish before submitting scores');
+            return;
+        }
+
+        $scope.stopTimer();
+
+        // Submit player 1 score
+        var leaderboardKey = 'leaderboard_' + $scope.selectedChallenge.id;
+        var leaderboard = JSON.parse(localStorage.getItem(leaderboardKey) || '[]');
+
+        leaderboard.push({
+            name: $scope.playerName,
+            score: $scope.finalScore,
+            timestamp: new Date().getTime()
+        });
+
+        leaderboard.push({
+            name: $scope.player2Name,
+            score: $scope.finalScore2,
+            timestamp: new Date().getTime()
+        });
+
+        leaderboard.sort(function (a, b) {
+            return b.score - a.score;
+        });
+
+        localStorage.setItem(leaderboardKey, JSON.stringify(leaderboard));
+
+        // Save both scores to database
+        $http.post(API_URL + '?action=save_score', {
+            challenge_type: $scope.selectedChallenge.id,
+            player_name: $scope.playerName,
+            player_contact: $scope.playerContact,
+            score: $scope.finalScore
+        }).then(function (response) {
+            console.log('Player 1 score saved:', response.data);
+        }).catch(function (error) {
+            console.error('Error saving Player 1 score:', error);
+        });
+
+        $http.post(API_URL + '?action=save_score', {
+            challenge_type: $scope.selectedChallenge.id,
+            player_name: $scope.player2Name,
+            player_contact: $scope.player2Contact,
+            score: $scope.finalScore2
+        }).then(function (response) {
+            console.log('Player 2 score saved:', response.data);
+        }).catch(function (error) {
+            console.error('Error saving Player 2 score:', error);
+        });
+
+        alert('Scores submitted for both players!');
+        $scope.showLeaderboard();
     };
 
     $scope.submitScore = function () {
@@ -252,16 +380,43 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout, $http) {
 
         if ($scope.selectedChallenge.type === 'countup') {
             $scope.elapsedTime = 0;
-            $scope.timerInterval = $interval(function () {
-                $scope.elapsedTime++;
-            }, 1000);
+
+            // For multiplayer plank, start two separate timers
+            if ($scope.gameMode === 'multiplayer') {
+                $scope.elapsedTime2 = 0;
+
+                // Player 1 timer
+                $scope.timerInterval = $interval(function () {
+                    if (!$scope.player1Finished) {
+                        $scope.elapsedTime++;
+                    }
+                }, 1000);
+
+                // Player 2 timer
+                $scope.timerInterval2 = $interval(function () {
+                    if (!$scope.player2Finished) {
+                        $scope.elapsedTime2++;
+                    }
+                }, 1000);
+            } else {
+                // Single player timer
+                $scope.timerInterval = $interval(function () {
+                    $scope.elapsedTime++;
+                }, 1000);
+            }
         } else if ($scope.selectedChallenge.type === 'countdown') {
             $scope.remainingTime = $scope.selectedChallenge.duration;
             $scope.finalScore = 0;
             $scope.timerInterval = $interval(function () {
                 $scope.remainingTime--;
                 if ($scope.remainingTime <= 0) {
-                    $scope.endChallenge();
+                    if ($scope.gameMode === 'multiplayer') {
+                        // Don't auto-end for multiplayer, just stop timer
+                        $scope.stopTimer();
+                        alert('Time is up! Both players should finish and enter their scores.');
+                    } else {
+                        $scope.endChallenge();
+                    }
                 }
             }, 1000);
         } else if ($scope.selectedChallenge.type === 'manual') {
@@ -273,6 +428,10 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout, $http) {
         if ($scope.timerInterval) {
             $interval.cancel($scope.timerInterval);
             $scope.timerInterval = null;
+        }
+        if ($scope.timerInterval2) {
+            $interval.cancel($scope.timerInterval2);
+            $scope.timerInterval2 = null;
         }
     };
 
@@ -291,9 +450,15 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout, $http) {
     $scope.resetGameState = function () {
         $scope.playerName = '';
         $scope.playerContact = '';
+        $scope.player2Name = '';
+        $scope.player2Contact = '';
         $scope.elapsedTime = 0;
+        $scope.elapsedTime2 = 0;
         $scope.remainingTime = 0;
         $scope.finalScore = 0;
+        $scope.finalScore2 = 0;
+        $scope.player1Finished = false;
+        $scope.player2Finished = false;
     };
 
     // Helper functions

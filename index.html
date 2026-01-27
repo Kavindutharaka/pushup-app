@@ -31,15 +31,15 @@
                 <img class="btn-icon" src="./logo/pushup&plank.png" alt="Plank Icon" />
                 PLANK CHALLENGE
             </button>
-            <button class="challenge-btn-with-icon" ng-click="selectChallenge('basketball')">
+            <button class="challenge-btn-with-icon" ng-click="selectChallenge('basketball')" style="display: none;">
                 <img class="btn-icon" src="./logo/basketball.png" alt="Basketball Icon" />
                 BASKETBALL CHALLENGE
             </button>
-            <button class="challenge-btn-with-icon" ng-click="selectChallenge('football')">
+            <button class="challenge-btn-with-icon" ng-click="selectChallenge('football')" style="display: none;">
                 <img class="btn-icon" src="./logo/football.png" alt="Football Icon" />
                 FOOTBALL CHALLENGE
             </button>
-            <button class="challenge-btn-with-icon" ng-click="selectChallenge('quickreaction')">
+            <button class="challenge-btn-with-icon" ng-click="selectChallenge('quickreaction')" style="display: none;">
                 <img class="btn-icon" src="./logo/quick_reaction .png" alt="Reaction Icon" />
                 REACTION CHALLENGE
             </button>
@@ -64,8 +64,34 @@
         <img class="home-icon" src="./Icon/home.png" alt="Home" ng-click="goHome()" />
     </section>
 
-    <!-- PLAYER REGISTRATION FORM -->
-    <section ng-show="currentView == 'registration'" class="screen">
+    <!-- MODE SELECTION (SINGLE / MULTIPLAYER) -->
+    <section ng-show="currentView == 'modeSelection'" class="screen">
+        <img class="logo-top" src="./img/logo.png" alt="Moov Advance Logo" />
+        <div class="header-title">
+            <img class="title-image" src="./img/title.png" alt="Weekend Fitness Challenge" />
+        </div>
+        <img class="challenge-icon" ng-src="{{getChallengeLogo()}}" alt="Challenge Icon" />
+        <div class="challenge-title">
+            <span class="title-text-xl">{{selectedChallenge.name}}</span>
+        </div>
+        <div class="mode-selection-text">
+            <span class="mode-selection-title">SELECT GAME MODE</span>
+        </div>
+        <div class="challenge-menu">
+            <button class="challenge-btn mode-btn" ng-click="selectMode('single')">
+                <span class="mode-icon">👤</span>
+                SINGLE PLAYER
+            </button>
+            <button class="challenge-btn mode-btn" ng-click="selectMode('multiplayer')">
+                <span class="mode-icon">👥</span>
+                2 PLAYERS
+            </button>
+        </div>
+        <img class="home-icon" src="./Icon/home.png" alt="Home" ng-click="goHome()" />
+    </section>
+
+    <!-- PLAYER REGISTRATION FORM (SINGLE PLAYER) -->
+    <section ng-show="currentView == 'registration' && gameMode == 'single'" class="screen">
         <img class="logo-top-small" src="./img/logo.png" alt="Moov Advance Logo" />
         <div class="header-title-small">
             <img class="title-image-small" src="./img/title.png" alt="Weekend Fitness Challenge" />
@@ -83,6 +109,37 @@
 
             <button class="start-btn" ng-click="beginChallenge()">START THE<br>CHALLENGE</button>
         </div>
+        <img class="home-icon" src="./Icon/home.png" alt="Home" ng-click="goHome()" />
+    </section>
+
+    <!-- PLAYER REGISTRATION FORM (MULTIPLAYER - 2 PLAYERS) -->
+    <section ng-show="currentView == 'registration' && gameMode == 'multiplayer'" class="screen">
+        <img class="logo-top-small" src="./img/logo.png" alt="Moov Advance Logo" />
+        <div class="header-title-small">
+            <img class="title-image-small" src="./img/title.png" alt="Weekend Fitness Challenge" />
+        </div>
+        <img class="challenge-icon-small" ng-src="{{getChallengeLogo()}}" alt="Challenge Icon" />
+        <div class="challenge-title-small">
+            <span class="title-text-lg">{{selectedChallenge.name}} - 2 PLAYERS</span>
+        </div>
+        <div class="multiplayer-registration">
+            <div class="player-registration-col">
+                <div class="player-label">PLAYER 1</div>
+                <input type="text" class="input-field-multi keyboard-input" placeholder="" ng-model="playerName" custom-keyboard="text" />
+                <label class="input-label-multi">PLAYER NAME</label>
+                <input type="tel" class="input-field-multi keyboard-input" placeholder="" ng-model="playerContact" custom-keyboard="number" />
+                <label class="input-label-multi">CONTACT</label>
+            </div>
+            <div class="player-divider"></div>
+            <div class="player-registration-col">
+                <div class="player-label">PLAYER 2</div>
+                <input type="text" class="input-field-multi keyboard-input" placeholder="" ng-model="player2Name" custom-keyboard="text" />
+                <label class="input-label-multi">PLAYER NAME</label>
+                <input type="tel" class="input-field-multi keyboard-input" placeholder="" ng-model="player2Contact" custom-keyboard="number" />
+                <label class="input-label-multi">CONTACT</label>
+            </div>
+        </div>
+        <button class="start-btn-multi" ng-click="beginChallenge()">START THE CHALLENGE</button>
         <img class="home-icon" src="./Icon/home.png" alt="Home" ng-click="goHome()" />
     </section>
 
@@ -109,6 +166,43 @@
         <img class="next-icon" src="./Icon/home.png" alt="Next" ng-click="endChallenge()" />
     </section>
 
+    <!-- ACTIVE CHALLENGE SCREEN - PUSHUP MULTIPLAYER -->
+    <section ng-show="currentView == 'activeMultiplayerPushup'" class="screen">
+        <img class="logo-top-small" src="./img/logo.png" alt="Moov Advance Logo" />
+        <div class="header-title-small">
+            <img class="title-image-small" src="./img/title.png" alt="Weekend Fitness Challenge" />
+        </div>
+        <img class="challenge-icon-small" src="./logo/pushup&plank.png" alt="Push-Up Challenge Icon" />
+        <div class="challenge-title-small">
+            <span class="title-text-lg">PUSH-UP CHALLENGE - 2 PLAYERS</span>
+        </div>
+        <div class="multiplayer-game-area">
+            <div class="player-side">
+                <div class="player-name-multi">PLAYER 1</div>
+                <div class="player-name-value">{{playerName}}</div>
+                <button class="finish-btn" ng-click="finishPlayer(1)" ng-disabled="player1Finished">
+                    {{player1Finished ? 'FINISHED' : 'FINISH'}}
+                </button>
+            </div>
+            <div class="center-timer">
+                <div class="timer-display-multi">
+                    <div class="timer-bar"></div>
+                    <div class="timer-bar"></div>
+                    <div class="timer-value">{{remainingTime}}</div>
+                </div>
+            </div>
+            <div class="player-side">
+                <div class="player-name-multi">PLAYER 2</div>
+                <div class="player-name-value">{{player2Name}}</div>
+                <button class="finish-btn" ng-click="finishPlayer(2)" ng-disabled="player2Finished">
+                    {{player2Finished ? 'FINISHED' : 'FINISH'}}
+                </button>
+            </div>
+        </div>
+        <button class="submit-multi-btn" ng-click="submitMultiplayerScores()" ng-show="player1Finished && player2Finished">SUBMIT SCORES</button>
+        <img class="home-icon" src="./Icon/home.png" alt="Home" ng-click="goHome()" />
+    </section>
+
     <!-- ACTIVE CHALLENGE SCREEN - PLANK -->
     <section ng-show="currentView == 'activePlank'" class="screen">
         <img class="logo-top-small" src="./img/logo.png" alt="Moov Advance Logo" />
@@ -130,6 +224,43 @@
         </div>
         <img class="home-icon" src="./Icon/home.png" alt="Home" ng-click="goHome()" />
         <img class="next-icon" src="./Icon/home.png" alt="Next" ng-click="endChallenge()" />
+    </section>
+
+    <!-- ACTIVE CHALLENGE SCREEN - PLANK MULTIPLAYER -->
+    <section ng-show="currentView == 'activeMultiplayerPlank'" class="screen">
+        <img class="logo-top-small" src="./img/logo.png" alt="Moov Advance Logo" />
+        <div class="header-title-small">
+            <img class="title-image-small" src="./img/title.png" alt="Weekend Fitness Challenge" />
+        </div>
+        <img class="challenge-icon-small" src="./logo/pushup&plank.png" alt="Plank Challenge Icon" />
+        <div class="challenge-title-small">
+            <span class="title-text-lg">PLANK CHALLENGE - 2 PLAYERS</span>
+        </div>
+        <div class="multiplayer-game-area">
+            <div class="player-side">
+                <div class="player-name-multi">PLAYER 1</div>
+                <div class="player-name-value">{{playerName}}</div>
+                <div class="timer-display-side">
+                    <div class="timer-value-side">{{elapsedTime}}</div>
+                </div>
+                <button class="finish-btn" ng-click="stopPlankPlayer(1)" ng-disabled="player1Finished">
+                    {{player1Finished ? 'STOPPED' : 'STOP'}}
+                </button>
+            </div>
+            <div class="plank-divider"></div>
+            <div class="player-side">
+                <div class="player-name-multi">PLAYER 2</div>
+                <div class="player-name-value">{{player2Name}}</div>
+                <div class="timer-display-side">
+                    <div class="timer-value-side">{{elapsedTime2}}</div>
+                </div>
+                <button class="finish-btn" ng-click="stopPlankPlayer(2)" ng-disabled="player2Finished">
+                    {{player2Finished ? 'STOPPED' : 'STOP'}}
+                </button>
+            </div>
+        </div>
+        <button class="submit-multi-btn" ng-click="submitMultiplayerScores()" ng-show="player1Finished && player2Finished">SUBMIT SCORES</button>
+        <img class="home-icon" src="./Icon/home.png" alt="Home" ng-click="goHome()" />
     </section>
 
     <!-- ACTIVE CHALLENGE SCREEN - BASKETBALL -->
