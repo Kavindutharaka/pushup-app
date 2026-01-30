@@ -101,6 +101,43 @@ app.controller('AdminCtrl', function ($scope, $http, $interval) {
         });
     };
 
+    // Edit score functions
+    $scope.editScore = function (score) {
+        score.editing = true;
+        score.newScore = score.score;
+        score.originalScore = score.score;
+    };
+
+    $scope.saveScore = function (score) {
+        if (!score.newScore || score.newScore <= 0) {
+            alert('Please enter a valid score');
+            return;
+        }
+
+        // Send update to server
+        $http.post(API_URL + '?action=update_score', {
+            score_id: score.score_id,
+            new_score: score.newScore
+        }).then(function (response) {
+            if (response.data.success) {
+                score.score = score.newScore;
+                score.editing = false;
+                alert('Score updated successfully!');
+                $scope.loadData(); // Reload data to show updated leaderboard
+            } else {
+                alert('Failed to update score');
+            }
+        }).catch(function (error) {
+            console.error('Error updating score:', error);
+            alert('Error updating score. Please try again.');
+        });
+    };
+
+    $scope.cancelEdit = function (score) {
+        score.editing = false;
+        score.newScore = score.originalScore;
+    };
+
     // Auto-refresh data every 30 seconds
     $interval(function () {
         $scope.loadData();
