@@ -39,6 +39,12 @@ try {
             }
             break;
 
+        case 'update_score':
+            if($method === 'POST') {
+                updateScore($db);
+            }
+            break;
+
         default:
             http_response_code(400);
             echo json_encode(array('error' => 'Invalid action'));
@@ -284,5 +290,48 @@ function getCupCount($db) {
         'total_cups' => $total_cups,
         'remaining_cups' => max(0, $remaining_cups) // Ensure not negative
     ));
+}
+
+// Update player score
+function updateScore($db) {
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    if(!isset($data['score_id']) || !isset($data['new_score'])) {
+        http_response_code(400);
+        echo json_encode(array('error' => 'Missing required fields'));
+        return;
+    }
+
+    $score_id = $data['score_id'];
+    $new_score = $data['new_score'];
+
+    // Validate score
+    if($new_score <= 0) {
+        http_response_code(400);
+        echo json_encode(array('error' => 'Invalid score value'));
+        return;
+    }
+
+    // Update the score
+    $stmt = $db->prepare("
+        UPDATE player_scores
+        SET score = :new_score
+        WHERE score_id = :score_id
+    ");
+
+    $result = $stmt->execute(array(
+        ':new_score' => $new_score,
+        ':score_id' => $score_id
+    ));
+
+    if($result) {
+        echo json_encode(array(
+            'success' => true,
+            'message' => 'Score updated successfully'
+        ));
+    } else {
+        http_response_code(500);
+        echo json_encode(array('error' => 'Failed to update score'));
+    }
 }
 ?>

@@ -232,6 +232,59 @@
             background: #f9f9f9;
         }
 
+        .action-btn {
+            padding: 6px 12px;
+            margin: 0 3px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .edit-btn {
+            background: #667eea;
+            color: white;
+        }
+
+        .edit-btn:hover {
+            background: #5568d3;
+        }
+
+        .save-btn {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .save-btn:hover {
+            background: #45a049;
+        }
+
+        .cancel-btn {
+            background: #f44336;
+            color: white;
+        }
+
+        .cancel-btn:hover {
+            background: #da190b;
+        }
+
+        .edit-score-input {
+            width: 80px;
+            padding: 5px;
+            border: 2px solid #667eea;
+            border-radius: 4px;
+            font-size: 1em;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .edit-score-input:focus {
+            outline: none;
+            border-color: #5568d3;
+        }
+
         .no-data {
             text-align: center;
             padding: 40px;
@@ -314,13 +367,13 @@
             <button class="filter-btn" ng-class="{active: currentFilter === 'plank'}" ng-click="filterChallenge('plank')">
                 Plank
             </button>
-            <button class="filter-btn" ng-class="{active: currentFilter === 'basketball'}" ng-click="filterChallenge('basketball')">
+            <button class="filter-btn" ng-class="{active: currentFilter === 'basketball'}" ng-click="filterChallenge('basketball')" style="display: none;">
                 Basketball
             </button>
-            <button class="filter-btn" ng-class="{active: currentFilter === 'football'}" ng-click="filterChallenge('football')">
+            <button class="filter-btn" ng-class="{active: currentFilter === 'football'}" ng-click="filterChallenge('football')" style="display: none;">
                 Football
             </button>
-            <button class="filter-btn" ng-class="{active: currentFilter === 'quickreaction'}" ng-click="filterChallenge('quickreaction')">
+            <button class="filter-btn" ng-class="{active: currentFilter === 'quickreaction'}" ng-click="filterChallenge('quickreaction')" style="display: none;">
                 Reaction
             </button>
         </div>
@@ -385,6 +438,7 @@
                                     <th>Contact</th>
                                     <th>Score</th>
                                     <th>Date & Time</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -392,8 +446,16 @@
                                     <td>#{{$index + 1}}</td>
                                     <td><strong>{{score.player_name}}</strong></td>
                                     <td>{{score.player_contact || '-'}}</td>
-                                    <td><strong>{{score.score}}</strong></td>
+                                    <td>
+                                        <span ng-if="!score.editing"><strong>{{score.score}}</strong></span>
+                                        <input ng-if="score.editing" type="number" ng-model="score.newScore" class="edit-score-input" />
+                                    </td>
                                     <td>{{formatDateTime(score.played_at)}}</td>
+                                    <td>
+                                        <button ng-if="!score.editing" class="action-btn edit-btn" ng-click="editScore(score)">Edit</button>
+                                        <button ng-if="score.editing" class="action-btn save-btn" ng-click="saveScore(score)">Save</button>
+                                        <button ng-if="score.editing" class="action-btn cancel-btn" ng-click="cancelEdit(score)">Cancel</button>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
