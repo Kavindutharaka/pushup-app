@@ -70,7 +70,7 @@ body, html {
 /* Challenge Identification Icons */
 .challenge-icon {
     position: absolute;
-    top: 420px;
+    top: 495px;
     left: 50%;
     transform: translateX(-50%);
     width: 200px;
@@ -167,8 +167,24 @@ body, html {
     text-align: center;
     width: 900px;
 }
+.challenge-title2 {
+    position: absolute;
+    top: 735px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: 900px;
+}
 
 .challenge-title-small {
+    position: absolute;
+    top: 625px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: 900px;
+}
+.challenge-title-small2 {
     position: absolute;
     top: 660px;
     left: 50%;
@@ -181,6 +197,16 @@ body, html {
 .challenge-menu {
     position: absolute;
     top: 660px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 900px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.challenge-menu3 {
+    position: absolute;
+    top: 1003px;
     left: 50%;
     transform: translateX(-50%);
     width: 900px;
@@ -267,7 +293,7 @@ body, html {
 /* Mode Selection */
 .mode-selection-text {
     position: absolute;
-    top: 720px;
+    top: 826px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
