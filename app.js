@@ -395,12 +395,16 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout, $http) {
             $scope.timerInterval = $interval(function () {
                 $scope.remainingTime--;
                 if ($scope.remainingTime <= 0) {
+                    $scope.stopTimer();
                     if ($scope.gameMode === 'multiplayer') {
-                        // Don't auto-end for multiplayer, just stop timer
-                        $scope.stopTimer();
-                        alert('Time is up! Both players should finish and enter their scores.');
+                        // Auto-navigate to result entry for both players
+                        $scope.finalScore = 0;
+                        $scope.finalScore2 = 0;
+                        $scope.currentView = 'resultMultiplayer' + capitalizeFirst($scope.selectedChallenge.id);
                     } else {
-                        $scope.endChallenge();
+                        // Single player - navigate to result entry
+                        $scope.finalScore = 0;
+                        $scope.currentView = 'result' + capitalizeFirst($scope.selectedChallenge.id);
                     }
                 }
             }, 1000);
