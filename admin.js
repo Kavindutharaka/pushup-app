@@ -106,13 +106,14 @@ app.controller('AdminCtrl', function ($scope, $http, $interval) {
     };
 
     // Edit score functions
-    $scope.editScore = function (score) {
+    $scope.editScore = function (score, challengeType) {
         score.editing = true;
         score.newScore = score.score;
         score.originalScore = score.score;
+        score.challengeType = challengeType;
     };
 
-    $scope.saveScore = function (score) {
+    $scope.saveScore = function (score, challengeType, sessionId) {
         if (!score.newScore || score.newScore <= 0) {
             alert('Please enter a valid score');
             return;
@@ -126,7 +127,11 @@ app.controller('AdminCtrl', function ($scope, $http, $interval) {
             if (response.data.success) {
                 score.score = score.newScore;
                 score.editing = false;
-                alert('Score updated successfully!');
+
+                // Update localStorage leaderboard
+                $scope.syncLeaderboard(challengeType, sessionId);
+
+                alert('Score updated successfully and leaderboard synced!');
                 $scope.loadData(); // Reload data to show updated leaderboard
             } else {
                 alert('Failed to update score');
@@ -135,6 +140,48 @@ app.controller('AdminCtrl', function ($scope, $http, $interval) {
             console.error('Error updating score:', error);
             alert('Error updating score. Please try again.');
         });
+    };
+
+    // Sync localStorage leaderboard with database
+    $scope.syncLeaderboard = function (challengeType, sessionId) {
+        // Get the session data
+        var session = null;
+        for (var type in $scope.groupedSessions) {
+            var sessions = $scope.groupedSessions[type];
+            for (var i = 0; i < sessions.length; i++) {
+                if (sessions[i].session_id === sessionId) {
+                    session = sessions[i];
+                    break;
+                }
+            }
+            if (session) break;
+        }
+
+        if (!session || !session.scores) {
+            console.error('Session not found for leaderboard sync');
+            return;
+        }
+
+        // Build leaderboard from session scores
+        var leaderboard = [];
+        for (var i = 0; i < session.scores.length; i++) {
+            leaderboard.push({
+                name: session.scores[i].player_name,
+                score: parseInt(session.scores[i].score),
+                timestamp: new Date(session.scores[i].played_at).getTime()
+            });
+        }
+
+        // Sort by score (descending)
+        leaderboard.sort(function (a, b) {
+            return b.score - a.score;
+        });
+
+        // Update localStorage
+        var leaderboardKey = 'leaderboard_' + challengeType;
+        localStorage.setItem(leaderboardKey, JSON.stringify(leaderboard));
+
+        console.log('Leaderboard synced for ' + challengeType, leaderboard);
     };
 
     $scope.cancelEdit = function (score) {

@@ -452,8 +452,8 @@
                                     </td>
                                     <td>{{formatDateTime(score.played_at)}}</td>
                                     <td>
-                                        <button ng-if="!score.editing" class="action-btn edit-btn" ng-click="editScore(score)">Edit</button>
-                                        <button ng-if="score.editing" class="action-btn save-btn" ng-click="saveScore(score)">Save</button>
+                                        <button ng-if="!score.editing" class="action-btn edit-btn" ng-click="editScore(score, challengeType)">Edit</button>
+                                        <button ng-if="score.editing" class="action-btn save-btn" ng-click="saveScore(score, challengeType, session.session_id)">Save</button>
                                         <button ng-if="score.editing" class="action-btn cancel-btn" ng-click="cancelEdit(score)">Cancel</button>
                                     </td>
                                 </tr>
