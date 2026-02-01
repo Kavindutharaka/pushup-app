@@ -14,6 +14,10 @@ app.controller('AdminCtrl', function ($scope, $http, $interval) {
     $scope.groupedSessions = {};
     $scope.currentFilter = 'all';
 
+    $scope.go_game = function (){
+        window.location.href = "./index.html";
+    };
+
     // Challenge Labels
     var challengeLabels = {
         'pushup': 'PUSH-UP CHALLENGE',

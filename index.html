@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="./sup/styles.css">
 </head>
 
-<body ng-controller="MainCtrl" class="kiosk-container">
+<body ng-controller="MainCtrl" class="kiosk-container" oncontextmenu="return false;">
 
     <!-- HOME SCREEN / CHALLENGE SELECTION -->
     <section ng-show="currentView == 'home'" class="screen">
@@ -45,6 +45,8 @@
             </button>
         </div>
         <img class="home-icon" src="./Icon/home.png" alt="Home" ng-click="goHome()" />
+        <div ng-click="go_admin()" style="position: absolute; width: 260px; height: 260px; background-color: transparent; left: 0; top: 0;"></div>
+        <div ng-click="go_video()" style="position: absolute; width: 260px; height: 260px; background-color: transparent; right: 0; top: 0;"></div>
     </section>
 
     <!-- CHALLENGE MENU (SEE PLAYER DATA, RESET LEADERBOARD) -->

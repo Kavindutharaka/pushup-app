@@ -25,6 +25,14 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout, $http) {
     $scope.timerInterval2 = null; // For player 2 in plank multiplayer
     $scope.leaderboardData = [];
 
+    $scope.go_admin = function (){
+        window.location.href = "./admin.html";
+    };
+
+    $scope.go_video = function (){
+        window.location.href = "./video.html";
+    };
+
     // Challenge definitions with configurable countdown durations
     $scope.challenges = {
         pushup: {

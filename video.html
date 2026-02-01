@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="FitnessApp" ng-cloak>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekend Fitness Challenge</title>
+    <script src="./sup/angular.min.js"></script>
+</head>
+
+<body ng-controller="VideoCtrl" style="margin: 0; width: 1080px; height: 1920px; overflow: hidden;">
+    <video width="1080" height="1920" autoplay loop muted controls>
+        <source src="./video/video.mp4" type="video/mp4">
+    </video>
+    <div ng-click="go_game()" style="position: absolute; width: 260px; height: 260px; background-color: transparent; right: 0; top: 0;"></div>
+     <script>
+        var app = angular.module('FitnessApp', []);
+
+        app.controller('VideoCtrl', function ($scope, $interval, $timeout, $http) {
+            console.log("Weekend Fitness Challenge - Game Started!");
+            $scope.go_game = function (){
+                window.location.href = "./index.html";
+            };
+            
+        });
+    </script>
+</body>
+</html>
