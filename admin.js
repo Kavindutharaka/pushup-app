@@ -1,10 +1,9 @@
-var app = angular.module('AdminApp', []);
+var app = angular.module('AdminApp', ['MoovDB']);
 
-app.controller('AdminCtrl', function ($scope, $http, $interval) {
+app.controller('AdminCtrl', function ($scope, $http, $interval, DB) {
     console.log("Admin Dashboard Loaded");
 
-    // API Configuration
-    var API_URL = './server/api.php';
+    // Online storage is handled by the shared DB service (sup/db-service.js).
 
     // State
     $scope.loading = true;
@@ -32,19 +31,16 @@ app.controller('AdminCtrl', function ($scope, $http, $interval) {
         $scope.loading = true;
         $scope.error = null;
 
-        $http.get(API_URL + '?action=get_all_data&challenge_type=' + $scope.currentFilter)
-            .then(function (response) {
-                if (response.data.success) {
-                    $scope.allSessions = response.data.sessions;
-                    $scope.filterChallenge($scope.currentFilter);
-                } else {
-                    $scope.error = 'Failed to load data';
-                }
+        // Always fetch the full dataset; filtering is done client-side.
+        DB.getAllData('all')
+            .then(function (sessions) {
+                $scope.allSessions = sessions;
+                $scope.filterChallenge($scope.currentFilter);
                 $scope.loading = false;
             })
             .catch(function (error) {
                 console.error('Error loading data:', error);
-                $scope.error = 'Error connecting to database. Please check your PHP server and MySQL connection.';
+                $scope.error = 'Error connecting to the online database. Please check your internet connection.';
                 $scope.loading = false;
             });
     };
@@ -69,11 +65,6 @@ app.controller('AdminCtrl', function ($scope, $http, $interval) {
             }
             $scope.groupedSessions[session.challenge_type].push(session);
         });
-
-        // Reload data if filter changed
-        if (challengeType !== 'all') {
-            $scope.loadData();
-        }
     };
 
     // Get challenge label
@@ -119,12 +110,9 @@ app.controller('AdminCtrl', function ($scope, $http, $interval) {
             return;
         }
 
-        // Send update to server
-        $http.post(API_URL + '?action=update_score', {
-            score_id: score.score_id,
-            new_score: score.newScore
-        }).then(function (response) {
-            if (response.data.success) {
+        // Send update to the online database
+        DB.updateScore(score.score_id, score.newScore)
+            .then(function () {
                 score.score = score.newScore;
                 score.editing = false;
 
@@ -133,13 +121,10 @@ app.controller('AdminCtrl', function ($scope, $http, $interval) {
 
                 alert('Score updated successfully and leaderboard synced!');
                 $scope.loadData(); // Reload data to show updated leaderboard
-            } else {
-                alert('Failed to update score');
-            }
-        }).catch(function (error) {
-            console.error('Error updating score:', error);
-            alert('Error updating score. Please try again.');
-        });
+            }).catch(function (error) {
+                console.error('Error updating score:', error);
+                alert('Error updating score. Please try again.');
+            });
     };
 
     // Sync localStorage leaderboard with database

@@ -1,10 +1,10 @@
-var app = angular.module('FitnessApp', []);
+var app = angular.module('FitnessApp', ['MoovDB']);
 
-app.controller('MainCtrl', function ($scope, $interval, $timeout, $http) {
+app.controller('MainCtrl', function ($scope, $interval, $timeout, $http, DB) {
     console.log("Weekend Fitness Challenge - Game Started!");
 
-    // API Configuration
-    var API_URL = './server/api.php';
+    // Online storage is handled by the shared DB service (sup/db-service.js),
+    // which runs T-SQL against the remote SQL Server endpoint.
 
     // Initial state
     $scope.currentView = 'home';
@@ -254,28 +254,20 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout, $http) {
 
         localStorage.setItem(leaderboardKey, JSON.stringify(leaderboard));
 
-        // Save both scores to database
-        $http.post(API_URL + '?action=save_score', {
-            challenge_type: $scope.selectedChallenge.id,
-            player_name: $scope.playerName,
-            player_contact: $scope.playerContact,
-            score: $scope.finalScore
-        }).then(function (response) {
-            console.log('Player 1 score saved:', response.data);
-        }).catch(function (error) {
-            console.error('Error saving Player 1 score:', error);
-        });
+        // Save both scores to the online database
+        DB.saveScore($scope.selectedChallenge.id, $scope.playerName, $scope.playerContact, $scope.finalScore)
+            .then(function () {
+                console.log('Player 1 score saved');
+            }).catch(function (error) {
+                console.error('Error saving Player 1 score:', error);
+            });
 
-        $http.post(API_URL + '?action=save_score', {
-            challenge_type: $scope.selectedChallenge.id,
-            player_name: $scope.player2Name,
-            player_contact: $scope.player2Contact,
-            score: $scope.finalScore2
-        }).then(function (response) {
-            console.log('Player 2 score saved:', response.data);
-        }).catch(function (error) {
-            console.error('Error saving Player 2 score:', error);
-        });
+        DB.saveScore($scope.selectedChallenge.id, $scope.player2Name, $scope.player2Contact, $scope.finalScore2)
+            .then(function () {
+                console.log('Player 2 score saved');
+            }).catch(function (error) {
+                console.error('Error saving Player 2 score:', error);
+            });
 
         // Show leaderboard
         $scope.showLeaderboard();
@@ -287,17 +279,10 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout, $http) {
             return;
         }
 
-        // Save to database via API
-        var scoreData = {
-            challenge_type: $scope.selectedChallenge.id,
-            player_name: $scope.playerName,
-            player_contact: $scope.playerContact,
-            score: parseInt($scope.finalScore)
-        };
-
-        $http.post(API_URL + '?action=save_score', scoreData)
-            .then(function (response) {
-                console.log('Score saved to database:', response.data);
+        // Save to the online database
+        DB.saveScore($scope.selectedChallenge.id, $scope.playerName, $scope.playerContact, parseInt($scope.finalScore))
+            .then(function () {
+                console.log('Score saved to database');
             })
             .catch(function (error) {
                 console.error('Error saving score:', error);
@@ -339,10 +324,10 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout, $http) {
             // Reset each challenge
             for (var challengeId in $scope.challenges) {
                 (function (id) {
-                    // Send reset request to database
-                    $http.post(API_URL + '?action=reset_leaderboard', { challenge_type: id })
-                        .then(function (response) {
-                            console.log('Reset ' + id + ':', response.data);
+                    // Send reset request to the online database
+                    DB.resetLeaderboard(id)
+                        .then(function () {
+                            console.log('Reset ' + id);
                             resetCount++;
                             if (resetCount === totalChallenges) {
                                 alert('All leaderboards have been reset successfully!');
@@ -364,10 +349,10 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout, $http) {
         if (confirm('Are you sure you want to reset the ' + $scope.challenges[challengeId].name + ' leaderboard?')) {
             var leaderboardKey = 'leaderboard_' + challengeId;
 
-            // Send reset request to database (captures top 3 winners)
-            $http.post(API_URL + '?action=reset_leaderboard', { challenge_type: challengeId })
-                .then(function (response) {
-                    console.log('Leaderboard reset in database:', response.data);
+            // Send reset request to the online database (captures top 3 winners)
+            DB.resetLeaderboard(challengeId)
+                .then(function () {
+                    console.log('Leaderboard reset in database');
                     alert('Leaderboard reset successfully. Top 3 winners have been saved!');
                 })
                 .catch(function (error) {

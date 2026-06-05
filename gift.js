@@ -1,8 +1,7 @@
-var app = angular.module('GiftApp', []);
+var app = angular.module('GiftApp', ['MoovDB']);
 
-app.controller('GiftCtrl', function ($scope, $http, $interval, $timeout) {
-    // API Configuration
-    var API_URL = './server/api.php';
+app.controller('GiftCtrl', function ($scope, $http, $interval, $timeout, DB) {
+    // Online storage is handled by the shared DB service (sup/db-service.js).
 
     // Initial state
     $scope.loading = true;
@@ -18,18 +17,14 @@ app.controller('GiftCtrl', function ($scope, $http, $interval, $timeout) {
         $scope.loading = true;
         $scope.error = null;
 
-        $http.get(API_URL + '?action=get_cup_count')
-            .then(function (response) {
+        DB.getCupCount()
+            .then(function (stats) {
                 $scope.loading = false;
-                if (response.data.success) {
-                    $scope.cupStats = {
-                        total_cups: response.data.total_cups,
-                        remaining_cups: response.data.remaining_cups
-                    };
-                    $scope.lastUpdated = new Date().toLocaleString();
-                } else {
-                    $scope.error = 'Failed to load cup count data';
-                }
+                $scope.cupStats = {
+                    total_cups: stats.total_cups,
+                    remaining_cups: stats.remaining_cups
+                };
+                $scope.lastUpdated = new Date().toLocaleString();
             })
             .catch(function (error) {
                 $scope.loading = false;

@@ -93,12 +93,29 @@ pushup-app/
 
 ## Data Storage
 
-Leaderboards are stored in browser's LocalStorage with separate keys for each challenge:
-- `leaderboard_pushup`
-- `leaderboard_plank`
-- `leaderboard_basketball`
-- `leaderboard_football`
-- `leaderboard_quickreaction`
+The game is **online**. All scores, sessions and winners are stored on a remote
+Microsoft SQL Server, accessed directly from AngularJS (`$http`) through a generic
+SQL endpoint — no PHP/back-end of our own is required:
+
+```
+POST https://mas.phvtech.com/api/Master/sp
+Content-Type: application/json
+{ "SysID": "<T-SQL statement>" }   ->   [ {row}, ... ]
+```
+
+All database access is centralised in `sup/db-service.js` (the shared `MoovDB`
+AngularJS module / `DB` service). Tables used (see `database/schema_sqlserver.sql`):
+- `moov_fit_sessions` — one row per round; a "reset" completes the active session
+- `moov_fit_scores` — every player attempt
+- `moov_fit_winners` — top 3 captured each time a leaderboard is reset (1 cup each)
+
+The live on-screen leaderboard still uses browser LocalStorage for instant display
+(`leaderboard_pushup`, `leaderboard_plank`, `leaderboard_basketball`,
+`leaderboard_football`, `leaderboard_quickreaction`), but every score is also
+written to the online database.
+
+> The old offline MySQL/PHP back-end (`server/api.php`, `server/config.php`,
+> `database/schema.sql`) is no longer used.
 
 ## Browser Compatibility
 
@@ -111,5 +128,5 @@ Leaderboards are stored in browser's LocalStorage with separate keys for each ch
 
 - This application is optimized for kiosk displays
 - Touch-friendly button sizes for interactive displays
-- No internet connection required after initial load
-- All data stored locally in browser
+- An internet connection is required (scores are saved to the online database)
+- Data is stored online in SQL Server; LocalStorage is used only for instant display
