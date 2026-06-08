@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Register - Weekend Fitness Challenge</title>
+    <link rel="icon" type="image/x-icon" href="ico.ico">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Archivo', 'Segoe UI', sans-serif;
+            background: #622467;
+            background-image: linear-gradient(160deg, #6c2872 0%, #4a1a4f 100%);
+            color: #FFFFFF;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 24px 20px 40px;
+        }
+
+        /* Branding (logo + title) - same assets as the kiosk */
+        .brand {
+            width: 100%;
+            max-width: 460px;
+            text-align: center;
+            margin-bottom: 18px;
+        }
+
+        .brand img.logo { width: 60%; max-width: 240px; height: auto; }
+        .brand img.title { width: 78%; max-width: 320px; height: auto; margin-top: 14px; }
+
+        .card {
+            width: 100%;
+            max-width: 460px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(255, 255, 255, 0.25);
+            border-radius: 18px;
+            padding: 26px 22px 30px;
+            backdrop-filter: blur(4px);
+        }
+
+        .card h1 {
+            font-size: 26px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+            margin-bottom: 6px;
+        }
+
+        .card p.sub {
+            text-align: center;
+            font-size: 15px;
+            opacity: 0.85;
+            margin-bottom: 22px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 18px 0 8px;
+            opacity: 0.9;
+        }
+
+        input, select {
+            width: 100%;
+            font-size: 18px;
+            font-family: inherit;
+            color: #FFFFFF;
+            background: rgba(255, 255, 255, 0.12);
+            border: 2px solid rgba(255, 255, 255, 0.35);
+            border-radius: 12px;
+            padding: 14px 16px;
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        select { background-image: none; }
+        select option { color: #222; }
+        input::placeholder { color: rgba(255, 255, 255, 0.55); }
+        input:focus, select:focus { border-color: #FFD700; }
+
+        button.submit {
+            width: 100%;
+            margin-top: 28px;
+            background: #FFFFFF;
+            color: #622467;
+            border: none;
+            border-radius: 50px;
+            font-size: 20px;
+            font-weight: 700;
+            font-family: inherit;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 16px;
+            cursor: pointer;
+        }
+
+        button.submit:disabled { opacity: 0.6; }
+
+        .message {
+            margin-top: 18px;
+            text-align: center;
+            font-size: 16px;
+            padding: 14px;
+            border-radius: 12px;
+            display: none;
+        }
+
+        .message.show { display: block; }
+        .message.ok { background: rgba(76, 175, 80, 0.25); border: 1px solid #4CAF50; }
+        .message.err { background: rgba(244, 67, 54, 0.25); border: 1px solid #f44336; }
+
+        /* Success panel shown after registering */
+        .done {
+            text-align: center;
+            display: none;
+        }
+        .done.show { display: block; }
+        .done .tick {
+            font-size: 70px;
+            color: #4CAF50;
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+        .done h2 { font-size: 24px; text-transform: uppercase; margin-bottom: 10px; }
+        .done p { font-size: 16px; opacity: 0.9; margin-bottom: 22px; }
+        .done button {
+            background: transparent;
+            color: #FFFFFF;
+            border: 2px solid #FFFFFF;
+            border-radius: 50px;
+            font-size: 16px;
+            font-family: inherit;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 12px 30px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="brand">
+        <img class="logo" src="./img/logo.png" alt="Moov Advance Logo" />
+        <img class="title" src="./img/title.png" alt="Weekend Fitness Challenge" />
+    </div>
+
+    <div class="card" id="formCard">
+        <h1>Player Registration</h1>
+        <p class="sub">Register to join a challenge</p>
+
+        <form id="regForm" autocomplete="on">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required maxlength="100" />
+
+            <label for="contact">Contact Number</label>
+            <input type="tel" id="contact" name="contact" placeholder="07X XXX XXXX" required maxlength="20"
+                   inputmode="numeric" pattern="[0-9+\s-]*" />
+
+            <label for="game">Select Game</label>
+            <select id="game" name="game" required>
+                <option value="" disabled selected>Choose a challenge</option>
+                <option value="pushup">Push-Up Challenge</option>
+                <option value="plank">Plank Challenge</option>
+                <option value="juggling">Juggling Challenge</option>
+                <option value="football">Football Challenge</option>
+            </select>
+
+            <div class="message" id="message"></div>
+
+            <button type="submit" class="submit" id="submitBtn">Register</button>
+        </form>
+    </div>
+
+    <div class="card done" id="doneCard">
+        <div class="tick">✓</div>
+        <h2>You're registered!</h2>
+        <p id="doneText">Please head to the kiosk and wait for the operator to start your game.</p>
+        <button id="againBtn">Re-Register</button>
+    </div>
+
+    <script>
+        // Same online SQL endpoint used by the kiosk (sup/db-service.js).
+        var ENDPOINT = 'https://mas.phvtech.com/api/Master/sp';
+        var REG_TABLE = 'moov_fit_registrations';
+
+        var gameLabels = {
+            pushup: 'Push-Up', plank: 'Plank', juggling: 'Juggling', football: 'Football'
+        };
+
+        function esc(v) {
+            return String(v == null ? '' : v).replace(/'/g, "''");
+        }
+
+        function runSql(sql) {
+            return fetch(ENDPOINT, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ SysID: sql })
+            }).then(function (res) {
+                if (!res.ok) throw new Error('Request failed (' + res.status + ')');
+                return res.text().then(function (t) { return t ? JSON.parse(t) : []; });
+            });
+        }
+
+        var form = document.getElementById('regForm');
+        var submitBtn = document.getElementById('submitBtn');
+        var message = document.getElementById('message');
+        var formCard = document.getElementById('formCard');
+        var doneCard = document.getElementById('doneCard');
+        var doneText = document.getElementById('doneText');
+
+        function showMessage(text, type) {
+            message.textContent = text;
+            message.className = 'message show ' + type;
+        }
+
+        // ---- One registration per device (remembered in this browser) --------
+        var LS_KEY = 'moov_registration';
+
+        function getStored() {
+            try { return JSON.parse(localStorage.getItem(LS_KEY)); } catch (e) { return null; }
+        }
+        function setStored(obj) {
+            localStorage.setItem(LS_KEY, JSON.stringify(obj));
+        }
+        function showDone(game, already) {
+            doneText.textContent = (already ? 'You are already registered for the '
+                : 'You are registered for the ') + (gameLabels[game] || game) +
+                ' Challenge. Please head to the kiosk and wait for the operator to start your game.';
+            formCard.style.display = 'none';
+            doneCard.className = 'card done show';
+        }
+        function showForm() {
+            doneCard.className = 'card done';
+            formCard.style.display = 'block';
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Register';
+            message.className = 'message';
+        }
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            var name = document.getElementById('name').value.trim();
+            var contact = document.getElementById('contact').value.trim();
+            var game = document.getElementById('game').value;
+
+            if (!name) { showMessage('Please enter your name.', 'err'); return; }
+            if (!contact) { showMessage('Please enter your contact number.', 'err'); return; }
+            if (!game) { showMessage('Please select a game.', 'err'); return; }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Registering...';
+            message.className = 'message';
+
+            var stored = getStored();
+            var sql;
+            if (stored && stored.reg_id) {
+                // Already registered on this device -> update the same row,
+                // so a person only ever has one registration.
+                sql = "UPDATE " + REG_TABLE + " SET challenge_type='" + esc(game) +
+                    "', player_name='" + esc(name) + "', player_contact='" + esc(contact) +
+                    "', status='registered', registered_at=GETDATE() WHERE reg_id=" +
+                    parseInt(stored.reg_id, 10);
+            } else {
+                sql = "INSERT INTO " + REG_TABLE +
+                    " (challenge_type, player_name, player_contact, status, registered_at)" +
+                    " OUTPUT INSERTED.reg_id" +
+                    " VALUES ('" + esc(game) + "', '" + esc(name) + "', '" + esc(contact) +
+                    "', 'registered', GETDATE())";
+            }
+
+            runSql(sql).then(function (rows) {
+                var regId = (stored && stored.reg_id) ? stored.reg_id
+                    : (rows && rows.length ? rows[0].reg_id : null);
+                // Remember this registration (incl. the player's tp) in the browser.
+                setStored({ reg_id: regId, name: name, contact: contact, game: game, at: Date.now() });
+                showDone(game, false);
+            }).catch(function (err) {
+                console.error(err);
+                showMessage('Could not register. Please check your connection and try again.', 'err');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Register';
+            });
+        });
+
+        // "Re-Register" lets the same person edit their entry (e.g. change game).
+        // Their name/tp stay pre-filled; submitting updates the existing record.
+        document.getElementById('againBtn').addEventListener('click', function () {
+            showForm();
+        });
+
+        // On load: if this device already registered, pre-fill the saved details
+        // (incl. tp) and show the "already registered" screen — one-time per device.
+        (function init() {
+            var stored = getStored();
+            if (stored) {
+                document.getElementById('name').value = stored.name || '';
+                document.getElementById('contact').value = stored.contact || '';
+                if (stored.game) document.getElementById('game').value = stored.game;
+                showDone(stored.game, true);
+            }
+        })();
+    </script>
+</body>
+
+</html>

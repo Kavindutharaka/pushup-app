@@ -1125,6 +1125,127 @@ body, html {
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 }
 
+/* Online Player Selection */
+.online-mode-toggle {
+    position: absolute;
+    top: 760px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 900px;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+.online-mode-btn {
+    flex: 1;
+    background-color: transparent;
+    color: #FFFFFF;
+    border: 3px solid #FFFFFF;
+    font-size: 40px;
+    font-weight: 700;
+    font-family: 'Archivo', sans-serif;
+    text-transform: uppercase;
+    padding: 24px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+}
+
+.online-mode-btn.active {
+    background-color: #FFFFFF;
+    color: #622467;
+}
+
+.online-list-info {
+    position: absolute;
+    top: 890px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 900px;
+    text-align: center;
+    font-family: 'Sora', sans-serif;
+    font-size: 30px;
+    font-weight: 600;
+    color: #FFFFFF;
+    letter-spacing: 1px;
+}
+
+.online-refresh {
+    cursor: pointer;
+    margin-left: 20px;
+    color: #FFD700;
+    font-weight: 700;
+}
+
+.reg-list {
+    position: absolute;
+    top: 960px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 900px;
+    height: 280px;
+    overflow-y: auto;
+    border-top: 2px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.reg-empty {
+    text-align: center;
+    font-family: 'Sora', sans-serif;
+    font-size: 36px;
+    color: rgba(255, 255, 255, 0.7);
+    padding: 80px 0;
+    letter-spacing: 1px;
+}
+
+.reg-item {
+    display: flex;
+    align-items: center;
+    padding: 22px 30px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.reg-item:last-child {
+    border-bottom: none;
+}
+
+.reg-item.selected {
+    background-color: rgba(255, 255, 255, 0.18);
+}
+
+.reg-check {
+    width: 60px;
+    font-size: 44px;
+    font-weight: 700;
+    color: #4CAF50;
+    flex-shrink: 0;
+}
+
+.reg-name {
+    flex: 1;
+    font-family: 'Archivo', sans-serif;
+    font-size: 44px;
+    font-weight: 700;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.reg-contact {
+    font-family: 'Sora', sans-serif;
+    font-size: 34px;
+    color: rgba(255, 255, 255, 0.85);
+    width: 280px;
+    text-align: right;
+    flex-shrink: 0;
+}
+
 /* Animations */
 @keyframes fadeIn {
     from {

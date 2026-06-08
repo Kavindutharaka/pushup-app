@@ -25,12 +25,24 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout, $http, DB) {
     $scope.timerInterval2 = null; // For player 2 in plank multiplayer
     $scope.leaderboardData = [];
 
+    // Online (QR registration) state
+    $scope.gameSource = 'offline';        // 'offline' or 'online'
+    $scope.onlineCount = 0;               // registered players for current challenge
+    $scope.onlineRegistrations = [];      // waiting players list (online mode)
+    $scope.selectedRegs = [];             // players picked from the online list
+    $scope.onlineReg1 = null;             // reg row used by player 1 (to mark played)
+    $scope.onlineReg2 = null;             // reg row used by player 2 (to mark played)
+
     $scope.go_admin = function (){
         window.location.href = "./admin.html";
     };
 
     $scope.go_video = function (){
         window.location.href = "./video.html";
+    };
+
+    $scope.go_qr = function (){
+        window.location.href = "./qr-display.html";
     };
 
     // Challenge definitions with configurable countdown durations
@@ -45,6 +57,13 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout, $http, DB) {
         plank: {
             id: 'plank',
             name: 'PLANK CHALLENGE',
+            type: 'countup',
+            duration: null,
+            unit: 'seconds'
+        },
+        juggling: {
+            id: 'juggling',
+            name: 'JUGGLING CHALLENGE',
             type: 'countup',
             duration: null,
             unit: 'seconds'
@@ -108,6 +127,7 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout, $http, DB) {
         var logoMap = {
             'pushup': './logo/pushup&plank.png',
             'plank': './logo/pushup&plank.png',
+            'juggling': './logo/fitness.png',
             'basketball': './logo/basketball.png',
             'football': './logo/football.png',
             'quickreaction': './logo/quick_reaction .png'
@@ -130,8 +150,114 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout, $http, DB) {
 
     $scope.startChallenge = function () {
         $scope.resetGameState();
-        $scope.currentView = 'modeSelection';
+        // First choose where the players come from: walk-up (offline) or
+        // pre-registered via QR (online).
+        $scope.currentView = 'sourceSelection';
+        $scope.loadOnlineCount();
     };
+
+    // Load how many players are registered online for the current challenge,
+    // shown on the source-selection screen.
+    $scope.loadOnlineCount = function () {
+        $scope.onlineCount = 0;
+        if (!$scope.selectedChallenge) return;
+        DB.getRegistrationCount($scope.selectedChallenge.id)
+            .then(function (count) {
+                $scope.onlineCount = count;
+            })
+            .catch(function (error) {
+                console.error('Error loading online count:', error);
+            });
+    };
+
+    // Operator picks the player source.
+    $scope.selectSource = function (source) {
+        $scope.gameSource = source;
+        if (source === 'offline') {
+            $scope.currentView = 'modeSelection';
+        } else {
+            $scope.loadOnlinePlayers();
+            $scope.currentView = 'onlinePlayers';
+        }
+    };
+
+    // Online mode: load the waiting players for selection.
+    $scope.loadOnlinePlayers = function () {
+        $scope.onlineRegistrations = [];
+        $scope.selectedRegs = [];
+        DB.getRegistrations($scope.selectedChallenge.id)
+            .then(function (rows) {
+                $scope.onlineRegistrations = rows || [];
+            })
+            .catch(function (error) {
+                console.error('Error loading registrations:', error);
+                alert('Could not load online registrations. Check the connection.');
+            });
+    };
+
+    $scope.refreshOnlinePlayers = function () {
+        $scope.loadOnlinePlayers();
+    };
+
+    // Online mode: choose single or multiplayer (clears any current selection).
+    $scope.selectOnlineMode = function (mode) {
+        $scope.gameMode = mode;
+        $scope.selectedRegs = [];
+    };
+
+    $scope.isRegSelected = function (reg) {
+        return $scope.selectedRegs.indexOf(reg) !== -1;
+    };
+
+    // Toggle a player in the online selection (1 for single, up to 2 for multi).
+    $scope.toggleRegSelection = function (reg) {
+        var idx = $scope.selectedRegs.indexOf(reg);
+        if (idx !== -1) {
+            $scope.selectedRegs.splice(idx, 1);
+            return;
+        }
+        var max = $scope.gameMode === 'multiplayer' ? 2 : 1;
+        if ($scope.selectedRegs.length >= max) {
+            if (max === 1) {
+                // Single player: replace the current pick.
+                $scope.selectedRegs = [reg];
+            }
+            return;
+        }
+        $scope.selectedRegs.push(reg);
+    };
+
+    // Start the game with the selected online player(s); reuses the normal flow.
+    $scope.startOnlineGame = function () {
+        var need = $scope.gameMode === 'multiplayer' ? 2 : 1;
+        if ($scope.selectedRegs.length !== need) {
+            alert(need === 2 ? 'Please select exactly 2 players' : 'Please select a player');
+            return;
+        }
+
+        $scope.onlineReg1 = $scope.selectedRegs[0];
+        $scope.playerName = $scope.onlineReg1.player_name;
+        $scope.playerContact = $scope.onlineReg1.player_contact;
+
+        if (need === 2) {
+            $scope.onlineReg2 = $scope.selectedRegs[1];
+            $scope.player2Name = $scope.onlineReg2.player_name;
+            $scope.player2Contact = $scope.onlineReg2.player_contact;
+        }
+
+        $scope.beginChallenge();
+    };
+
+    // Mark the online player(s) as played so they drop off the waiting list.
+    function markOnlinePlayed() {
+        if ($scope.gameSource !== 'online') return;
+        if ($scope.onlineReg1) {
+            DB.markRegistrationPlayed($scope.onlineReg1.reg_id);
+        }
+        if ($scope.onlineReg2) {
+            DB.markRegistrationPlayed($scope.onlineReg2.reg_id);
+        }
+    }
 
     $scope.selectMode = function (mode) {
         $scope.gameMode = mode;
@@ -269,6 +395,9 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout, $http, DB) {
                 console.error('Error saving Player 2 score:', error);
             });
 
+        // If these were online players, remove them from the waiting list
+        markOnlinePlayed();
+
         // Show leaderboard
         $scope.showLeaderboard();
     };
@@ -300,6 +429,9 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout, $http, DB) {
         });
 
         localStorage.setItem(leaderboardKey, JSON.stringify(leaderboard));
+
+        // If this was an online player, remove them from the waiting list
+        markOnlinePlayed();
 
         // Show leaderboard
         $scope.showLeaderboard();
@@ -441,6 +573,12 @@ app.controller('MainCtrl', function ($scope, $interval, $timeout, $http, DB) {
         $scope.finalScore2 = 0;
         $scope.player1Finished = false;
         $scope.player2Finished = false;
+        // Online selection state
+        $scope.gameSource = 'offline';
+        $scope.onlineRegistrations = [];
+        $scope.selectedRegs = [];
+        $scope.onlineReg1 = null;
+        $scope.onlineReg2 = null;
     };
 
     // Helper functions

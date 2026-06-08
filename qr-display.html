@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1080, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Scan to Register - Weekend Fitness Challenge</title>
+    <link rel="icon" type="image/x-icon" href="ico.ico">
+    <link rel="stylesheet" href="./sup/styles.css">
+    <style>
+        .qr-wrap {
+            position: absolute;
+            top: 620px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 900px;
+            text-align: center;
+        }
+
+        .qr-heading {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 90px;
+            letter-spacing: 4px;
+            color: #FFFFFF;
+            margin-bottom: 50px;
+        }
+
+        .qr-card {
+            width: 700px;
+            height: 700px;
+            margin: 0 auto;
+            background: #FFFFFF;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+        }
+
+        .qr-card img { width: 620px; height: 620px; display: block; }
+
+        .qr-sub {
+            font-family: 'Sora', sans-serif;
+            font-size: 40px;
+            font-weight: 600;
+            color: #FFFFFF;
+            letter-spacing: 1px;
+            margin-top: 55px;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+
+<body class="kiosk-container" oncontextmenu="return false;">
+
+    <img class="logo-top" src="./img/logo.png" alt="Moov Advance Logo" />
+    <div class="header-title">
+        <img class="title-image" src="./img/title.png" alt="Weekend Fitness Challenge" />
+    </div>
+
+    <div class="qr-wrap">
+        <div class="qr-heading">SCAN TO REGISTER</div>
+        <div class="qr-card">
+            <img id="qrImg" alt="Registration QR Code" />
+        </div>
+        <div class="qr-sub">Scan with your phone camera<br>to join a challenge</div>
+    </div>
+
+    <img class="home-icon" src="./Icon/home.png" alt="Home" onclick="location.href='./index.html'" />
+
+    <script>
+        // ---------------------------------------------------------------
+        // Registration URL the QR code points to (production).
+        // ---------------------------------------------------------------
+        var REGISTER_URL = 'https://mov.phvtech.com/qr.html';
+
+        // Render the QR as an image (no external library needed).
+        var qrSrc = 'https://api.qrserver.com/v1/create-qr-code/?size=620x620&margin=10&data=' +
+            encodeURIComponent(REGISTER_URL);
+        document.getElementById('qrImg').src = qrSrc;
+    </script>
+
+</body>
+
+</html>

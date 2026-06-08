@@ -4,12 +4,23 @@ An interactive fitness challenge kiosk application built with AngularJS, HTML, a
 
 ## Features
 
-### 5 Different Challenges:
-1. **Pushup Challenge** - Count-up timer to track completion time
+### Active Challenges (shown on the home menu):
+1. **Pushup Challenge** - Countdown timer, then enter pushups completed
 2. **Plank Challenge** - Count-up timer to track how long you hold
-3. **Basketball Challenge** - 60-second countdown with shot counter
-4. **Football Challenge** - 60-second countdown with shot counter
-5. **Quick Reaction Challenge** - Manual stick catching counter
+3. **Juggling Challenge** - Count-up timer (like Plank) for how long you juggle
+4. **Football Challenge** - 60-second countdown, then enter shots scored
+
+> Basketball and Quick Reaction remain in the code but are hidden
+> (`display:none` on their home buttons) for future activation.
+
+### Online QR Registration:
+- Attendees scan a QR code (`qr-display.html`, shown on a screen/poster) and
+  register from their phone (`qr.html`) with name, contact and chosen game.
+- At the kiosk, after picking a challenge the operator chooses **OFFLINE**
+  (walk-up, current flow) or **ONLINE** (pick from the registered players list,
+  then single/multiplayer as usual). Played registrations drop off the list.
+- The QR's target URL is set by the `REGISTER_URL` constant near the bottom of
+  `qr-display.html` (currently the test URL `http://127.0.0.1:5500/qr.html`).
 
 ### Key Functionality:
 - Player registration (name and contact)

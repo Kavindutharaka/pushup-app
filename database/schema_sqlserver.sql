@@ -44,3 +44,17 @@ CREATE TABLE moov_fit_winners (
     won_at          DATETIME NOT NULL,
     created_at      DATETIME DEFAULT GETDATE()
 );
+
+-- Online QR registrations: players self-register from their phone (qr.html).
+-- status 'registered' = waiting to play; 'played' = already played (drops off
+-- the kiosk's online waiting list).
+IF OBJECT_ID('moov_fit_registrations','U') IS NULL
+CREATE TABLE moov_fit_registrations (
+    reg_id          INT IDENTITY(1,1) PRIMARY KEY,
+    challenge_type  VARCHAR(30) NOT NULL,   -- pushup | plank | juggling | football
+    player_name     VARCHAR(255) NOT NULL,
+    player_contact  VARCHAR(50) NULL,
+    status          VARCHAR(20) NOT NULL DEFAULT 'registered',  -- registered | played
+    registered_at   DATETIME NOT NULL DEFAULT GETDATE(),
+    created_at      DATETIME DEFAULT GETDATE()
+);

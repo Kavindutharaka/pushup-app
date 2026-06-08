@@ -182,6 +182,49 @@ angular.module('MoovDB', []).factory('DB', function ($http, $q) {
         });
     }
 
+    // ---- Online QR registrations -------------------------------------------
+    // Players self-register from their phone (qr.html). They appear on the
+    // kiosk's "Online" player list until they have played (status -> 'played').
+    var REG = 'moov_fit_registrations';
+
+    // Register a player for a challenge (called from the mobile page).
+    function registerPlayer(challengeType, playerName, playerContact) {
+        return run(
+            "INSERT INTO " + REG +
+            " (challenge_type, player_name, player_contact, status, registered_at)" +
+            " VALUES ('" + esc(challengeType) + "', '" + esc(playerName) + "', '" +
+            esc(playerContact) + "', 'registered', GETDATE())"
+        );
+    }
+
+    // Get players still waiting to play for a challenge.
+    function getRegistrations(challengeType) {
+        return run(
+            "SELECT reg_id, player_name, player_contact," +
+            " CONVERT(varchar(33), registered_at, 126) AS registered_at FROM " + REG +
+            " WHERE challenge_type = '" + esc(challengeType) + "' AND status = 'registered'" +
+            " ORDER BY registered_at ASC"
+        );
+    }
+
+    // Count of players still waiting to play, per challenge.
+    function getRegistrationCount(challengeType) {
+        return run(
+            "SELECT COUNT(*) AS c FROM " + REG +
+            " WHERE challenge_type = '" + esc(challengeType) + "' AND status = 'registered'"
+        ).then(function (rows) {
+            return rows.length ? (parseInt(rows[0].c, 10) || 0) : 0;
+        });
+    }
+
+    // Mark a registration as played so it drops off the waiting list.
+    function markRegistrationPlayed(regId) {
+        return run(
+            "UPDATE " + REG + " SET status = 'played' WHERE reg_id = " +
+            (parseInt(regId, 10) || 0)
+        );
+    }
+
     return {
         run: run,
         esc: esc,
@@ -189,6 +232,10 @@ angular.module('MoovDB', []).factory('DB', function ($http, $q) {
         resetLeaderboard: resetLeaderboard,
         updateScore: updateScore,
         getCupCount: getCupCount,
-        getAllData: getAllData
+        getAllData: getAllData,
+        registerPlayer: registerPlayer,
+        getRegistrations: getRegistrations,
+        getRegistrationCount: getRegistrationCount,
+        markRegistrationPlayed: markRegistrationPlayed
     };
 });
